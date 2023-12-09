@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps, ImageSourcePropType, ScrollView } from 'react-native';
+import React from 'react'; //?????
+import { View, StyleSheet, Text, SafeAreaView, Image, ImageSourcePropType, ScrollView } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
@@ -17,13 +17,13 @@ type MockDataType = {
 const App = () => {
   const mockItemData: MockDataType[] = [
     {
-      title: 'Pizza with meat ',
+      title: 'Pizza with meat',
       description: 'Pizza with meat is really delision',
       isNew: true,
       sale: true,
       img: require('./img/pizza-1.jpg'),
-      priceOld: '300 uah',
-      priceNew: '250 uah',
+      priceOld: '300 UAH',
+      priceNew: '250 UAH',
     },
 
     {
@@ -32,8 +32,8 @@ const App = () => {
       isNew: false,
       sale: false,
       img: require('./img/pizza-2.jpg'),
-      priceOld: '250 uah',
-      priceNew: '200 uah',
+      priceOld: '250 UAH',
+      priceNew: '200 UAH',
     },
 
     {
@@ -42,8 +42,8 @@ const App = () => {
       isNew: false,
       sale: true,
       img: require('./img/pizza-3.jpg'),
-      priceOld: '320 uah',
-      priceNew: '150 uah',
+      priceOld: '320 UAH',
+      priceNew: '150 UAH',
     },
 
     {
@@ -52,8 +52,8 @@ const App = () => {
       isNew: true,
       sale: true,
       img: require('./img/pizza-4.jpg'),
-      priceOld: '400 uah',
-      priceNew: '250 uah',
+      priceOld: '400 UAH',
+      priceNew: '250 UAH',
     },
 
     {
@@ -62,8 +62,8 @@ const App = () => {
       isNew: true,
       sale: true,
       img: require('./img/pizza-1.jpg'),
-      priceOld: '300 uah',
-      priceNew: '250 uah',
+      priceOld: '300 UAH',
+      priceNew: '250 UAH',
     },
 
     {
@@ -72,8 +72,8 @@ const App = () => {
       isNew: false,
       sale: false,
       img: require('./img/pizza-2.jpg'),
-      priceOld: '250 uah',
-      priceNew: '200 uah',
+      priceOld: '250 UAH',
+      priceNew: '200 UAH',
     },
 
     {
@@ -82,8 +82,8 @@ const App = () => {
       isNew: false,
       sale: true,
       img: require('./img/pizza-3.jpg'),
-      priceOld: '320 uah',
-      priceNew: '150 uah',
+      priceOld: '320 UAH',
+      priceNew: '150 UAH',
     },
 
     {
@@ -92,8 +92,8 @@ const App = () => {
       isNew: true,
       sale: true,
       img: require('./img/pizza-4.jpg'),
-      priceOld: '400 uah',
-      priceNew: '250 uah',
+      priceOld: '400 UAH',
+      priceNew: '250 UAH',
     },
   ];
 
@@ -186,8 +186,9 @@ const styles = StyleSheet.create({
 
   img: {
     width: 100,
-    height: 100,
+    height: 90,
     borderRadius: 14,
+    resizeMode: 'stretch',
   },
 
   iconNew: {
