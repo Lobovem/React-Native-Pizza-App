@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps } from 'react-native';
-// import Pizza1 from './img/pizza-1.jpg';
-// import Pizza2 from './img/pizza-2.jpg';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
