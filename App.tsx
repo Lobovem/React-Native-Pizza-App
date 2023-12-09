@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps, ImageSourcePropType } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps, ImageSourcePropType, ScrollView } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
@@ -39,7 +39,7 @@ const App = () => {
     {
       title: 'Pizza with becon',
       description: 'Special proposal of pizza with becon',
-      isNew: true,
+      isNew: false,
       sale: true,
       img: require('./img/pizza-3.jpg'),
       priceOld: '320 uah',
@@ -49,7 +49,47 @@ const App = () => {
     {
       title: 'Pizza with becon and cheese',
       description: 'Special proposal of pizza with becon and cheese',
+      isNew: true,
+      sale: true,
+      img: require('./img/pizza-4.jpg'),
+      priceOld: '400 uah',
+      priceNew: '250 uah',
+    },
+
+    {
+      title: 'Pizza with meat ',
+      description: 'Pizza with meat is really delision',
+      isNew: true,
+      sale: true,
+      img: require('./img/pizza-1.jpg'),
+      priceOld: '300 uah',
+      priceNew: '250 uah',
+    },
+
+    {
+      title: 'Pizza with cheese',
+      description: 'Pizza with cheese is really delision',
       isNew: false,
+      sale: false,
+      img: require('./img/pizza-2.jpg'),
+      priceOld: '250 uah',
+      priceNew: '200 uah',
+    },
+
+    {
+      title: 'Pizza with becon',
+      description: 'Special proposal of pizza with becon',
+      isNew: false,
+      sale: true,
+      img: require('./img/pizza-3.jpg'),
+      priceOld: '320 uah',
+      priceNew: '150 uah',
+    },
+
+    {
+      title: 'Pizza with becon and cheese',
+      description: 'Special proposal of pizza with becon and cheese',
+      isNew: true,
       sale: true,
       img: require('./img/pizza-4.jpg'),
       priceOld: '400 uah',
@@ -59,39 +99,41 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        {mockItemData.map((item, index) => (
-          <View key={index} style={styles.item}>
-            <View>
-              <Image style={styles.img} source={item.img} />
-              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-            </View>
-
-            <View style={styles.wrapRight}>
-              <View style={styles.wrapTitle}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Image style={styles.iconHeart} source={iconHeart}></Image>
+      <ScrollView>
+        <View style={styles.container}>
+          {mockItemData.map((item, index) => (
+            <View key={index} style={styles.item}>
+              <View>
+                <Image style={styles.img} source={item.img} />
+                {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
               </View>
 
-              <View style={styles.wrapPrice}>
-                <Text style={styles.priceNew}>{item.priceNew}</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-              </View>
+              <View style={styles.wrapRight}>
+                <View style={styles.wrapTitle}>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Image style={styles.iconHeart} source={iconHeart}></Image>
+                </View>
 
-              <View style={styles.wrapDesc}>
-                <Text numberOfLines={1} style={styles.desc}>
-                  {item.description}
-                </Text>
+                <View style={styles.wrapPrice}>
+                  <Text style={styles.priceNew}>{item.priceNew}</Text>
+                  {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+                </View>
 
-                <View style={styles.wrapCard}>
-                  <Text style={styles.titleCard}>Buy</Text>
-                  <Image style={styles.card} source={iconCard}></Image>
+                <View style={styles.wrapDesc}>
+                  <Text numberOfLines={1} style={styles.desc}>
+                    {item.description}
+                  </Text>
+
+                  <View style={styles.wrapCard}>
+                    <Text style={styles.titleCard}>Buy</Text>
+                    <Image style={styles.card} source={iconCard}></Image>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
