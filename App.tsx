@@ -25,6 +25,7 @@ const App = () => {
       priceOld: '300 uah',
       priceNew: '250 uah',
     },
+
     {
       title: 'Pizza with cheese',
       description: 'Pizza with cheese is really delision',
@@ -34,6 +35,7 @@ const App = () => {
       priceOld: '250 uah',
       priceNew: '200 uah',
     },
+
     {
       title: 'Pizza with becon',
       description: 'Special proposal of pizza with becon',
@@ -42,6 +44,16 @@ const App = () => {
       img: require('./img/pizza-3.jpg'),
       priceOld: '320 uah',
       priceNew: '150 uah',
+    },
+
+    {
+      title: 'Pizza with becon and cheese',
+      description: 'Special proposal of pizza with becon and cheese',
+      isNew: false,
+      sale: true,
+      img: require('./img/pizza-4.jpg'),
+      priceOld: '400 uah',
+      priceNew: '250 uah',
     },
   ];
 
