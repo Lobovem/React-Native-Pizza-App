@@ -99,7 +99,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     // padding: 10,
-    backgroundColor: 'grey',
+    backgroundColor: '#F1F1F1',
     flex: 1,
   },
 
@@ -113,6 +113,15 @@ const styles = StyleSheet.create({
     gap: 20,
     borderRadius: 20,
     minHeight: 100,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
 
   wrapRight: {
