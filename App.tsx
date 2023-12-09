@@ -1,17 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps, ImageSourcePropType } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
 
+type MockDataType = {
+  title: string;
+  description: string;
+  isNew: boolean;
+  sale: boolean;
+  img: ImageSourcePropType;
+  priceOld: string;
+  priceNew: string;
+};
+
 const App = () => {
-  const mockItemData = [
+  const mockItemData: MockDataType[] = [
     {
-      title: 'Pizza with meat',
+      title: 'Pizza with meat ',
       description: 'Pizza with meat is really delision',
       isNew: true,
       sale: true,
-      image: require('./img/pizza-1.jpg'),
+      img: require('./img/pizza-1.jpg'),
       priceOld: '300 uah',
       priceNew: '250 uah',
     },
@@ -20,7 +30,7 @@ const App = () => {
       description: 'Pizza with cheese is really delision',
       isNew: false,
       sale: false,
-      image: require('./img/pizza-2.jpg'),
+      img: require('./img/pizza-2.jpg'),
       priceOld: '250 uah',
       priceNew: '200 uah',
     },
@@ -29,7 +39,7 @@ const App = () => {
       description: 'Special proposal of pizza with becon',
       isNew: true,
       sale: true,
-      image: require('./img/pizza-3.jpg'),
+      img: require('./img/pizza-3.jpg'),
       priceOld: '320 uah',
       priceNew: '150 uah',
     },
@@ -41,12 +51,12 @@ const App = () => {
         {mockItemData.map((item, index) => (
           <View key={index} style={styles.item}>
             <View>
-              <Image style={styles.img} source={item.image} />
+              <Image style={styles.img} source={item.img} />
               {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
             </View>
 
             <View style={styles.wrapRight}>
-              <View style={styles.heart}>
+              <View style={styles.wrapTitle}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Image style={styles.iconHeart} source={iconHeart}></Image>
               </View>
@@ -57,9 +67,10 @@ const App = () => {
               </View>
 
               <View style={styles.wrapDesc}>
-                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.desc}>
+                <Text numberOfLines={1} style={styles.desc}>
                   {item.description}
                 </Text>
+
                 <View style={styles.wrapCard}>
                   <Text style={styles.titleCard}>Buy</Text>
                   <Image style={styles.card} source={iconCard}></Image>
@@ -75,35 +86,39 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // margin: 10,
-
-    // justifyContent: 'space-around',
-    // alignItems: 'center',
+    // padding: 10,
     backgroundColor: 'grey',
     flex: 1,
-    // width: '100%',
   },
 
   item: {
     margin: 10,
     padding: 10,
     flexDirection: 'row',
-    alignItems: 'center',
     backgroundColor: 'white',
-    // justifyContent:"space-between",
+    justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 20,
     borderRadius: 20,
     minHeight: 100,
   },
 
   wrapRight: {
-    justifyContent: 'flex-end',
+    // justifyContent: 'space-around',
+    gap: 10,
+    flex: 1,
+  },
+
+  wrapTitle: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
 
   title: {
     fontSize: 20,
     color: 'black',
     fontWeight: '500',
+    flex: 1,
   },
 
   img: {
@@ -121,13 +136,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 
-  heart: {
-    // flex: 1,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    // padding: 10,
-  },
   iconHeart: {
     maxWidth: 40,
     maxHeight: 40,
@@ -146,18 +154,18 @@ const styles = StyleSheet.create({
   priceOld: {
     fontSize: 16,
     textDecorationLine: 'line-through',
+    color: 'red',
   },
 
   desc: {
     fontSize: 16,
-    maxWidth: 150,
+    flex: 1,
   },
 
   wrapDesc: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
-    // justifyContent: 'space-between',
+    gap: 40,
   },
 
   wrapCard: {
@@ -167,10 +175,10 @@ const styles = StyleSheet.create({
 
   titleCard: {
     fontSize: 16,
+    fontWeight: '600',
   },
 
   card: {
-    position: 'relative',
     maxWidth: 40,
     maxHeight: 40,
   },
