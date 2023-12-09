@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, SafeAreaView, Image, ImageProps } from 'react-native';
-import Pizza1 from './img/pizza-1.jpg';
-import Pizza2 from './img/pizza-2.jpg';
+// import Pizza1 from './img/pizza-1.jpg';
+// import Pizza2 from './img/pizza-2.jpg';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
@@ -13,7 +13,7 @@ const App = () => {
       description: 'Pizza with meat is really delision',
       isNew: true,
       sale: true,
-      image: './img/pizza-1.jpg',
+      image: require('./img/pizza-1.jpg'),
       priceOld: '300 uah',
       priceNew: '250 uah',
     },
@@ -22,26 +22,35 @@ const App = () => {
       description: 'Pizza with cheese is really delision',
       isNew: false,
       sale: false,
-      image: './img/pizza-2.jpg',
+      image: require('./img/pizza-2.jpg'),
       priceOld: '250 uah',
       priceNew: '200 uah',
+    },
+    {
+      title: 'Pizza with becon',
+      description: 'Special proposal of pizza with becon',
+      isNew: true,
+      sale: true,
+      image: require('./img/pizza-3.jpg'),
+      priceOld: '320 uah',
+      priceNew: '150 uah',
     },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {mockItemData.map((item) => (
-          <View style={styles.item}>
+        {mockItemData.map((item, index) => (
+          <View key={index} style={styles.item}>
             <View>
               <Image style={styles.img} source={item.image} />
-              {item.isNew && <Image style={styles.imgIcon} source={iconNew}></Image>}
+              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
             </View>
 
             <View style={styles.wrapRight}>
               <View style={styles.heart}>
                 <Text style={styles.title}>{item.title}</Text>
-                <Image source={iconHeart}></Image>
+                <Image style={styles.iconHeart} source={iconHeart}></Image>
               </View>
 
               <View style={styles.wrapPrice}>
@@ -86,11 +95,11 @@ const styles = StyleSheet.create({
     // justifyContent:"space-between",
     gap: 20,
     borderRadius: 20,
-    minHeight: 150,
+    minHeight: 100,
   },
 
   wrapRight: {
-    // flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
 
   title: {
@@ -105,14 +114,13 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
 
-  imgIcon: {
+  iconNew: {
     position: 'absolute',
-    // width: 60,
-    // maxHeight: 30,
+    maxHeight: 44,
     borderRadius: 6,
-    right: -16,
-    top: -16,
-    // resizeMode: 'contain',
+    left: -16,
+    top: -8,
+    resizeMode: 'contain',
   },
 
   heart: {
@@ -120,7 +128,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    // padding: 10,
+  },
+  iconHeart: {
+    maxWidth: 40,
+    maxHeight: 40,
   },
 
   wrapPrice: {
@@ -160,6 +172,7 @@ const styles = StyleSheet.create({
   },
 
   card: {
+    position: 'relative',
     maxWidth: 40,
     maxHeight: 40,
   },
