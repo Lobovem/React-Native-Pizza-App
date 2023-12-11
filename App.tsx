@@ -1,5 +1,14 @@
-import React from 'react'; //?????
-import { View, StyleSheet, Text, SafeAreaView, Image, ImageSourcePropType, ScrollView } from 'react-native';
+import React, { useState } from 'react'; //?????
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  ImageSourcePropType,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
@@ -12,6 +21,23 @@ type MockDataType = {
   img: ImageSourcePropType;
   priceOld: string;
   priceNew: string;
+};
+
+const SearchInput = (): React.JSX.Element => {
+  const [textInput, setTextInput] = useState('');
+  const changeInputText = (value: string): void => {
+    setTextInput(value);
+  };
+
+  console.warn(textInput);
+
+  return (
+    <TextInput
+      placeholder="Type here"
+      onChangeText={changeInputText}
+      value={textInput}
+    ></TextInput>
+  );
 };
 
 const App = () => {
@@ -99,6 +125,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <SearchInput></SearchInput>
       <ScrollView>
         <View style={styles.container}>
           {mockItemData.map((item, index) => (
