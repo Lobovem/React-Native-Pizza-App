@@ -136,13 +136,13 @@ const App = () => {
   ];
 
   const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
-    const inputText = textInput.trim();
-    return mockItemData.filter((textInput) => {});
-  };
+    return mockItemData.filter((item) => {
+      const title = item.title.toLocaleLowerCase();
+      const inputText = textInput.trim().toLocaleLowerCase();
 
-  mockItemData = mockItemData.filter((item) =>
-    item.title.includes(textInput.toLocaleLowerCase())
-  );
+      return title.includes(inputText);
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -153,7 +153,7 @@ const App = () => {
         value={textInput}
       ></TextInput>
       <FlatList
-        data={mockItemData}
+        data={search(mockItemData, textInput)}
         renderItem={({ item }) => (
           <View style={styles.container}>
             <View style={styles.item}>
