@@ -8,12 +8,22 @@ import {
   ImageSourcePropType,
   ScrollView,
   TextInput,
+  FlatList,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
 
+// type ItemProps = { title: string };
+
+// const Item = ({ title }: ItemProps) => (
+//   <View style={styles.item}>
+//     <Text style={styles.title}>{title}</Text>
+//   </View>
+// );
+
 type MockDataType = {
+  id: string;
   title: string;
   description: string;
   isNew: boolean;
@@ -23,26 +33,21 @@ type MockDataType = {
   priceNew: string;
 };
 
-const SearchInput = (): React.JSX.Element => {
-  const [textInput, setTextInput] = useState('');
-  const changeInputText = (value: string): void => {
-    setTextInput(value);
-  };
-
-  console.warn(textInput);
-
-  return (
-    <TextInput
-      placeholder="Type here"
-      onChangeText={changeInputText}
-      value={textInput}
-    ></TextInput>
-  );
-};
-
 const App = () => {
-  const mockItemData: MockDataType[] = [
+  const [textInput, setTextInput] = useState('');
+  // const SearchInput = (): React.JSX.Element => {
+  // const changeInputText = (value: string): void => {
+  //   setTextInput(value);
+  // };
+
+  //   return (
+
+  //   );
+  // };
+
+  let mockItemData: MockDataType[] = [
     {
+      id: '1',
       title: 'Pizza with meat',
       description: 'Pizza with meat is really delision',
       isNew: true,
@@ -53,6 +58,7 @@ const App = () => {
     },
 
     {
+      id: '2',
       title: 'Pizza with cheese',
       description: 'Pizza with cheese is really delision',
       isNew: false,
@@ -63,6 +69,7 @@ const App = () => {
     },
 
     {
+      id: '3',
       title: 'Pizza with becon',
       description: 'Special proposal of pizza with becon',
       isNew: false,
@@ -73,6 +80,7 @@ const App = () => {
     },
 
     {
+      id: '4',
       title: 'Pizza with becon and cheese',
       description: 'Special proposal of pizza with becon and cheese',
       isNew: true,
@@ -83,6 +91,7 @@ const App = () => {
     },
 
     {
+      id: '5',
       title: 'Pizza with meat ',
       description: 'Pizza with meat is really delision',
       isNew: true,
@@ -93,6 +102,7 @@ const App = () => {
     },
 
     {
+      id: '6',
       title: 'Pizza with cheese',
       description: 'Pizza with cheese is really delision',
       isNew: false,
@@ -103,6 +113,7 @@ const App = () => {
     },
 
     {
+      id: '7',
       title: 'Pizza with becon',
       description: 'Special proposal of pizza with becon',
       isNew: false,
@@ -113,6 +124,7 @@ const App = () => {
     },
 
     {
+      id: '8',
       title: 'Pizza with becon and cheese',
       description: 'Special proposal of pizza with becon and cheese',
       isNew: true,
@@ -123,10 +135,61 @@ const App = () => {
     },
   ];
 
+  const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
+    const inputText = textInput.trim();
+    return mockItemData.filter((textInput) => {});
+  };
+
+  mockItemData = mockItemData.filter((item) =>
+    item.title.includes(textInput.toLocaleLowerCase())
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <SearchInput></SearchInput>
-      <ScrollView>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Search here"
+        onChangeText={setTextInput}
+        value={textInput}
+      ></TextInput>
+      <FlatList
+        data={mockItemData}
+        renderItem={({ item }) => (
+          <View style={styles.container}>
+            <View style={styles.item}>
+              <View>
+                <Image style={styles.img} source={item.img} />
+                {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+              </View>
+
+              <View style={styles.wrapRight}>
+                <View style={styles.wrapTitle}>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Image style={styles.iconHeart} source={iconHeart}></Image>
+                </View>
+
+                <View style={styles.wrapPrice}>
+                  <Text style={styles.priceNew}>{item.priceNew}</Text>
+                  {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+                </View>
+
+                <View style={styles.wrapDesc}>
+                  <Text numberOfLines={1} style={styles.desc}>
+                    {item.description}
+                  </Text>
+
+                  <View style={styles.wrapCard}>
+                    <Text style={styles.titleCard}>Buy</Text>
+                    <Image style={styles.card} source={iconCard}></Image>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+      {/* <ScrollView>
         <View style={styles.container}>
           {mockItemData.map((item, index) => (
             <View key={index} style={styles.item}>
@@ -160,7 +223,7 @@ const App = () => {
             </View>
           ))}
         </View>
-      </ScrollView>
+      </ScrollView> */}
     </SafeAreaView>
   );
 };
@@ -170,6 +233,16 @@ const styles = StyleSheet.create({
     // padding: 10,
     backgroundColor: '#F1F1F1',
     flex: 1,
+  },
+
+  textInput: {
+    // flex: 1,
+    height: 40,
+    maxWidth: 300,
+    backgroundColor: 'white',
+    margin: 10,
+    borderRadius: 20,
+    padding: 10,
   },
 
   item: {
