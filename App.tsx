@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; //?????
+import { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,13 +6,14 @@ import {
   SafeAreaView,
   Image,
   ImageSourcePropType,
-  ScrollView,
   TextInput,
   FlatList,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
 import iconCard from './img/icon-card.png';
+import iconSearch from './img/icon-search.png';
+import { CustomTouchable } from './CustomTouchable';
 
 // type ItemProps = { title: string };
 
@@ -33,107 +34,103 @@ type MockDataType = {
   priceNew: string;
 };
 
+const mockItemData: MockDataType[] = [
+  {
+    id: '1',
+    title: 'Pizza with meat',
+    description: 'Pizza with meat is really delision',
+    isNew: true,
+    sale: true,
+    img: require('./img/pizza-1.jpg'),
+    priceOld: '300 UAH',
+    priceNew: '250 UAH',
+  },
+
+  {
+    id: '2',
+    title: 'Pizza with cheese',
+    description: 'Pizza with cheese is really delision',
+    isNew: false,
+    sale: false,
+    img: require('./img/pizza-2.jpg'),
+    priceOld: '250 UAH',
+    priceNew: '200 UAH',
+  },
+
+  {
+    id: '3',
+    title: 'Pizza with becon',
+    description: 'Special proposal of pizza with becon',
+    isNew: false,
+    sale: true,
+    img: require('./img/pizza-3.jpg'),
+    priceOld: '320 UAH',
+    priceNew: '150 UAH',
+  },
+
+  {
+    id: '4',
+    title: 'Pizza with becon and cheese',
+    description: 'Special proposal of pizza with becon and cheese',
+    isNew: true,
+    sale: true,
+    img: require('./img/pizza-4.jpg'),
+    priceOld: '400 UAH',
+    priceNew: '250 UAH',
+  },
+
+  {
+    id: '5',
+    title: 'Pizza with meat ',
+    description: 'Pizza with meat is really delision',
+    isNew: true,
+    sale: true,
+    img: require('./img/pizza-1.jpg'),
+    priceOld: '300 UAH',
+    priceNew: '250 UAH',
+  },
+
+  {
+    id: '6',
+    title: 'Pizza with cheese',
+    description: 'Pizza with cheese is really delision',
+    isNew: false,
+    sale: false,
+    img: require('./img/pizza-2.jpg'),
+    priceOld: '250 UAH',
+    priceNew: '200 UAH',
+  },
+
+  {
+    id: '7',
+    title: 'Pizza with becon',
+    description: 'Special proposal of pizza with becon',
+    isNew: false,
+    sale: true,
+    img: require('./img/pizza-3.jpg'),
+    priceOld: '320 UAH',
+    priceNew: '150 UAH',
+  },
+
+  {
+    id: '8',
+    title: 'Pizza with becon and cheese',
+    description: 'Special proposal of pizza with becon and cheese',
+    isNew: true,
+    sale: true,
+    img: require('./img/pizza-4.jpg'),
+    priceOld: '400 UAH',
+    priceNew: '250 UAH',
+  },
+];
+
 const App = () => {
   const [textInput, setTextInput] = useState('');
-  // const SearchInput = (): React.JSX.Element => {
-  // const changeInputText = (value: string): void => {
-  //   setTextInput(value);
-  // };
+  const [isActiveSearch, setIsActiveSearch] = useState(false);
 
-  //   return (
-
-  //   );
-  // };
-
-  let mockItemData: MockDataType[] = [
-    {
-      id: '1',
-      title: 'Pizza with meat',
-      description: 'Pizza with meat is really delision',
-      isNew: true,
-      sale: true,
-      img: require('./img/pizza-1.jpg'),
-      priceOld: '300 UAH',
-      priceNew: '250 UAH',
-    },
-
-    {
-      id: '2',
-      title: 'Pizza with cheese',
-      description: 'Pizza with cheese is really delision',
-      isNew: false,
-      sale: false,
-      img: require('./img/pizza-2.jpg'),
-      priceOld: '250 UAH',
-      priceNew: '200 UAH',
-    },
-
-    {
-      id: '3',
-      title: 'Pizza with becon',
-      description: 'Special proposal of pizza with becon',
-      isNew: false,
-      sale: true,
-      img: require('./img/pizza-3.jpg'),
-      priceOld: '320 UAH',
-      priceNew: '150 UAH',
-    },
-
-    {
-      id: '4',
-      title: 'Pizza with becon and cheese',
-      description: 'Special proposal of pizza with becon and cheese',
-      isNew: true,
-      sale: true,
-      img: require('./img/pizza-4.jpg'),
-      priceOld: '400 UAH',
-      priceNew: '250 UAH',
-    },
-
-    {
-      id: '5',
-      title: 'Pizza with meat ',
-      description: 'Pizza with meat is really delision',
-      isNew: true,
-      sale: true,
-      img: require('./img/pizza-1.jpg'),
-      priceOld: '300 UAH',
-      priceNew: '250 UAH',
-    },
-
-    {
-      id: '6',
-      title: 'Pizza with cheese',
-      description: 'Pizza with cheese is really delision',
-      isNew: false,
-      sale: false,
-      img: require('./img/pizza-2.jpg'),
-      priceOld: '250 UAH',
-      priceNew: '200 UAH',
-    },
-
-    {
-      id: '7',
-      title: 'Pizza with becon',
-      description: 'Special proposal of pizza with becon',
-      isNew: false,
-      sale: true,
-      img: require('./img/pizza-3.jpg'),
-      priceOld: '320 UAH',
-      priceNew: '150 UAH',
-    },
-
-    {
-      id: '8',
-      title: 'Pizza with becon and cheese',
-      description: 'Special proposal of pizza with becon and cheese',
-      isNew: true,
-      sale: true,
-      img: require('./img/pizza-4.jpg'),
-      priceOld: '400 UAH',
-      priceNew: '250 UAH',
-    },
-  ];
+  const changedInputText = (value: string): void => {
+    setTextInput(value);
+  };
 
   const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
     return mockItemData.filter((item) => {
@@ -146,12 +143,29 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Search here"
-        onChangeText={setTextInput}
-        value={textInput}
-      ></TextInput>
+      <View style={styles.searchWrap}>
+        {/* <CustomTouchable onPress={() => setIsActiveSearch(!isActiveSearch)}> */}
+        <CustomTouchable
+          style={styles.test}
+          onPress={() => setIsActiveSearch(!isActiveSearch)}
+        >
+          {isActiveSearch && (
+            <TextInput
+              keyboardType="default"
+              style={styles.textInput}
+              placeholder="Search here"
+              onChangeText={changedInputText}
+              value={textInput}
+            ></TextInput>
+          )}
+        </CustomTouchable>
+
+        <View style={styles.searchIconWrap}>
+          <Image style={styles.searchIcon} source={iconSearch}></Image>
+          <Image style={styles.searchHeart} source={iconHeart}></Image>
+        </View>
+      </View>
+
       <FlatList
         data={search(mockItemData, textInput)}
         renderItem={({ item }) => (
@@ -189,58 +203,44 @@ const App = () => {
         )}
         keyExtractor={(item) => item.id}
       />
-      {/* <ScrollView>
-        <View style={styles.container}>
-          {mockItemData.map((item, index) => (
-            <View key={index} style={styles.item}>
-              <View>
-                <Image style={styles.img} source={item.img} />
-                {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-              </View>
-
-              <View style={styles.wrapRight}>
-                <View style={styles.wrapTitle}>
-                  <Text style={styles.title}>{item.title}</Text>
-                  <Image style={styles.iconHeart} source={iconHeart}></Image>
-                </View>
-
-                <View style={styles.wrapPrice}>
-                  <Text style={styles.priceNew}>{item.priceNew}</Text>
-                  {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-                </View>
-
-                <View style={styles.wrapDesc}>
-                  <Text numberOfLines={1} style={styles.desc}>
-                    {item.description}
-                  </Text>
-
-                  <View style={styles.wrapCard}>
-                    <Text style={styles.titleCard}>Buy</Text>
-                    <Image style={styles.card} source={iconCard}></Image>
-                  </View>
-                </View>
-              </View>
-            </View>
-          ))}
-        </View>
-      </ScrollView> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  test: { color: 'black' },
+
   container: {
-    // padding: 10,
     backgroundColor: '#F1F1F1',
     flex: 1,
   },
 
-  textInput: {
-    // flex: 1,
-    height: 40,
-    maxWidth: 300,
-    backgroundColor: 'white',
+  searchWrap: {
+    flexDirection: 'row',
     margin: 10,
+  },
+
+  searchIconWrap: {
+    marginLeft: 'auto',
+    flexDirection: 'row',
+    gap: 20,
+    marginEnd: 10,
+  },
+
+  searchIcon: {
+    width: 30,
+    height: 30,
+  },
+
+  searchHeart: {
+    width: 30,
+    height: 30,
+  },
+
+  textInput: {
+    height: 40,
+    width: 280,
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
   },
@@ -267,7 +267,6 @@ const styles = StyleSheet.create({
   },
 
   wrapRight: {
-    // justifyContent: 'space-around',
     gap: 10,
     flex: 1,
   },
