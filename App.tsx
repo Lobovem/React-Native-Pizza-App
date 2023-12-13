@@ -157,7 +157,6 @@ const App = () => {
         <View style={styles.searchIconWrap}>
           <CustomTouchable
             withoutFeedback={true}
-            style={styles.test}
             onPress={() => setIsActiveSearch(!isActiveSearch)}
           >
             <Image style={styles.searchIcon} source={iconSearch}></Image>
@@ -208,7 +207,6 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  test: { backgroundColor: 'green' },
   container: {
     backgroundColor: '#F1F1F1',
     flex: 1,

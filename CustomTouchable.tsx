@@ -1,7 +1,22 @@
-import { Pressable, TouchableWithoutFeedback } from 'react-native';
+import React from 'react';
+import {
+  Pressable,
+  PressableProps,
+  StyleProp,
+  TouchableWithoutFeedback,
+  TouchableWithoutFeedbackProps,
+  ViewStyle,
+} from 'react-native';
 import { StyleSheet } from 'react-native';
 
-export const CustomTouchable = ({
+type CustomTouchableProps = {
+  onPress(): void;
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  withoutFeedback: boolean;
+} & (PressableProps | TouchableWithoutFeedbackProps);
+
+export const CustomTouchable: React.FC<CustomTouchableProps> = ({
   onPress,
   children,
   style,
@@ -14,12 +29,18 @@ export const CustomTouchable = ({
     <Component
       onPress={onPress}
       {...props}
-      android_ripple={{ color: 'red', radius: -5, borderless: false }}
-      style={({ pressed }) => [
-        // {
-        //   backgroundColor: pressed ? 'red' : 'green',
-        // },
-      ]}
+      android_ripple={
+        withoutFeedback ? undefined : { color: 'red', radius: -5, borderless: false }
+      }
+      style={
+        withoutFeedback
+          ? style
+          : ({ pressed }) => [
+              // {
+              //   backgroundColor: pressed ? 'red' : 'green',
+              // },
+            ]
+      }
     >
       {/* {({ pressed }) => (
         <Text style={styles.text}>{pressed ? 'Pressed!' : 'Press Me'}</Text>
