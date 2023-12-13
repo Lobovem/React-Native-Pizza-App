@@ -144,14 +144,6 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchWrap}>
-        {/* <CustomTouchable onPress={() => setIsActiveSearch(!isActiveSearch)}> */}
-        <CustomTouchable
-          style={styles.test}
-          onPress={() => setIsActiveSearch(!isActiveSearch)}
-        >
-          <Text>TEST</Text>
-        </CustomTouchable>
-
         {isActiveSearch && (
           <TextInput
             keyboardType="default"
@@ -163,7 +155,13 @@ const App = () => {
         )}
 
         <View style={styles.searchIconWrap}>
-          <Image style={styles.searchIcon} source={iconSearch}></Image>
+          <CustomTouchable
+            withoutFeedback={true}
+            style={styles.test}
+            onPress={() => setIsActiveSearch(!isActiveSearch)}
+          >
+            <Image style={styles.searchIcon} source={iconSearch}></Image>
+          </CustomTouchable>
           <Image style={styles.searchHeart} source={iconHeart}></Image>
         </View>
       </View>
@@ -210,8 +208,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  test: { color: 'black' },
-
+  test: { backgroundColor: 'green' },
   container: {
     backgroundColor: '#F1F1F1',
     flex: 1,
@@ -227,6 +224,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 20,
     marginEnd: 10,
+    marginBottom: 10,
   },
 
   searchIcon: {
