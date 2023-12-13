@@ -149,16 +149,18 @@ const App = () => {
           style={styles.test}
           onPress={() => setIsActiveSearch(!isActiveSearch)}
         >
-          {isActiveSearch && (
-            <TextInput
-              keyboardType="default"
-              style={styles.textInput}
-              placeholder="Search here"
-              onChangeText={changedInputText}
-              value={textInput}
-            ></TextInput>
-          )}
+          <Text>TEST</Text>
         </CustomTouchable>
+
+        {isActiveSearch && (
+          <TextInput
+            keyboardType="default"
+            style={styles.textInput}
+            placeholder="Search here"
+            onChangeText={changedInputText}
+            value={textInput}
+          ></TextInput>
+        )}
 
         <View style={styles.searchIconWrap}>
           <Image style={styles.searchIcon} source={iconSearch}></Image>
