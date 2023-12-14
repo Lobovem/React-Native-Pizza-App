@@ -8,6 +8,11 @@ import {
   ImageSourcePropType,
   TextInput,
   FlatList,
+  Modal,
+  Alert,
+  Pressable,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
@@ -127,6 +132,7 @@ const mockItemData: MockDataType[] = [
 const App = () => {
   const [textInput, setTextInput] = useState('');
   const [isActiveSearch, setIsActiveSearch] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const changedInputText = (value: string): void => {
     setTextInput(value);
@@ -161,7 +167,37 @@ const App = () => {
           >
             <Image style={styles.searchIcon} source={iconSearch}></Image>
           </CustomTouchable>
-          <Image style={styles.searchHeart} source={iconHeart}></Image>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <Pressable
+              onPress={() => setModalVisible(!modalVisible)}
+              style={styles.modalOverlay}
+            ></Pressable>
+            {/* <View style={styles.modalOverlay}> */}
+            <View style={styles.modalContent}>
+              <CustomTouchable
+                withoutFeedback={true}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.modalCloseText}>Type here to close modal</Text>
+              </CustomTouchable>
+            </View>
+            {/* </View> */}
+          </Modal>
+
+          <CustomTouchable
+            withoutFeedback={true}
+            onPress={() => setModalVisible(!modalVisible)}
+          >
+            <Image style={styles.searchHeart} source={iconHeart}></Image>
+          </CustomTouchable>
         </View>
       </View>
 
@@ -342,6 +378,27 @@ const styles = StyleSheet.create({
   card: {
     maxWidth: 40,
     maxHeight: 40,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: -30,
+  },
+
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 30,
+    padding: 40,
+    justifyContent: 'flex-end',
+    height: 300,
+  },
+
+  modalCloseText: {
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
 

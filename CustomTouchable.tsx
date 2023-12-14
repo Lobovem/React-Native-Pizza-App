@@ -11,7 +11,7 @@ import { StyleSheet } from 'react-native';
 
 type CustomTouchableProps = {
   onPress(): void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   withoutFeedback: boolean;
 } & (PressableProps | TouchableWithoutFeedbackProps);
@@ -37,7 +37,7 @@ export const CustomTouchable: React.FC<CustomTouchableProps> = ({
           ? style
           : ({ pressed }) => [
               // {
-              //   backgroundColor: pressed ? 'red' : 'green',
+              //   backgroundColor: pressed ? 'yellow' : 'green',
               // },
             ]
       }
