@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -13,6 +13,7 @@ import {
   Pressable,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  GestureResponderEvent,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconHeart from './img/icon-heart.png';
@@ -138,6 +139,20 @@ const App = () => {
     setTextInput(value);
   };
 
+  const handleModalPress = (event: GestureResponderEvent): void => {
+    /*Функция handleModalPress проверяет, было ли нажатие на сам 
+    компонент TouchableWithoutFeedback, а не на его содержимое. 
+    Если event.target (элемент, на котором произошло событие) равен 
+    event.currentTarget (компонент TouchableWithoutFeedback), это 
+    означает, что нажатие произошло вне содержимого модального окна, 
+    и в этом случае вызывается setModalVisible(!modalVisible), что 
+    изменит видимость модального окна.*/
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    setModalVisible(!modalVisible);
+  };
+
   const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
     return mockItemData.filter((item) => {
       const title = item.title.toLocaleLowerCase();
@@ -176,20 +191,21 @@ const App = () => {
               setModalVisible(!modalVisible);
             }}
           >
-            <Pressable
-              onPress={() => setModalVisible(!modalVisible)}
-              style={styles.modalOverlay}
-            ></Pressable>
-            {/* <View style={styles.modalOverlay}> */}
-            <View style={styles.modalContent}>
-              <CustomTouchable
-                withoutFeedback={true}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.modalCloseText}>Type here to close modal</Text>
-              </CustomTouchable>
-            </View>
-            {/* </View> */}
+            <TouchableWithoutFeedback
+              onPress={handleModalPress}
+              // style={styles.modalOverlay}
+            >
+              <View style={styles.modalOverlay}>
+                <View style={styles.modalContent}>
+                  <CustomTouchable
+                    withoutFeedback={true}
+                    onPress={() => setModalVisible(!modalVisible)}
+                  >
+                    <Text style={styles.modalCloseText}>Type here to close modal</Text>
+                  </CustomTouchable>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
           </Modal>
 
           <CustomTouchable
@@ -384,15 +400,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: -30,
+    // marginBottom: -30,
   },
 
   modalContent: {
     backgroundColor: 'white',
     borderRadius: 30,
     padding: 40,
-    justifyContent: 'flex-end',
-    height: 300,
+    justifyContent: 'center',
+    height: 200,
   },
 
   modalCloseText: {
