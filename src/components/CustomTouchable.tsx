@@ -8,7 +8,6 @@ import {
   TouchableWithoutFeedbackProps,
   ViewStyle,
 } from 'react-native';
-import { StyleSheet } from 'react-native';
 
 type CustomTouchableProps = {
   onPress(): void;

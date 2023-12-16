@@ -1,36 +1,27 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 import {
   View,
   StyleSheet,
   Text,
   SafeAreaView,
   Image,
-  ImageSourcePropType,
   TextInput,
   FlatList,
   Modal,
-  Alert,
-  Pressable,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   GestureResponderEvent,
+  ImageSourcePropType,
 } from 'react-native';
-import iconNew from './img/icon-new.png';
-import iconHeart from './img/icon-heart.png';
-import iconCard from './img/icon-card.png';
-import iconSearch from './img/icon-search.png';
-import { CustomTouchable } from './CustomTouchable';
+import iconNew from './src/screens/home/img/icon-new.png';
+import iconHeart from './src/screens/home/img/icon-heart.png';
+import iconCard from './src/screens/home/img/icon-card.png';
+import iconSearch from './src/screens/home/img/icon-search.png';
+import { CustomTouchable } from './src/components/CustomTouchable';
+import { MockDataType, mockItemData } from './src/screens/home/components/MochData';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-// type ItemProps = { title: string };
-
-// const Item = ({ title }: ItemProps) => (
-//   <View style={styles.item}>
-//     <Text style={styles.title}>{title}</Text>
-//   </View>
-// );
-
-type MockDataType = {
-  id: string;
+type ItemProps = {
+  // id?: string;
   title: string;
   description: string;
   isNew: boolean;
@@ -40,95 +31,66 @@ type MockDataType = {
   priceNew: string;
 };
 
-const mockItemData: MockDataType[] = [
-  {
-    id: '1',
-    title: 'Pizza with meat',
-    description: 'Pizza with meat is really delision',
-    isNew: true,
-    sale: true,
-    img: require('./img/pizza-1.jpg'),
-    priceOld: '300 UAH',
-    priceNew: '250 UAH',
-  },
+// const Item: React.FC<IItemProps> = ({ item }) => (
+const Item = ({
+  isNew,
+  img,
+  title,
+  description,
+  sale,
+  priceOld,
+  priceNew,
+}: ItemProps) => (
+  <View style={styles.container}>
+    <View style={styles.item}>
+      <View>
+        <Image style={styles.img} source={img} />
+        {isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+      </View>
 
-  {
-    id: '2',
-    title: 'Pizza with cheese',
-    description: 'Pizza with cheese is really delision',
-    isNew: false,
-    sale: false,
-    img: require('./img/pizza-2.jpg'),
-    priceOld: '250 UAH',
-    priceNew: '200 UAH',
-  },
+      <View style={styles.wrapRight}>
+        <View style={styles.wrapTitle}>
+          <Text style={styles.title}>{title}</Text>
+          <Image style={styles.iconHeart} source={iconHeart}></Image>
+        </View>
 
-  {
-    id: '3',
-    title: 'Pizza with becon',
-    description: 'Special proposal of pizza with becon',
-    isNew: false,
-    sale: true,
-    img: require('./img/pizza-3.jpg'),
-    priceOld: '320 UAH',
-    priceNew: '150 UAH',
-  },
+        <View style={styles.wrapPrice}>
+          <Text style={styles.priceNew}>{priceNew}</Text>
+          {sale && <Text style={styles.priceOld}>{priceOld}</Text>}
+        </View>
 
-  {
-    id: '4',
-    title: 'Pizza with becon and cheese',
-    description: 'Special proposal of pizza with becon and cheese',
-    isNew: true,
-    sale: true,
-    img: require('./img/pizza-4.jpg'),
-    priceOld: '400 UAH',
-    priceNew: '250 UAH',
-  },
+        <View style={styles.wrapDesc}>
+          <Text numberOfLines={1} style={styles.desc}>
+            {description}
+          </Text>
 
-  {
-    id: '5',
-    title: 'Pizza with meat ',
-    description: 'Pizza with meat is really delision',
-    isNew: true,
-    sale: true,
-    img: require('./img/pizza-1.jpg'),
-    priceOld: '300 UAH',
-    priceNew: '250 UAH',
-  },
+          <View style={styles.wrapCard}>
+            <Text style={styles.titleCard}>Buy</Text>
+            <Image style={styles.card} source={iconCard}></Image>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+);
 
-  {
-    id: '6',
-    title: 'Pizza with cheese',
-    description: 'Pizza with cheese is really delision',
-    isNew: false,
-    sale: false,
-    img: require('./img/pizza-2.jpg'),
-    priceOld: '250 UAH',
-    priceNew: '200 UAH',
-  },
-
-  {
-    id: '7',
-    title: 'Pizza with becon',
-    description: 'Special proposal of pizza with becon',
-    isNew: false,
-    sale: true,
-    img: require('./img/pizza-3.jpg'),
-    priceOld: '320 UAH',
-    priceNew: '150 UAH',
-  },
-
-  {
-    id: '8',
-    title: 'Pizza with becon and cheese',
-    description: 'Special proposal of pizza with becon and cheese',
-    isNew: true,
-    sale: true,
-    img: require('./img/pizza-4.jpg'),
-    priceOld: '400 UAH',
-    priceNew: '250 UAH',
-  },
-];
+interface IRenderItemProps {
+  item: MockDataType;
+}
+const renderItem = ({ item }) => {
+  return (
+    <Item
+      // id={item.id}
+      isNew={item.isNew}
+      img={item.img}
+      title={item.title}
+      description={item.description}
+      sale={item.sale}
+      priceOld={item.priceOld}
+      priceNew={item.priceNew}
+    />
+  );
+};
 
 const App = () => {
   const [textInput, setTextInput] = useState('');
@@ -219,39 +181,7 @@ const App = () => {
 
       <FlatList
         data={search(mockItemData, textInput)}
-        renderItem={({ item }) => (
-          <View style={styles.container}>
-            <View style={styles.item}>
-              <View>
-                <Image style={styles.img} source={item.img} />
-                {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-              </View>
-
-              <View style={styles.wrapRight}>
-                <View style={styles.wrapTitle}>
-                  <Text style={styles.title}>{item.title}</Text>
-                  <Image style={styles.iconHeart} source={iconHeart}></Image>
-                </View>
-
-                <View style={styles.wrapPrice}>
-                  <Text style={styles.priceNew}>{item.priceNew}</Text>
-                  {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-                </View>
-
-                <View style={styles.wrapDesc}>
-                  <Text numberOfLines={1} style={styles.desc}>
-                    {item.description}
-                  </Text>
-
-                  <View style={styles.wrapCard}>
-                    <Text style={styles.titleCard}>Buy</Text>
-                    <Image style={styles.card} source={iconCard}></Image>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        )}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
@@ -260,7 +190,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F1F1F1',
+    backgroundColor: Colors.greyLight,
     flex: 1,
   },
 
@@ -290,7 +220,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     width: 280,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     borderRadius: 20,
     padding: 10,
   },
@@ -299,13 +229,13 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 20,
     borderRadius: 20,
     minHeight: 100,
-    shadowColor: '#000',
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -328,7 +258,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 20,
-    color: 'black',
+    color: Colors.black,
     fontWeight: '500',
     flex: 1,
   },
@@ -367,7 +297,7 @@ const styles = StyleSheet.create({
   priceOld: {
     fontSize: 16,
     textDecorationLine: 'line-through',
-    color: 'red',
+    color: Colors.red,
   },
 
   desc: {
@@ -400,11 +330,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: -30,
   },
 
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     borderRadius: 30,
     padding: 40,
     justifyContent: 'center',
@@ -412,7 +341,7 @@ const styles = StyleSheet.create({
   },
 
   modalCloseText: {
-    color: 'black',
+    color: Colors.black,
     fontSize: 20,
     textAlign: 'center',
   },
