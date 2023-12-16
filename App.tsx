@@ -21,47 +21,32 @@ import { MockDataType, mockItemData } from './src/screens/home/components/MochDa
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 type ItemProps = {
-  // id?: string;
-  title: string;
-  description: string;
-  isNew: boolean;
-  sale: boolean;
-  img: ImageSourcePropType;
-  priceOld: string;
-  priceNew: string;
+  item: MockDataType;
 };
 
-// const Item: React.FC<IItemProps> = ({ item }) => (
-const Item = ({
-  isNew,
-  img,
-  title,
-  description,
-  sale,
-  priceOld,
-  priceNew,
-}: ItemProps) => (
+const Item: React.FC<ItemProps> = ({ item }) => (
+  // const Item = ({ item }: ItemProps) => (
   <View style={styles.container}>
     <View style={styles.item}>
       <View>
-        <Image style={styles.img} source={img} />
-        {isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+        <Image style={styles.img} source={item.img} />
+        {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
       </View>
 
       <View style={styles.wrapRight}>
         <View style={styles.wrapTitle}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <Image style={styles.iconHeart} source={iconHeart}></Image>
         </View>
 
         <View style={styles.wrapPrice}>
-          <Text style={styles.priceNew}>{priceNew}</Text>
-          {sale && <Text style={styles.priceOld}>{priceOld}</Text>}
+          <Text style={styles.priceNew}>{item.priceNew}</Text>
+          {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
         </View>
 
         <View style={styles.wrapDesc}>
           <Text numberOfLines={1} style={styles.desc}>
-            {description}
+            {item.description}
           </Text>
 
           <View style={styles.wrapCard}>
@@ -74,22 +59,8 @@ const Item = ({
   </View>
 );
 
-interface IRenderItemProps {
-  item: MockDataType;
-}
-const renderItem = ({ item }) => {
-  return (
-    <Item
-      // id={item.id}
-      isNew={item.isNew}
-      img={item.img}
-      title={item.title}
-      description={item.description}
-      sale={item.sale}
-      priceOld={item.priceOld}
-      priceNew={item.priceNew}
-    />
-  );
+const renderItem = ({ item }: { item: MockDataType }) => {
+  return <Item item={item} />;
 };
 
 const App = () => {
