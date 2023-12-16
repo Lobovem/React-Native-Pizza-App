@@ -19,6 +19,7 @@ import iconSearch from './src/screens/home/img/icon-search.png';
 import { CustomTouchable } from './src/components/CustomTouchable';
 import { MockDataType, mockItemData } from './src/screens/home/components/MochData';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import AppStateHook from './UseAppState';
 
 type ItemProps = {
   item: MockDataType;
@@ -95,68 +96,7 @@ const App = () => {
     });
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.searchWrap}>
-        {isActiveSearch && (
-          <TextInput
-            keyboardType="default"
-            style={styles.textInput}
-            placeholder="Search here"
-            onChangeText={changedInputText}
-            value={textInput}
-          ></TextInput>
-        )}
-
-        <View style={styles.searchIconWrap}>
-          <CustomTouchable
-            withoutFeedback={true}
-            onPress={() => setIsActiveSearch(!isActiveSearch)}
-          >
-            <Image style={styles.searchIcon} source={iconSearch}></Image>
-          </CustomTouchable>
-
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <TouchableWithoutFeedback
-              onPress={handleModalPress}
-              // style={styles.modalOverlay}
-            >
-              <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
-                  <CustomTouchable
-                    withoutFeedback={true}
-                    onPress={() => setModalVisible(!modalVisible)}
-                  >
-                    <Text style={styles.modalCloseText}>Type here to close modal</Text>
-                  </CustomTouchable>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-
-          <CustomTouchable
-            withoutFeedback={true}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <Image style={styles.searchHeart} source={iconHeart}></Image>
-          </CustomTouchable>
-        </View>
-      </View>
-
-      <FlatList
-        data={search(mockItemData, textInput)}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
-  );
+  return <AppStateHook />;
 };
 
 const styles = StyleSheet.create({
