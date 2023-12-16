@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Platform,
   Pressable,
   PressableProps,
   StyleProp,
@@ -32,15 +33,11 @@ export const CustomTouchable: React.FC<CustomTouchableProps> = ({
       android_ripple={
         withoutFeedback ? undefined : { color: 'red', radius: -5, borderless: false }
       }
-      style={
-        withoutFeedback
-          ? style
-          : ({ pressed }) => [
-              // {
-              //   backgroundColor: pressed ? 'yellow' : 'green',
-              // },
-            ]
-      }
+      style={({ pressed }) => [
+        Platform.OS === 'ios' && { opacity: pressed ? 0.8 : 1 },
+        { overflow: 'hidden' },
+        style,
+      ]}
     >
       {/* {({ pressed }) => (
         <Text style={styles.text}>{pressed ? 'Pressed!' : 'Press Me'}</Text>
