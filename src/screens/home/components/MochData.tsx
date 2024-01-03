@@ -100,3 +100,14 @@ export const mockItemData: MockDataType[] = [
     priceNew: '250 UAH',
   },
 ];
+
+export type mockDataImgType = {
+  id: string;
+  img: ImageSourcePropType;
+};
+
+export const mockDataImg: mockDataImgType[] = [
+  { id: '1', img: require('../img/banner-1-burger.jpg') },
+  { id: '2', img: require('../img/banner-2-pizzaBase.jpg') },
+  { id: '3', img: require('../img/banner-3-pizzaCheese.jpg') },
+];

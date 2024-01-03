@@ -10,18 +10,31 @@ import {
   Modal,
   TouchableWithoutFeedback,
   GestureResponderEvent,
+  Dimensions,
 } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconHeart from '../img/icon-heart.png';
 import iconCard from '../img/icon-card.png';
 import iconSearch from '../img/icon-search.png';
-import { MockDataType, mockItemData } from '../components/MochData';
+import {
+  MockDataType,
+  mockDataImgType,
+  mockDataImg,
+  mockItemData,
+} from '../components/MochData';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import ColorsVariable from '../../../components/Colors';
 
 type ItemProps = {
   item: MockDataType;
 };
+
+type ItemImgProps = {
+  item: mockDataImgType;
+};
+
+const windowDimensions = Dimensions.get('window');
+console.warn(windowDimensions.height, windowDimensions.width);
 
 const Item: React.FC<ItemProps> = ({ item }) => (
   // const Item = ({ item }: ItemProps) => (
@@ -58,8 +71,24 @@ const Item: React.FC<ItemProps> = ({ item }) => (
   </View>
 );
 
+const ItemImg: React.FC<ItemImgProps> = ({ item }) => {
+  return (
+    <Image
+      style={{
+        height: windowDimensions.height,
+        width: windowDimensions.width,
+      }}
+      source={item.img}
+    />
+  );
+};
+
 const renderItem = ({ item }: { item: MockDataType }) => {
   return <Item item={item} />;
+};
+
+const renderImgItem = ({ item }: { item: mockDataImgType }) => {
+  return <ItemImg item={item} />;
 };
 
 const HomeScreens = () => {
@@ -123,21 +152,32 @@ const HomeScreens = () => {
               setModalVisible(!modalVisible);
             }}
           >
-            <TouchableWithoutFeedback
+            {/* <TouchableWithoutFeedback
               onPress={handleModalPress}
               // style={styles.modalOverlay}
+            > */}
+            {/* <View style={styles.modalOverlay}>
+                <View style={styles.modalContent}> */}
+            <FlatList
+              style={styles.imgBanner}
+              data={mockDataImg}
+              renderItem={renderImgItem}
+              keyExtractor={(item) => item.id}
+              horizontal
+            />
+            <CustomTouchable
+              withoutFeedback={true}
+              onPress={() => setModalVisible(!modalVisible)}
+              style={styles.customWrapper}
             >
-              <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
-                  <CustomTouchable
-                    withoutFeedback={true}
-                    onPress={() => setModalVisible(!modalVisible)}
-                  >
-                    <Text style={styles.modalCloseText}>Type here to close modal</Text>
-                  </CustomTouchable>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
+              <Image
+                style={styles.modalIconClose}
+                source={require('../img/icon-close.png')}
+              />
+            </CustomTouchable>
+            {/* </View>
+              </View> */}
+            {/* </TouchableWithoutFeedback> */}
           </Modal>
 
           <CustomTouchable
@@ -310,10 +350,32 @@ const styles = StyleSheet.create({
     height: 200,
   },
 
-  modalCloseText: {
-    color: ColorsVariable.black,
-    fontSize: 20,
-    textAlign: 'center',
+  modalIconClose: {
+    position: 'absolute',
+    right: 30,
+    top: 60,
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+  },
+
+  modalWrapCloseText: {
+    // textAlign: 'center',
+    // position: 'absolute',
+    // right: 30,
+    // top: 50,
+    // backgroundColor: 'red',
+    // borderRadius: 60,
+    // width: 40,
+    // height: 40,
+  },
+  imgBanner: {
+    // marginVertical: 100,
+    // width: '100%',
+    // height: '150%',
+  },
+  customWrapper: {
+    borderRadius: 120,
   },
 });
 
