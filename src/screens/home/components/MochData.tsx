@@ -107,7 +107,7 @@ export type mockDataImgType = {
 };
 
 export const mockDataImg: mockDataImgType[] = [
-  { id: '1', img: require('../img/banner-1-burger.jpg') },
-  { id: '2', img: require('../img/banner-2-pizzaBase.jpg') },
-  { id: '3', img: require('../img/banner-3-pizzaCheese.jpg') },
+  { id: '0', img: require('../img/banner-1-burger.jpg') },
+  { id: '1', img: require('../img/banner-2-pizzaBase.jpg') },
+  { id: '2', img: require('../img/banner-3-pizzaCheese.jpg') },
 ];

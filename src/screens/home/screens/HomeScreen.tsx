@@ -8,9 +8,10 @@ import {
   TextInput,
   FlatList,
   Modal,
-  TouchableWithoutFeedback,
   GestureResponderEvent,
   Dimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconHeart from '../img/icon-heart.png';
@@ -114,6 +115,11 @@ const HomeScreens = () => {
     setModalVisible(!modalVisible);
   };
 
+  const handleCloseModal = () => {
+    setModalVisible(!modalVisible);
+    setIconSlider(0);
+  };
+
   const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
     return mockItemData.filter((item) => {
       const title = item.title.toLocaleLowerCase();
@@ -121,6 +127,26 @@ const HomeScreens = () => {
 
       return title.includes(inputText);
     });
+  };
+
+  const [iconSlider, setIconSlider] = useState(0);
+
+  const handleSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
+    const slider = Math.round(
+      event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
+    );
+
+    setIconSlider(slider);
+  };
+
+  const RenderSliderDots = () => {
+    const dots = [0, 1, 2];
+
+    return dots.map((dotIndex) => (
+      <View key={dotIndex}>
+        <Text style={dotIndex === iconSlider ? styles.dotsActive : styles.dots}></Text>
+      </View>
+    ));
   };
 
   return (
@@ -143,7 +169,6 @@ const HomeScreens = () => {
           >
             <Image style={styles.searchIcon} source={iconSearch}></Image>
           </CustomTouchable>
-
           <Modal
             animationType="slide"
             transparent={true}
@@ -166,8 +191,12 @@ const HomeScreens = () => {
               keyExtractor={(item) => item.id}
               horizontal
               pagingEnabled
+              onScroll={handleSlider}
             />
             <StatusBar style="light" />
+            <View style={styles.wrapDots}>
+              <RenderSliderDots />
+            </View>
 
             <CustomTouchable
               withoutFeedback={true}
@@ -182,12 +211,9 @@ const HomeScreens = () => {
             {/* </View>
               </View> */}
             {/* </TouchableWithoutFeedback> */}
+            {/* <Image source={require('../img/')}></Image> */}
           </Modal>
-
-          <CustomTouchable
-            withoutFeedback={true}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
+          <CustomTouchable withoutFeedback={true} onPress={handleCloseModal}>
             <Image style={styles.searchHeart} source={iconHeart}></Image>
           </CustomTouchable>
         </View>
@@ -369,6 +395,29 @@ const styles = StyleSheet.create({
   },
   customWrapper: {
     borderRadius: 120,
+  },
+  wrapDots: {
+    position: 'absolute',
+    bottom: 60,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  dots: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  dotsActive: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 10,
   },
 });
 
