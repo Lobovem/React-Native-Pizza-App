@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import {
   Platform,
   Pressable,
@@ -11,12 +11,12 @@ import {
 
 type CustomTouchableProps = {
   onPress(): void;
-  children?: React.ReactNode;
+  children?: ReactNode;
   style?: StyleProp<ViewStyle>;
   withoutFeedback: boolean;
 } & (PressableProps | TouchableWithoutFeedbackProps);
 
-export const CustomTouchable: React.FC<CustomTouchableProps> = ({
+export const CustomTouchable: FC<CustomTouchableProps> = ({
   onPress,
   children,
   style,

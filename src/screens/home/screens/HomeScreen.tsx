@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -35,10 +35,7 @@ interface ItemImgProps {
   item: mockDataImgType;
 }
 
-const windowDimensions = Dimensions.get('window');
-
-const Item: React.FC<ItemProps> = ({ item }) => (
-  // const Item = ({ item }: ItemProps) => (
+const Item: FC<ItemProps> = ({ item }) => (
   <View style={styles.container}>
     <View style={styles.item}>
       <View>
@@ -72,7 +69,9 @@ const Item: React.FC<ItemProps> = ({ item }) => (
   </View>
 );
 
-const ItemImg: React.FC<ItemImgProps> = ({ item }) => {
+const windowDimensions = Dimensions.get('window');
+
+const ItemImg: FC<ItemImgProps> = ({ item }) => {
   return (
     <Image
       style={{
@@ -92,7 +91,7 @@ const renderImgItem = ({ item }: ItemImgProps) => {
   return <ItemImg item={item} />;
 };
 
-const HomeScreens: React.FC = () => {
+const HomeScreens: FC = () => {
   const [textInput, setTextInput] = useState('');
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -139,7 +138,7 @@ const HomeScreens: React.FC = () => {
     setIconSlider(slider);
   };
 
-  const ItemSliderDots: React.FC<ItemImgProps> = ({ item }) => {
+  const ItemSliderDots: FC<ItemImgProps> = ({ item }) => {
     return (
       <View style={item.id === iconSlider.toString() ? styles.dotsActive : styles.dots} />
     );
@@ -185,7 +184,6 @@ const HomeScreens: React.FC = () => {
                 <View style={styles.modalContent}> */}
 
             <FlatList
-              style={styles.imgBanner}
               data={mockDataImg}
               renderItem={renderImgItem}
               keyExtractor={(item) => item.id}
@@ -370,20 +368,20 @@ const styles = StyleSheet.create({
     maxWidth: 40,
     maxHeight: 40,
   },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // modalOverlay: {
+  //   flex: 1,
+  //   backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
 
-  modalContent: {
-    backgroundColor: ColorsVariable.white,
-    borderRadius: 30,
-    padding: 20,
-    justifyContent: 'center',
-    height: 800,
-  },
+  // modalContent: {
+  //   backgroundColor: ColorsVariable.white,
+  //   borderRadius: 30,
+  //   padding: 20,
+  //   justifyContent: 'center',
+  //   height: 800,
+  // },
 
   modalIconClose: {
     position: 'absolute',
@@ -394,11 +392,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  imgBanner: {
-    // marginVertical: 100,
-    // width: '100%',
-    // height: '150%',
-  },
   customWrapper: {
     borderRadius: 120,
   },
