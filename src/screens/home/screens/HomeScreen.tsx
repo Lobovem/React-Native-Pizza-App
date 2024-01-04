@@ -24,6 +24,7 @@ import {
 } from '../components/MochData';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import ColorsVariable from '../../../components/Colors';
+import { StatusBar } from 'expo-status-bar';
 
 type ItemProps = {
   item: MockDataType;
@@ -34,7 +35,6 @@ type ItemImgProps = {
 };
 
 const windowDimensions = Dimensions.get('window');
-console.warn(windowDimensions.height, windowDimensions.width);
 
 const Item: React.FC<ItemProps> = ({ item }) => (
   // const Item = ({ item }: ItemProps) => (
@@ -154,17 +154,21 @@ const HomeScreens = () => {
           >
             {/* <TouchableWithoutFeedback
               onPress={handleModalPress}
-              // style={styles.modalOverlay}
+              style={styles.modalOverlay}
             > */}
             {/* <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}> */}
+
             <FlatList
               style={styles.imgBanner}
               data={mockDataImg}
               renderItem={renderImgItem}
               keyExtractor={(item) => item.id}
               horizontal
+              pagingEnabled
             />
+            <StatusBar style="light" />
+
             <CustomTouchable
               withoutFeedback={true}
               onPress={() => setModalVisible(!modalVisible)}
@@ -188,7 +192,6 @@ const HomeScreens = () => {
           </CustomTouchable>
         </View>
       </View>
-
       <FlatList
         data={search(mockItemData, textInput)}
         renderItem={renderItem}
@@ -345,9 +348,9 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: ColorsVariable.white,
     borderRadius: 30,
-    padding: 40,
+    padding: 20,
     justifyContent: 'center',
-    height: 200,
+    height: 800,
   },
 
   modalIconClose: {
@@ -359,16 +362,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  modalWrapCloseText: {
-    // textAlign: 'center',
-    // position: 'absolute',
-    // right: 30,
-    // top: 50,
-    // backgroundColor: 'red',
-    // borderRadius: 60,
-    // width: 40,
-    // height: 40,
-  },
   imgBanner: {
     // marginVertical: 100,
     // width: '100%',
