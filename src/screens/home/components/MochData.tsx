@@ -11,6 +11,11 @@ export type MockDataType = {
   priceNew: string;
 };
 
+export type mockDataImgType = {
+  id: string;
+  img: ImageSourcePropType;
+};
+
 export const mockItemData: MockDataType[] = [
   {
     id: '1',
@@ -100,11 +105,6 @@ export const mockItemData: MockDataType[] = [
     priceNew: '250 UAH',
   },
 ];
-
-export type mockDataImgType = {
-  id: string;
-  img: ImageSourcePropType;
-};
 
 export const mockDataImg: mockDataImgType[] = [
   { id: '0', img: require('../img/banner-1-burger.jpg') },

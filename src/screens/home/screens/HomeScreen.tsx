@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -27,13 +27,13 @@ import { CustomTouchable } from '../../../components/CustomTouchable';
 import ColorsVariable from '../../../components/Colors';
 import { StatusBar } from 'expo-status-bar';
 
-type ItemProps = {
+interface ItemProps {
   item: MockDataType;
-};
+}
 
-type ItemImgProps = {
+interface ItemImgProps {
   item: mockDataImgType;
-};
+}
 
 const windowDimensions = Dimensions.get('window');
 
@@ -84,15 +84,15 @@ const ItemImg: React.FC<ItemImgProps> = ({ item }) => {
   );
 };
 
-const renderItem = ({ item }: { item: MockDataType }) => {
+const renderItem = ({ item }: ItemProps) => {
   return <Item item={item} />;
 };
 
-const renderImgItem = ({ item }: { item: mockDataImgType }) => {
+const renderImgItem = ({ item }: ItemImgProps) => {
   return <ItemImg item={item} />;
 };
 
-const HomeScreens = () => {
+const HomeScreens: React.FC = () => {
   const [textInput, setTextInput] = useState('');
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -115,7 +115,7 @@ const HomeScreens = () => {
     setModalVisible(!modalVisible);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setModalVisible(!modalVisible);
     setIconSlider(0);
   };
@@ -131,7 +131,7 @@ const HomeScreens = () => {
 
   const [iconSlider, setIconSlider] = useState(0);
 
-  const handleSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
+  const eventSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
@@ -139,14 +139,14 @@ const HomeScreens = () => {
     setIconSlider(slider);
   };
 
-  const RenderSliderDots = () => {
-    const dots = [0, 1, 2];
+  const ItemSliderDots: React.FC<ItemImgProps> = ({ item }) => {
+    return (
+      <View style={item.id === iconSlider.toString() ? styles.dotsActive : styles.dots} />
+    );
+  };
 
-    return dots.map((dotIndex) => (
-      <View key={dotIndex}>
-        <Text style={dotIndex === iconSlider ? styles.dotsActive : styles.dots}></Text>
-      </View>
-    ));
+  const renderSliderDots = ({ item }: ItemImgProps) => {
+    return <ItemSliderDots item={item} />;
   };
 
   return (
@@ -191,11 +191,17 @@ const HomeScreens = () => {
               keyExtractor={(item) => item.id}
               horizontal
               pagingEnabled
-              onScroll={handleSlider}
+              onScroll={eventSlider}
             />
             <StatusBar style="light" />
+
             <View style={styles.wrapDots}>
-              <RenderSliderDots />
+              <FlatList
+                data={mockDataImg}
+                renderItem={renderSliderDots}
+                keyExtractor={(item) => item.id}
+                horizontal
+              />
             </View>
 
             <CustomTouchable
@@ -401,13 +407,12 @@ const styles = StyleSheet.create({
     bottom: 60,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 10,
+    alignItems: 'center',
   },
   dots: {
     width: 20,
     height: 20,
+    margin: 5,
     borderRadius: 10,
     borderColor: 'black',
     borderWidth: 2,
@@ -415,6 +420,7 @@ const styles = StyleSheet.create({
   dotsActive: {
     width: 20,
     height: 20,
+    margin: 5,
     borderRadius: 10,
     borderColor: 'black',
     borderWidth: 10,
