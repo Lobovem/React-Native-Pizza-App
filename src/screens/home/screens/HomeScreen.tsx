@@ -80,20 +80,22 @@ const windowDimensions = Dimensions.get('window');
 const ItemImg: FC<ItemImgProps> = ({ item }) => {
   const onShare = async () => {
     try {
-      await Share.share({
+      const result = await Share.share({
         message: 'Special proposal',
         url: item.link,
         title: 'Special proposal link',
       });
-      // if (result.action === Share.sharedAction) {
-      //   if (result.activityType) {
-      //     // shared with activity type of result.activityType
-      //   } else {
-      //     // shared
-      //   }
-      // } else if (result.action === Share.dismissedAction) {
-      //   // dismissed
-      // }
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+          console.log('Shared successfully');
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+        console.log('Share dismissed');
+      }
     } catch (error: any) {
       Alert.alert(error.message);
     }
@@ -126,21 +128,25 @@ const HomeScreens: FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
-  const [iconSlider, setIconSlider] = useState(0);
+  const [isEndReached, setIsEndReached] = useState(false);
+  const [iconSliderIndex, setIconSliderIndex] = useState(0);
 
-  const onRefresh = (): void => {
+  const onRefresh = useCallback((): void => {
     setRefreshing(true);
-
     setTimeout(() => {
       setMockItemData([newItem, ...mockItemDatas]);
       // mockItemDatas.unshift(newItem);
       setRefreshing(false);
+      setIsEndReached(false);
     }, 1000);
-  };
+  }, []);
 
-  const addNewItem = useCallback((): void => {
-    setMockItemData([...mockItemDatas, ...newItems]);
-  }, [mockItemDatas]);
+  const addNewItem = (): void => {
+    if (!isEndReached) {
+      setMockItemData([...mockItemDatas, ...newItems]);
+    }
+    setIsEndReached(true);
+  };
 
   const changedInputText = (value: string): void => {
     setTextInput(value);
@@ -162,7 +168,7 @@ const HomeScreens: FC = () => {
 
   const handleCloseModal = (): void => {
     setModalVisible(!modalVisible);
-    setIconSlider(0);
+    setIconSliderIndex(0);
   };
 
   const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
@@ -174,12 +180,12 @@ const HomeScreens: FC = () => {
     });
   };
 
-  const eventSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
+  const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
 
-    setIconSlider(slider);
+    setIconSliderIndex(slider);
   };
 
   const pressDotsSlider = (index: number): void => {
@@ -189,7 +195,7 @@ const HomeScreens: FC = () => {
   const ItemSliderDots: FC<ItemImgProps> = ({ index }) => {
     return (
       <Pressable onPress={() => pressDotsSlider(index)}>
-        <View style={index === iconSlider ? styles.dotsActive : styles.dots} />
+        <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
       </Pressable>
     );
   };
@@ -243,7 +249,7 @@ const HomeScreens: FC = () => {
               ref={ref}
               horizontal
               pagingEnabled
-              onScroll={eventSlider}
+              onScroll={onScrollSlider}
               showsHorizontalScrollIndicator={false}
             />
             <StatusBar style="light" />
