@@ -101,6 +101,7 @@ const HomeScreens: FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
+  const [iconSlider, setIconSlider] = useState(0);
 
   const onRefresh = useCallback((): void => {
     setRefreshing(true);
@@ -148,8 +149,6 @@ const HomeScreens: FC = () => {
       return title.includes(inputText);
     });
   };
-
-  const [iconSlider, setIconSlider] = useState(0);
 
   const eventSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
