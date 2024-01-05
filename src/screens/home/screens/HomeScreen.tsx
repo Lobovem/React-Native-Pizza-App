@@ -96,42 +96,84 @@ const HomeScreens: FC = () => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [mockItemDatas, setMockItemData] = useState(mockItemData);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
 
     setTimeout(() => {
-      mockItemData.unshift({
-        id: '0',
-        title: 'Pizza test',
+      const newItem = [
+        {
+          id: '0',
+          title: 'New pizza',
+          description: 'Pizza is really delision',
+          isNew: true,
+          sale: true,
+          img: require('../img/pizza-1.jpg'),
+          priceOld: '450 UAH',
+          priceNew: '100 UAH',
+        },
+      ];
+      setMockItemData([...newItem, ...mockItemDatas]);
+
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
+  const addNewItem = useCallback(() => {
+    const newItems = [
+      {
+        id: '9',
+        title: 'New pizza 2',
         description: 'Pizza is really delision',
         isNew: true,
         sale: true,
         img: require('../img/pizza-1.jpg'),
         priceOld: '450 UAH',
         priceNew: '100 UAH',
-      });
-      setRefreshing(false);
-    }, 3000);
+      },
+      {
+        id: '10',
+        title: 'New pizza 3',
+        description: 'Pizza is really delision',
+        isNew: true,
+        sale: true,
+        img: require('../img/pizza-1.jpg'),
+        priceOld: '450 UAH',
+        priceNew: '100 UAH',
+      },
+      {
+        id: '11',
+        title: 'New pizza 4',
+        description: 'Pizza is really delision',
+        isNew: true,
+        sale: true,
+        img: require('../img/pizza-1.jpg'),
+        priceOld: '450 UAH',
+        priceNew: '100 UAH',
+      },
+    ];
+
+    setMockItemData([...mockItemDatas, ...newItems]);
   }, []);
 
   const changedInputText = (value: string): void => {
     setTextInput(value);
   };
 
-  const handleModalPress = (event: GestureResponderEvent): void => {
-    /*Функция handleModalPress проверяет, было ли нажатие на сам 
-    компонент TouchableWithoutFeedback, а не на его содержимое. 
-    Если event.target (элемент, на котором произошло событие) равен 
-    event.currentTarget (компонент TouchableWithoutFeedback), это 
-    означает, что нажатие произошло вне содержимого модального окна, 
-    и в этом случае вызывается setModalVisible(!modalVisible), что 
-    изменит видимость модального окна.*/
-    if (event.target !== event.currentTarget) {
-      return;
-    }
-    setModalVisible(!modalVisible);
-  };
+  // const handleModalPress = (event: GestureResponderEvent): void => {
+  //   /*Функция handleModalPress проверяет, было ли нажатие на сам
+  //   компонент TouchableWithoutFeedback, а не на его содержимое.
+  //   Если event.target (элемент, на котором произошло событие) равен
+  //   event.currentTarget (компонент TouchableWithoutFeedback), это
+  //   означает, что нажатие произошло вне содержимого модального окна,
+  //   и в этом случае вызывается setModalVisible(!modalVisible), что
+  //   изменит видимость модального окна.*/
+  //   if (event.target !== event.currentTarget) {
+  //     return;
+  //   }
+  //   setModalVisible(!modalVisible);
+  // };
 
   const handleCloseModal = (): void => {
     setModalVisible(!modalVisible);
@@ -150,7 +192,6 @@ const HomeScreens: FC = () => {
   const [iconSlider, setIconSlider] = useState(0);
 
   const eventSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
-    console.log('work');
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
@@ -245,11 +286,12 @@ const HomeScreens: FC = () => {
         </View>
       </View>
       <FlatList
-        data={search(mockItemData, textInput)}
+        data={search(mockItemDatas, textInput)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         refreshing={refreshing}
         onRefresh={onRefresh}
+        onEndReached={addNewItem}
       />
     </SafeAreaView>
   );
