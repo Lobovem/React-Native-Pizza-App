@@ -13,6 +13,8 @@ import {
   NativeScrollEvent,
   Pressable,
   ListRenderItem,
+  Share,
+  Alert,
 } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconHeart from '../img/icon-heart.png';
@@ -76,14 +78,37 @@ const Item: FC<ItemProps> = ({ item }) => (
 const windowDimensions = Dimensions.get('window');
 
 const ItemImg: FC<ItemImgProps> = ({ item }) => {
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: 'Special proposal',
+        url: item.link,
+        title: 'Special proposal link',
+      });
+      // if (result.action === Share.sharedAction) {
+      //   if (result.activityType) {
+      //     // shared with activity type of result.activityType
+      //   } else {
+      //     // shared
+      //   }
+      // } else if (result.action === Share.dismissedAction) {
+      //   // dismissed
+      // }
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
+
   return (
-    <Image
-      style={{
-        height: windowDimensions.height,
-        width: windowDimensions.width,
-      }}
-      source={item.img}
-    />
+    <Pressable onPress={onShare}>
+      <Image
+        style={{
+          height: windowDimensions.height,
+          width: windowDimensions.width,
+        }}
+        source={item.img}
+      />
+    </Pressable>
   );
 };
 
@@ -103,20 +128,19 @@ const HomeScreens: FC = () => {
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [iconSlider, setIconSlider] = useState(0);
 
-  const onRefresh = useCallback((): void => {
+  const onRefresh = (): void => {
     setRefreshing(true);
 
     setTimeout(() => {
-      // setMockItemData([...newItem, ...mockItemDatas]);
-      mockItemDatas.unshift(newItem);
-
+      setMockItemData([newItem, ...mockItemDatas]);
+      // mockItemDatas.unshift(newItem);
       setRefreshing(false);
     }, 1000);
-  }, []);
+  };
 
   const addNewItem = useCallback((): void => {
     setMockItemData([...mockItemDatas, ...newItems]);
-  }, []);
+  }, [mockItemDatas]);
 
   const changedInputText = (value: string): void => {
     setTextInput(value);

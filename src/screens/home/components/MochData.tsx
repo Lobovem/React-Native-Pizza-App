@@ -14,6 +14,7 @@ export type MockDataType = {
 export type mockDataImgType = {
   id: string;
   img: ImageSourcePropType;
+  link: string;
 };
 
 export const mockItemData: MockDataType[] = [
@@ -151,7 +152,7 @@ export const newItem: MockDataType = {
 };
 
 export const mockDataImg: mockDataImgType[] = [
-  { id: '0', img: require('../img/banner-1-burger.jpg') },
-  { id: '1', img: require('../img/banner-2-pizzaBase.jpg') },
-  { id: '2', img: require('../img/banner-3-pizzaCheese.jpg') },
+  { id: '0', img: require('../img/banner-1-burger.jpg'), link: 'somethink link' },
+  { id: '1', img: require('../img/banner-2-pizzaBase.jpg'), link:'somethink link 2' },
+  { id: '2', img: require('../img/banner-3-pizzaCheese.jpg'), link:'somethink link 3' },
 ];
