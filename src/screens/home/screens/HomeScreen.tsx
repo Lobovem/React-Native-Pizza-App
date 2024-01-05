@@ -184,12 +184,14 @@ const HomeScreens: FC = () => {
                 <View style={styles.modalContent}> */}
 
             <FlatList
+              style={styles.wrapBanner}
               data={mockDataImg}
               renderItem={renderImgItem}
               keyExtractor={(item) => item.id}
               horizontal
               pagingEnabled
               onScroll={eventSlider}
+              showsHorizontalScrollIndicator={false}
             />
             <StatusBar style="light" />
 
@@ -393,8 +395,10 @@ const styles = StyleSheet.create({
   },
 
   customWrapper: {
-    borderRadius: 120,
+    // borderRadius: 120,
   },
+
+  wrapBanner: {},
   wrapDots: {
     position: 'absolute',
     bottom: 60,
