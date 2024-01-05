@@ -83,7 +83,7 @@ const ItemImg: FC<ItemImgProps> = ({ item }) => {
       const result = await Share.share({
         message: 'Special proposal',
         url: item.link,
-        title: 'Special proposal link',
+        title: 'Link to google',
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

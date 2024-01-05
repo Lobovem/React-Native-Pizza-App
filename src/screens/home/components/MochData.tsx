@@ -152,7 +152,15 @@ export const newItem: MockDataType = {
 };
 
 export const mockDataImg: mockDataImgType[] = [
-  { id: '0', img: require('../img/banner-1-burger.jpg'), link: 'somethink link' },
-  { id: '1', img: require('../img/banner-2-pizzaBase.jpg'), link:'somethink link 2' },
-  { id: '2', img: require('../img/banner-3-pizzaCheese.jpg'), link:'somethink link 3' },
+  { id: '0', img: require('../img/banner-1-burger.jpg'), link: 'http://google.com.ua' },
+  {
+    id: '1',
+    img: require('../img/banner-2-pizzaBase.jpg'),
+    link: 'http://google.com.ua',
+  },
+  {
+    id: '2',
+    img: require('../img/banner-3-pizzaCheese.jpg'),
+    link: 'http://google.com.ua',
+  },
 ];
