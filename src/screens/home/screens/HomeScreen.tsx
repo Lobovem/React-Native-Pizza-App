@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef, useState } from 'react';
+import React, { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,8 +11,8 @@ import {
   Dimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  Button,
   Pressable,
+  ListRenderItem,
 } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconHeart from '../img/icon-heart.png';
@@ -201,7 +201,7 @@ const HomeScreens: FC = () => {
     setIconSlider(slider);
   };
 
-  const pressDotsSlider = (index): void => {
+  const pressDotsSlider = (index: number): void => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
@@ -213,12 +213,11 @@ const HomeScreens: FC = () => {
     );
   };
 
-  const renderSliderDots: FC<ItemImgProps> = ({ index }) => {
+  const renderSliderDots: ListRenderItem<mockDataImgType> = ({ index }) => {
     return <ItemSliderDots index={index} />;
   };
 
-  // const ref = useRef<FlatList>();
-  const ref: any = useRef();
+  const ref: MutableRefObject<FlatList> = useRef(null);
 
   return (
     <SafeAreaView style={styles.container}>
