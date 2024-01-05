@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -95,6 +95,25 @@ const HomeScreens: FC = () => {
   const [textInput, setTextInput] = useState('');
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      mockItemData.unshift({
+        id: '0',
+        title: 'Pizza test',
+        description: 'Pizza is really delision',
+        isNew: true,
+        sale: true,
+        img: require('../img/pizza-1.jpg'),
+        priceOld: '450 UAH',
+        priceNew: '100 UAH',
+      });
+      setRefreshing(false);
+    }, 3000);
+  }, []);
 
   const changedInputText = (value: string): void => {
     setTextInput(value);
@@ -131,6 +150,7 @@ const HomeScreens: FC = () => {
   const [iconSlider, setIconSlider] = useState(0);
 
   const eventSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
+    console.log('work');
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
@@ -228,6 +248,8 @@ const HomeScreens: FC = () => {
         data={search(mockItemData, textInput)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
       />
     </SafeAreaView>
   );
