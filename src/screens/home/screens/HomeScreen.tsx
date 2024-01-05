@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -8,10 +8,11 @@ import {
   TextInput,
   FlatList,
   Modal,
-  GestureResponderEvent,
   Dimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  Button,
+  Pressable,
 } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconHeart from '../img/icon-heart.png';
@@ -32,7 +33,8 @@ interface ItemProps {
 }
 
 interface ItemImgProps {
-  item: mockDataImgType;
+  item?: mockDataImgType;
+  index?: number;
 }
 
 const Item: FC<ItemProps> = ({ item }) => (
@@ -98,30 +100,30 @@ const HomeScreens: FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = useCallback((): void => {
     setRefreshing(true);
 
     setTimeout(() => {
-      const newItem = [
-        {
-          id: '0',
-          title: 'New pizza',
-          description: 'Pizza is really delision',
-          isNew: true,
-          sale: true,
-          img: require('../img/pizza-1.jpg'),
-          priceOld: '450 UAH',
-          priceNew: '100 UAH',
-        },
-      ];
-      setMockItemData([...newItem, ...mockItemDatas]);
+      const newItem: MockDataType = {
+        id: '0',
+        title: 'New pizza',
+        description: 'Pizza is really delision',
+        isNew: true,
+        sale: true,
+        img: require('../img/pizza-1.jpg'),
+        priceOld: '450 UAH',
+        priceNew: '100 UAH',
+      };
+
+      // setMockItemData([...newItem, ...mockItemDatas]);
+      mockItemDatas.unshift(newItem);
 
       setRefreshing(false);
     }, 1000);
   }, []);
 
-  const addNewItem = useCallback(() => {
-    const newItems = [
+  const addNewItem = useCallback((): void => {
+    const newItems: MockDataType[] = [
       {
         id: '9',
         title: 'New pizza 2',
@@ -199,15 +201,24 @@ const HomeScreens: FC = () => {
     setIconSlider(slider);
   };
 
-  const ItemSliderDots: FC<ItemImgProps> = ({ item }) => {
+  const pressDotsSlider = (index): void => {
+    ref.current.scrollToIndex({ index: index, animated: true });
+  };
+
+  const ItemSliderDots: FC<ItemImgProps> = ({ index }) => {
     return (
-      <View style={item.id === iconSlider.toString() ? styles.dotsActive : styles.dots} />
+      <Pressable onPress={() => pressDotsSlider(index)}>
+        <View style={index === iconSlider ? styles.dotsActive : styles.dots} />
+      </Pressable>
     );
   };
 
-  const renderSliderDots = ({ item }: ItemImgProps) => {
-    return <ItemSliderDots item={item} />;
+  const renderSliderDots: FC<ItemImgProps> = ({ index }) => {
+    return <ItemSliderDots index={index} />;
   };
+
+  // const ref = useRef<FlatList>();
+  const ref: any = useRef();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -249,6 +260,7 @@ const HomeScreens: FC = () => {
               data={mockDataImg}
               renderItem={renderImgItem}
               keyExtractor={(item) => item.id}
+              ref={ref}
               horizontal
               pagingEnabled
               onScroll={eventSlider}
@@ -285,12 +297,15 @@ const HomeScreens: FC = () => {
           </CustomTouchable>
         </View>
       </View>
+      {/* <Button title="To down list" onPress={() => ref.current?.scrollToEnd()}></Button> */}
       <FlatList
+        // ref={ref}
         data={search(mockItemDatas, textInput)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         refreshing={refreshing}
         onRefresh={onRefresh}
+        onEndReachedThreshold={0.2}
         onEndReached={addNewItem}
       />
     </SafeAreaView>
