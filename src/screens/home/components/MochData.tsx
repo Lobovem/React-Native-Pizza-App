@@ -106,6 +106,50 @@ export const mockItemData: MockDataType[] = [
   },
 ];
 
+export const newItems: MockDataType[] = [
+  {
+    id: '9',
+    title: 'New pizza 2',
+    description: 'Pizza is really delision',
+    isNew: true,
+    sale: true,
+    img: require('../img/pizza-1.jpg'),
+    priceOld: '450 UAH',
+    priceNew: '100 UAH',
+  },
+  {
+    id: '10',
+    title: 'New pizza 3',
+    description: 'Pizza is really delision',
+    isNew: true,
+    sale: true,
+    img: require('../img/pizza-1.jpg'),
+    priceOld: '450 UAH',
+    priceNew: '100 UAH',
+  },
+  {
+    id: '11',
+    title: 'New pizza 4',
+    description: 'Pizza is really delision',
+    isNew: true,
+    sale: true,
+    img: require('../img/pizza-1.jpg'),
+    priceOld: '450 UAH',
+    priceNew: '100 UAH',
+  },
+];
+
+export const newItem: MockDataType = {
+  id: '0',
+  title: 'New pizza',
+  description: 'Pizza is really delision',
+  isNew: true,
+  sale: true,
+  img: require('../img/pizza-1.jpg'),
+  priceOld: '450 UAH',
+  priceNew: '100 UAH',
+};
+
 export const mockDataImg: mockDataImgType[] = [
   { id: '0', img: require('../img/banner-1-burger.jpg') },
   { id: '1', img: require('../img/banner-2-pizzaBase.jpg') },

@@ -23,6 +23,8 @@ import {
   mockDataImgType,
   mockDataImg,
   mockItemData,
+  newItems,
+  newItem,
 } from '../components/MochData';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import ColorsVariable from '../../../components/Colors';
@@ -104,17 +106,6 @@ const HomeScreens: FC = () => {
     setRefreshing(true);
 
     setTimeout(() => {
-      const newItem: MockDataType = {
-        id: '0',
-        title: 'New pizza',
-        description: 'Pizza is really delision',
-        isNew: true,
-        sale: true,
-        img: require('../img/pizza-1.jpg'),
-        priceOld: '450 UAH',
-        priceNew: '100 UAH',
-      };
-
       // setMockItemData([...newItem, ...mockItemDatas]);
       mockItemDatas.unshift(newItem);
 
@@ -123,39 +114,6 @@ const HomeScreens: FC = () => {
   }, []);
 
   const addNewItem = useCallback((): void => {
-    const newItems: MockDataType[] = [
-      {
-        id: '9',
-        title: 'New pizza 2',
-        description: 'Pizza is really delision',
-        isNew: true,
-        sale: true,
-        img: require('../img/pizza-1.jpg'),
-        priceOld: '450 UAH',
-        priceNew: '100 UAH',
-      },
-      {
-        id: '10',
-        title: 'New pizza 3',
-        description: 'Pizza is really delision',
-        isNew: true,
-        sale: true,
-        img: require('../img/pizza-1.jpg'),
-        priceOld: '450 UAH',
-        priceNew: '100 UAH',
-      },
-      {
-        id: '11',
-        title: 'New pizza 4',
-        description: 'Pizza is really delision',
-        isNew: true,
-        sale: true,
-        img: require('../img/pizza-1.jpg'),
-        priceOld: '450 UAH',
-        priceNew: '100 UAH',
-      },
-    ];
-
     setMockItemData([...mockItemDatas, ...newItems]);
   }, []);
 
