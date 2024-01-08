@@ -1,5 +1,13 @@
 import React, { FC, useCallback, useState } from 'react';
-import { View, StyleSheet, Text, SafeAreaView, Image, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconCard from '../img/icon-card.png';
 import { MockDataType, mockItemData, newItems, newItem } from '../components/MochData';
@@ -11,6 +19,8 @@ import HeaderComp from '../components/HeaderComp';
 interface ItemProps {
   item: MockDataType;
 }
+
+const windowDimensions = Dimensions.get('window');
 
 const Item: FC<ItemProps> = ({ item }) => (
   <View style={styles.container}>

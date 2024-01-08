@@ -15,7 +15,7 @@ import React, {
 } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { StatusBar } from 'expo-status-bar';
-import { FC, MutableRefObject, useRef, useState } from 'react';
+import { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
 import { mockDataImg, mockDataImgType } from './MochData';
 
 import iconSearch from '../img/icon-search.png';
@@ -50,7 +50,7 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
 
-    setIconSliderIndex(slider);
+    // setIconSliderIndex(slider);
   };
 
   const pressDotsSlider = (index: number): void => {
@@ -74,42 +74,45 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
     setIconSliderIndex(0);
   };
 
-  const ItemImg: FC<ItemImgProps> = ({ item }) => {
-    const onShare = async () => {
-      try {
-        const result = await Share.share({
-          message: 'Special proposal',
-          url: item.link,
-          title: 'Link to google',
-        });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-            console.log('Shared successfully');
-          } else {
-            // shared
+  const ItemImg: FC<ItemImgProps> = useCallback(
+    ({ item }) => {
+      const onShare = async () => {
+        try {
+          const result = await Share.share({
+            message: 'Special proposal',
+            url: item.link,
+            title: 'Link to google',
+          });
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+              console.log('Shared successfully');
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+            console.log('Share dismissed');
           }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-          console.log('Share dismissed');
+        } catch (error: any) {
+          Alert.alert(error.message);
         }
-      } catch (error: any) {
-        Alert.alert(error.message);
-      }
-    };
+      };
 
-    return (
-      <Pressable onPress={onShare}>
-        <Image
-          style={{
-            height: windowDimensions.height,
-            width: windowDimensions.width,
-          }}
-          source={item.img}
-        />
-      </Pressable>
-    );
-  };
+      return (
+        <Pressable onPress={onShare}>
+          <Image
+            style={{
+              height: windowDimensions.height,
+              width: windowDimensions.width,
+            }}
+            source={item.img}
+          />
+        </Pressable>
+      );
+    },
+    [mockDataImg]
+  );
 
   const renderImgItem = ({ item }: ItemImgProps) => {
     return <ItemImg item={item} />;
