@@ -11,6 +11,7 @@ import React, {
   StyleSheet,
   Alert,
   Share,
+  ListRenderItem,
 } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { StatusBar } from 'expo-status-bar';
@@ -28,14 +29,22 @@ interface ItemImgProps {
 const windowDimensions = Dimensions.get('window');
 const ref: MutableRefObject<FlatList> = useRef(null);
 
-const HeaderComp: FC = () => {
+interface HeaderCompProps {
+  onTextInputChange: (value: string) => void;
+  textInput: string;
+}
+
+const HeaderComp: FC<HeaderCompProps> = ({ textInput, onTextInputChange }) => {
+  // const changedInputText = (value: string): void => {
+  //   onTextInputChange(value); // вызываем функцию обратного вызова
+  // };
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
-  const [textInput, setTextInput] = useState('');
 
   const changedInputText = (value: string): void => {
-    setTextInput(value);
+    // setTextInput(value);
+    onTextInputChange(value); // вызываем функцию обратного вызова
   };
 
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
@@ -43,19 +52,23 @@ const HeaderComp: FC = () => {
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
 
-    const pressDotsSlider = (index: number): void => {
-      ref.current.scrollToIndex({ index: index, animated: true });
-    };
-
-    const ItemSliderDots: FC<ItemImgProps> = ({ index }) => {
-      return (
-        <Pressable onPress={() => pressDotsSlider(index)}>
-          <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
-        </Pressable>
-      );
-    };
-
     setIconSliderIndex(slider);
+  };
+
+  const pressDotsSlider = (index: number): void => {
+    ref.current.scrollToIndex({ index: index, animated: true });
+  };
+
+  const ItemSliderDots: FC<ItemImgProps> = ({ index }) => {
+    return (
+      <Pressable onPress={() => pressDotsSlider(index)}>
+        <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
+      </Pressable>
+    );
+  };
+
+  const renderSliderDots: ListRenderItem<mockDataImgType> = ({ index }) => {
+    return <ItemSliderDots index={index} />;
   };
 
   const handleCloseModal = (): void => {

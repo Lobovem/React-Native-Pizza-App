@@ -31,6 +31,9 @@ import ColorsVariable from '../../../components/Colors';
 import { StatusBar } from 'expo-status-bar';
 import HeaderC from '../components/HeaderComp';
 
+import iconHeart from '../img/icon-heart.png';
+import HeaderComp from '../components/HeaderComp';
+
 interface ItemProps {
   item: MockDataType;
 }
@@ -73,7 +76,12 @@ const renderItem = ({ item }: ItemProps) => {
   return <Item item={item} />;
 };
 
-const HomeScreens: FC = () => {
+interface HomeScreensProps {
+  setTextInput: (value: string) => void;
+  textInput: string;
+}
+
+const HomeScreens: FC<HomeScreensProps> = ({ textInput, setTextInput }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [isEndReached, setIsEndReached] = useState(false);
@@ -120,7 +128,7 @@ const HomeScreens: FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderC textInput={textInput} />
+      <HeaderComp onTextInputChange={setTextInput} textInput={textInput} />
 
       <FlatList
         // ref={ref}
