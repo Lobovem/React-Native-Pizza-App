@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useState } from 'react';
 import { View, StyleSheet, Text, SafeAreaView, Image, FlatList } from 'react-native';
-import iconNew from '../img/icon-new.png';
-import iconCard from '../img/icon-card.png';
-import iconHeart from '../img/icon-heart.png';
+import iconNew from './img/icon-new.png';
+import iconCard from './img/icon-card.png';
+import iconHeart from './img/icon-heart.png';
 
-import { MockDataType, mockItemData, newItems, newItem } from '../components/MochData';
-import ColorsVariable from '../../../components/Colors';
-import { Header } from '../components/Header';
+import { MockDataType, mockItemData, newItems, newItem } from './components/MochData';
+import ColorsVariable from '../../components/Colors';
+import { Header } from './components/Header';
 
 interface IItemProps {
   item: MockDataType;

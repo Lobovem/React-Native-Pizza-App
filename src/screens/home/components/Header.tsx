@@ -42,13 +42,16 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const renderSliderDots: ListRenderItem<mockDataImgType> = useCallback(({ index }) => {
-    return (
-      <Pressable onPress={() => pressDotsSlider(index)}>
-        <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
-      </Pressable>
-    );
-  }, []);
+  const renderSliderDots: ListRenderItem<mockDataImgType> = useCallback(
+    ({ index }) => {
+      return (
+        <Pressable onPress={() => pressDotsSlider(index)}>
+          <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
+        </Pressable>
+      );
+    },
+    [iconSliderIndex]
+  );
 
   const handleCloseModal = (): void => {
     setModalVisible(!modalVisible);
@@ -120,7 +123,7 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
 
           <CustomTouchable
             withoutFeedback={true}
-            onPress={onSearch}
+            onPress={onVisible}
             style={styles.customWrapper}
           >
             <Image
