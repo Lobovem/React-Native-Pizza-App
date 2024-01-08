@@ -12,7 +12,7 @@ import React, {
 } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { StatusBar } from 'expo-status-bar';
-import { FC, MutableRefObject, useRef, useState } from 'react';
+import { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
 import { mockDataImg, mockDataImgType } from './MochData';
 
 import iconSearch from '../img/icon-search.png';
@@ -31,10 +31,6 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
 
   const ref: MutableRefObject<FlatList> = useRef(null);
 
-  const changedInputText = (value: string): void => {
-    setTextInput(value);
-  };
-
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
@@ -46,13 +42,13 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const renderSliderDots: ListRenderItem<mockDataImgType> = ({ index }) => {
+  const renderSliderDots: ListRenderItem<mockDataImgType> = useCallback(({ index }) => {
     return (
       <Pressable onPress={() => pressDotsSlider(index)}>
         <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
       </Pressable>
     );
-  };
+  }, []);
 
   const handleCloseModal = (): void => {
     setModalVisible(!modalVisible);
@@ -63,6 +59,14 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
     return <ItemSliderImg item={item} />;
   };
 
+  const onSearch = (): void => {
+    setIsActiveSearch(!isActiveSearch);
+  };
+
+  const onVisible = (): void => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
     <View style={styles.searchWrap}>
       {isActiveSearch && (
@@ -70,25 +74,20 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
           keyboardType="default"
           style={styles.textInput}
           placeholder="Search here"
-          onChangeText={changedInputText}
+          onChangeText={setTextInput}
           value={textInput}
         />
       )}
 
       <View style={styles.searchIconWrap}>
-        <CustomTouchable
-          withoutFeedback={true}
-          onPress={() => setIsActiveSearch(!isActiveSearch)}
-        >
+        <CustomTouchable withoutFeedback={true} onPress={onSearch}>
           <Image style={styles.searchIcon} source={iconSearch}></Image>
         </CustomTouchable>
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
+          onRequestClose={onVisible}
         >
           {/* <TouchableWithoutFeedback
           onPress={handleModalPress}
@@ -121,7 +120,7 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
 
           <CustomTouchable
             withoutFeedback={true}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={onSearch}
             style={styles.customWrapper}
           >
             <Image

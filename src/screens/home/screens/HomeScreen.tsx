@@ -2,25 +2,21 @@ import React, { FC, useCallback, useState } from 'react';
 import { View, StyleSheet, Text, SafeAreaView, Image, FlatList } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconCard from '../img/icon-card.png';
+import iconHeart from '../img/icon-heart.png';
+
 import { MockDataType, mockItemData, newItems, newItem } from '../components/MochData';
 import ColorsVariable from '../../../components/Colors';
-
-import iconHeart from '../img/icon-heart.png';
 import { Header } from '../components/Header';
 
 interface IItemProps {
   item: MockDataType;
 }
 
-interface IHomeScreensProps {
-  setTextInput: (value: string) => void;
-  textInput: string;
-}
-
-export const HomeScreens: FC<IHomeScreensProps> = ({ textInput, setTextInput }) => {
+export const HomeScreens: FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [isEndReached, setIsEndReached] = useState(false);
+  const [textInput, setTextInput] = useState('');
 
   const onRefresh = useCallback((): void => {
     setRefreshing(true);
