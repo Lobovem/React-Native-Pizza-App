@@ -50,7 +50,7 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
 
-    // setIconSliderIndex(slider);
+    setIconSliderIndex(slider);
   };
 
   const pressDotsSlider = (index: number): void => {
