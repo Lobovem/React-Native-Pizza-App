@@ -27,24 +27,22 @@ interface ItemImgProps {
 }
 
 const windowDimensions = Dimensions.get('window');
-const ref: MutableRefObject<FlatList> = useRef(null);
 
 interface HeaderCompProps {
-  onTextInputChange: (value: string) => void;
+  setTextInput: (value: string) => void;
   textInput: string;
 }
 
-const HeaderComp: FC<HeaderCompProps> = ({ textInput, onTextInputChange }) => {
-  // const changedInputText = (value: string): void => {
-  //   onTextInputChange(value); // вызываем функцию обратного вызова
-  // };
+const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
 
+  const ref: MutableRefObject<FlatList> = useRef(null);
+
   const changedInputText = (value: string): void => {
     // setTextInput(value);
-    onTextInputChange(value); // вызываем функцию обратного вызова
+    setTextInput(value); // вызываем функцию обратного вызова
   };
 
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {

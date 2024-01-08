@@ -1,35 +1,9 @@
-import React, { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  Image,
-  TextInput,
-  FlatList,
-  Modal,
-  Dimensions,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  Pressable,
-  ListRenderItem,
-  Share,
-  Alert,
-} from 'react-native';
+import React, { FC, useCallback, useState } from 'react';
+import { View, StyleSheet, Text, SafeAreaView, Image, FlatList } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconCard from '../img/icon-card.png';
-import {
-  MockDataType,
-  mockDataImgType,
-  mockDataImg,
-  mockItemData,
-  newItems,
-  newItem,
-} from '../components/MochData';
-import { CustomTouchable } from '../../../components/CustomTouchable';
+import { MockDataType, mockItemData, newItems, newItem } from '../components/MochData';
 import ColorsVariable from '../../../components/Colors';
-import { StatusBar } from 'expo-status-bar';
-import HeaderC from '../components/HeaderComp';
 
 import iconHeart from '../img/icon-heart.png';
 import HeaderComp from '../components/HeaderComp';
@@ -128,10 +102,9 @@ const HomeScreens: FC<HomeScreensProps> = ({ textInput, setTextInput }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComp onTextInputChange={setTextInput} textInput={textInput} />
+      <HeaderComp setTextInput={setTextInput} textInput={textInput} />
 
       <FlatList
-        // ref={ref}
         data={search(mockItemDatas, textInput)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
