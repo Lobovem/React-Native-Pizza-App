@@ -7,33 +7,24 @@ import React, {
   NativeSyntheticEvent,
   NativeScrollEvent,
   Pressable,
-  Dimensions,
   StyleSheet,
-  Alert,
-  Share,
   ListRenderItem,
 } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { StatusBar } from 'expo-status-bar';
-import { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
+import { FC, MutableRefObject, useRef, useState } from 'react';
 import { mockDataImg, mockDataImgType } from './MochData';
 
 import iconSearch from '../img/icon-search.png';
 import iconHeart from '../img/icon-heart.png';
+import { IItemSliderImgProps, ItemSliderImg } from './ItemSliderImg';
 
-interface ItemImgProps {
-  item?: mockDataImgType;
-  index?: number;
-}
-
-const windowDimensions = Dimensions.get('window');
-
-interface HeaderCompProps {
+interface IHeaderProps {
   setTextInput: (value: string) => void;
   textInput: string;
 }
 
-const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
+export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
@@ -41,15 +32,13 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
   const ref: MutableRefObject<FlatList> = useRef(null);
 
   const changedInputText = (value: string): void => {
-    // setTextInput(value);
-    setTextInput(value); // вызываем функцию обратного вызова
+    setTextInput(value);
   };
 
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
-
     setIconSliderIndex(slider);
   };
 
@@ -57,7 +46,7 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const ItemSliderDots: FC<ItemImgProps> = ({ index }) => {
+  const renderSliderDots: ListRenderItem<mockDataImgType> = ({ index }) => {
     return (
       <Pressable onPress={() => pressDotsSlider(index)}>
         <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
@@ -65,57 +54,13 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
     );
   };
 
-  const renderSliderDots: ListRenderItem<mockDataImgType> = ({ index }) => {
-    return <ItemSliderDots index={index} />;
-  };
-
   const handleCloseModal = (): void => {
     setModalVisible(!modalVisible);
     setIconSliderIndex(0);
   };
 
-  const ItemImg: FC<ItemImgProps> = useCallback(
-    ({ item }) => {
-      const onShare = async () => {
-        try {
-          const result = await Share.share({
-            message: 'Special proposal',
-            url: item.link,
-            title: 'Link to google',
-          });
-          if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-              // shared with activity type of result.activityType
-              console.log('Shared successfully');
-            } else {
-              // shared
-            }
-          } else if (result.action === Share.dismissedAction) {
-            // dismissed
-            console.log('Share dismissed');
-          }
-        } catch (error: any) {
-          Alert.alert(error.message);
-        }
-      };
-
-      return (
-        <Pressable onPress={onShare}>
-          <Image
-            style={{
-              height: windowDimensions.height,
-              width: windowDimensions.width,
-            }}
-            source={item.img}
-          />
-        </Pressable>
-      );
-    },
-    [mockDataImg]
-  );
-
-  const renderImgItem = ({ item }: ItemImgProps) => {
-    return <ItemImg item={item} />;
+  const renderImgItem = ({ item }: IItemSliderImgProps) => {
+    return <ItemSliderImg item={item} />;
   };
 
   return (
@@ -196,8 +141,6 @@ const HeaderComp: FC<HeaderCompProps> = ({ textInput, setTextInput }) => {
     </View>
   );
 };
-
-export default HeaderComp;
 
 const styles = StyleSheet.create({
   searchWrap: {

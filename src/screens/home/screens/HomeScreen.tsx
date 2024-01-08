@@ -1,71 +1,23 @@
 import React, { FC, useCallback, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  Image,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, Image, FlatList } from 'react-native';
 import iconNew from '../img/icon-new.png';
 import iconCard from '../img/icon-card.png';
 import { MockDataType, mockItemData, newItems, newItem } from '../components/MochData';
 import ColorsVariable from '../../../components/Colors';
 
 import iconHeart from '../img/icon-heart.png';
-import HeaderComp from '../components/HeaderComp';
+import { Header } from '../components/Header';
 
-interface ItemProps {
+interface IItemProps {
   item: MockDataType;
 }
 
-const windowDimensions = Dimensions.get('window');
-
-const Item: FC<ItemProps> = ({ item }) => (
-  <View style={styles.container}>
-    <View style={styles.item}>
-      <View>
-        <Image style={styles.img} source={item.img} />
-        {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-      </View>
-
-      <View style={styles.wrapRight}>
-        <View style={styles.wrapTitle}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Image style={styles.iconHeart} source={iconHeart}></Image>
-        </View>
-
-        <View style={styles.wrapPrice}>
-          <Text style={styles.priceNew}>{item.priceNew}</Text>
-          {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-        </View>
-
-        <View style={styles.wrapDesc}>
-          <Text numberOfLines={1} style={styles.desc}>
-            {item.description}
-          </Text>
-
-          <View style={styles.wrapCard}>
-            <Text style={styles.titleCard}>Buy</Text>
-            <Image style={styles.card} source={iconCard}></Image>
-          </View>
-        </View>
-      </View>
-    </View>
-  </View>
-);
-
-const renderItem = ({ item }: ItemProps) => {
-  return <Item item={item} />;
-};
-
-interface HomeScreensProps {
+interface IHomeScreensProps {
   setTextInput: (value: string) => void;
   textInput: string;
 }
 
-const HomeScreens: FC<HomeScreensProps> = ({ textInput, setTextInput }) => {
+export const HomeScreens: FC<IHomeScreensProps> = ({ textInput, setTextInput }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [isEndReached, setIsEndReached] = useState(false);
@@ -110,9 +62,45 @@ const HomeScreens: FC<HomeScreensProps> = ({ textInput, setTextInput }) => {
     });
   };
 
+  const renderItem = ({ item }: IItemProps) => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.item}>
+          <View>
+            <Image style={styles.img} source={item.img} />
+            {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+          </View>
+
+          <View style={styles.wrapRight}>
+            <View style={styles.wrapTitle}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Image style={styles.iconHeart} source={iconHeart}></Image>
+            </View>
+
+            <View style={styles.wrapPrice}>
+              <Text style={styles.priceNew}>{item.priceNew}</Text>
+              {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+            </View>
+
+            <View style={styles.wrapDesc}>
+              <Text numberOfLines={1} style={styles.desc}>
+                {item.description}
+              </Text>
+
+              <View style={styles.wrapCard}>
+                <Text style={styles.titleCard}>Buy</Text>
+                <Image style={styles.card} source={iconCard}></Image>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComp setTextInput={setTextInput} textInput={textInput} />
+      <Header setTextInput={setTextInput} textInput={textInput} />
 
       <FlatList
         data={search(mockItemDatas, textInput)}
@@ -248,5 +236,3 @@ const styles = StyleSheet.create({
   //   height: 800,
   // },
 });
-
-export default HomeScreens;

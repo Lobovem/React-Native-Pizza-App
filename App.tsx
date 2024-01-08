@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import HomeScreens from './src/screens/home/screens/HomeScreen';
+import { HomeScreens } from './src/screens/home/screens/HomeScreen';
 
 const App: FC = () => {
   const [textInput, setTextInput] = useState('');
