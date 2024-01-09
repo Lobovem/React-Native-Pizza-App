@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { FC } from 'react';
 import { MyTabs } from './MyTabs';
 
-export const Navigation = () => {
+export const Navigation: FC = () => {
   return (
     <NavigationContainer>
       <MyTabs />
