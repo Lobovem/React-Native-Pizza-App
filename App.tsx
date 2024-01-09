@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { HomeScreens } from './src/screens/home/HomeScreen';
+import { Navigation } from './src/navigation/Navigation';
 
 const App: FC = () => {
-  return <HomeScreens />;
+  return <Navigation />;
 };
 
 export default App;
