@@ -1,15 +1,33 @@
 import React, { FC, useCallback, useState } from 'react';
-import { View, StyleSheet, Text, SafeAreaView, Image, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  FlatList,
+  Pressable,
+} from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 
-import { MockDataType, mockItemData, newItems, newItem } from './components/MochData';
+import {
+  MockDataType,
+  mockItemData,
+  newItems,
+  newItem,
+} from './components/MochData';
 import ColorsVariable from '../../components/Colors';
 import { Header } from './components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 interface IItemProps {
   item: MockDataType;
+}
+
+interface INavigation {
+  navigate(screen: string): void;
 }
 
 export const HomeScreens: FC = () => {
@@ -17,6 +35,7 @@ export const HomeScreens: FC = () => {
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
+  const navigation: INavigation = useNavigation();
 
   const onRefresh = useCallback((): void => {
     setRefreshing(true);
@@ -49,7 +68,10 @@ export const HomeScreens: FC = () => {
   //   setModalVisible(!modalVisible);
   // };
 
-  const search = (mockItemData: MockDataType[], textInput: string): MockDataType[] => {
+  const search = (
+    mockItemData: MockDataType[],
+    textInput: string
+  ): MockDataType[] => {
     return mockItemData.filter((item) => {
       const title = item.title.toLocaleLowerCase();
       const inputText = textInput.trim().toLocaleLowerCase();
@@ -60,38 +82,48 @@ export const HomeScreens: FC = () => {
 
   const renderItem = ({ item }: IItemProps) => {
     return (
-      <View style={styles.container}>
-        <View style={styles.item}>
-          <View>
-            <Image style={styles.img} source={item.img} />
-            {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-          </View>
-
-          <View style={styles.wrapRight}>
-            <View style={styles.wrapTitle}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Image style={styles.iconHeart} source={iconHeart}></Image>
+      <Pressable onPress={onPress}>
+        <View style={styles.container}>
+          <View style={styles.item}>
+            <View>
+              <Image style={styles.img} source={item.img} />
+              {item.isNew && (
+                <Image style={styles.iconNew} source={iconNew}></Image>
+              )}
             </View>
 
-            <View style={styles.wrapPrice}>
-              <Text style={styles.priceNew}>{item.priceNew}</Text>
-              {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-            </View>
+            <View style={styles.wrapRight}>
+              <View style={styles.wrapTitle}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Image style={styles.iconHeart} source={iconHeart}></Image>
+              </View>
 
-            <View style={styles.wrapDesc}>
-              <Text numberOfLines={1} style={styles.desc}>
-                {item.description}
-              </Text>
+              <View style={styles.wrapPrice}>
+                <Text style={styles.priceNew}>{item.priceNew}</Text>
+                {item.sale && (
+                  <Text style={styles.priceOld}>{item.priceOld}</Text>
+                )}
+              </View>
 
-              <View style={styles.wrapCard}>
-                <Text style={styles.titleCard}>Buy</Text>
-                <Image style={styles.card} source={iconCard}></Image>
+              <View style={styles.wrapDesc}>
+                <Text numberOfLines={1} style={styles.desc}>
+                  {item.description}
+                </Text>
+
+                <View style={styles.wrapCard}>
+                  <Text style={styles.titleCard}>Buy</Text>
+                  <Image style={styles.card} source={iconCard}></Image>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
     );
+  };
+
+  const onPress = (): void => {
+    navigation.navigate('Pizza');
   };
 
   return (

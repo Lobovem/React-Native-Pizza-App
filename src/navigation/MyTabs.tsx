@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SettingsScreen } from '../screens/settings/SettingsScreen';
+import { SettingsScreen } from '../screens/home/SettingsScreen';
 import { HomeScreens } from '../screens/home/HomeScreen';
 import { Image, StyleSheet } from 'react-native';
 
@@ -13,8 +13,6 @@ interface ITabBarIconProps {
 const Tab = createBottomTabNavigator();
 
 const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
-  console.log(props);
-
   return (
     <Image
       style={styles.iconTab}
