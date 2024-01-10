@@ -20,22 +20,27 @@ import {
 } from './components/MochData';
 import ColorsVariable from '../../components/Colors';
 import { Header } from './components/Header';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 interface IItemProps {
   item: MockDataType;
 }
 
 interface INavigation {
-  navigate(screen: string): void;
+  navigate(screen: string, id: string): void;
 }
 
-export const HomeScreens: FC = () => {
+export const HomeScreens: any = ({ route }) => {
+  const { mockItemDatas, setMockItemData } = route.params;
+  console.log('mockItemDatas', mockItemDatas);
+
   const [refreshing, setRefreshing] = useState(false);
-  const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
   const navigation: INavigation = useNavigation();
+
+  // const route = useRoute();
+  // console.log(route.params);
 
   const onRefresh = useCallback((): void => {
     setRefreshing(true);
@@ -81,8 +86,10 @@ export const HomeScreens: FC = () => {
   };
 
   const renderItem = ({ item }: IItemProps) => {
+    console.log(item.id);
+
     return (
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => onPressItem(item.id)}>
         <View style={styles.container}>
           <View style={styles.item}>
             <View>
@@ -122,8 +129,9 @@ export const HomeScreens: FC = () => {
     );
   };
 
-  const onPress = (): void => {
-    navigation.navigate('Pizza');
+  const onPressItem = (id: string): void => {
+    // console.log(id);
+    navigation.navigate('Pizza', id);
   };
 
   return (
