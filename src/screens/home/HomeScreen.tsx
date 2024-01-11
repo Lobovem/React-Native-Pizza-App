@@ -13,7 +13,7 @@ import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 
 import {
-  MockDataType,
+  IMockDataType,
   mockItemData,
   newItems,
   newItem,
@@ -23,19 +23,19 @@ import { Header } from './components/Header';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 interface IItemProps {
-  item: MockDataType;
+  item: IMockDataType;
 }
 
-interface INavigation {
-  navigate(screen: string, id: string): void;
-}
+// interface INavigation {
+//   navigate(screen: string, id: string): void;
+// }
 
 export const HomeScreens: FC = () => {
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
-  const navigation: INavigation = useNavigation();
+  const navigation: any = useNavigation(); //TODO check out type to navigation
 
   // const route = useRoute();
   // console.log(route.params);
@@ -72,9 +72,9 @@ export const HomeScreens: FC = () => {
   // };
 
   const search = (
-    mockItemData: MockDataType[],
+    mockItemData: IMockDataType[],
     textInput: string
-  ): MockDataType[] => {
+  ): IMockDataType[] => {
     return mockItemData.filter((item) => {
       const title = item.title.toLocaleLowerCase();
       const inputText = textInput.trim().toLocaleLowerCase();
@@ -85,7 +85,7 @@ export const HomeScreens: FC = () => {
 
   const renderItem = ({ item }: IItemProps) => {
     return (
-      <Pressable onPress={() => onPressItem(item)}>
+      <Pressable onPress={() => onPressItem(item.id)}>
         <View style={styles.container}>
           <View style={styles.item}>
             <View>
@@ -125,8 +125,8 @@ export const HomeScreens: FC = () => {
     );
   };
 
-  const onPressItem = (item): void => {
-    navigation.navigate('Pizza', item);
+  const onPressItem = (id: string): void => {
+    navigation.navigate('Pizza', id);
   };
 
   return (

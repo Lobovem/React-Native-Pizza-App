@@ -1,41 +1,32 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import React, { FC } from 'react';
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MockDataType } from './components/MochData';
 
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
+import { IMockDataType, mockItemData } from './components/MochData';
 
 export const PizzaScreen: FC = () => {
   const route = useRoute();
-  const item = route.params;
-  // console.log(item);
+  const itemId = route.params;
 
-  // const filterItem = (mockItemDatas: MockDataType, id: string) => {
-  //   // mockItemDatas.filter((item) => {});
-  // };
+  const item: IMockDataType = mockItemData.find((item) => {
+    return item.id === itemId[0];
+  });
 
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.imgWrap}>
         <Image style={styles.img} source={item.img}></Image>
       </View>
-
+      r
       <View style={styles.wrapTitle}>
         <Text style={styles.title}>{item.title}</Text>
         <Image style={styles.iconHeart} source={iconHeart}></Image>
       </View>
       <Text style={styles.desc}>{item.description}</Text>
-
       <View style={styles.buyWrap}>
         <View>
           <Text>Price:</Text>
@@ -57,15 +48,10 @@ export const PizzaScreen: FC = () => {
 const styles = StyleSheet.create({
   wrap: {
     gap: 40,
-    // alignItems: 'center',
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
   },
   imgWrap: {
     alignItems: 'center',
-
-    // flex: 1,
-    // width: windowDimensions.width,
-    // height: 300,
   },
   img: {
     width: 400,
@@ -73,11 +59,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   wrapTitle: {
-    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    // alignSelf: 'baseline',
-    // justifyContent: 'space-between',
   },
   title: {
     fontSize: 20,
@@ -94,8 +77,9 @@ const styles = StyleSheet.create({
 
   buyWrap: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
+
+  wrapPrice: {},
   priceNew: {
     fontSize: 16,
     fontWeight: '800',
@@ -107,6 +91,8 @@ const styles = StyleSheet.create({
     color: ColorsVariable.red,
   },
   wrapCard: {
+    flex: 1,
+    justifyContent: 'flex-end',
     flexDirection: 'row',
     alignItems: 'center',
   },
