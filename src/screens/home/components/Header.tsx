@@ -13,7 +13,7 @@ import React, {
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { StatusBar } from 'expo-status-bar';
 import { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
-import { mockDataImg, mockDataImgType } from './MochData';
+import { mockDataImg, IMockDataImgType } from './MochData';
 
 import iconSearch from '../img/icon-search.png';
 import iconHeart from '../img/icon-heart.png';
@@ -42,11 +42,13 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const renderSliderDots: ListRenderItem<mockDataImgType> = useCallback(
+  const renderSliderDots: ListRenderItem<IMockDataImgType> = useCallback(
     ({ index }) => {
       return (
         <Pressable onPress={() => pressDotsSlider(index)}>
-          <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
+          <View
+            style={index === iconSliderIndex ? styles.dotsActive : styles.dots}
+          />
         </Pressable>
       );
     },

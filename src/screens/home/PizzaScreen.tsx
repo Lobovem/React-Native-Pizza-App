@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
-import { IMockDataType, mockItemData } from './components/MochData';
+import { IMockDataType } from './components/MochData';
 
 import iconBack from '../home/img/icon-back.png';
 
