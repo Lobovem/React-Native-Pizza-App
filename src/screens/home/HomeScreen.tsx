@@ -20,7 +20,7 @@ import {
 } from './components/MochData';
 import ColorsVariable from '../../components/Colors';
 import { Header } from './components/Header';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 interface IItemProps {
   item: IMockDataType;

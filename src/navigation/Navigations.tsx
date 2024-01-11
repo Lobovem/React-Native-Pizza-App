@@ -1,28 +1,22 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { MyTabs } from './MyTabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Settings } from 'react-native';
-import { HomeScreens } from '../screens/home/HomeScreen';
-import { SettingsScreen } from '../screens/home/SettingsScreen';
+import { PizzaScreen } from '../screens/home/PizzaScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// const Stack = createStackNavigator();
+const HomeStack = createNativeStackNavigator();
 
-// export function MyStack() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen name="Home" component={HomeScreens} />
-//         <Stack.Screen name="Settings" component={SettingsScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-// export const Navigations: FC = () => {
-//   return (
-//     // <NavigationContainer>
-//     <MyTabs />
-//     // </NavigationContainer>
-//   );
-// };
+export const Navigations: FC = () => {
+  return (
+    <NavigationContainer>
+      <HomeStack.Navigator>
+        <HomeStack.Screen
+          name="Home"
+          component={MyTabs}
+          options={{ headerShown: false }}
+        />
+        <HomeStack.Screen name="Pizza" component={PizzaScreen} />
+      </HomeStack.Navigator>
+    </NavigationContainer>
+  );
+};

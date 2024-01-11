@@ -42,7 +42,7 @@ export const MyTabs: FC = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
-        name="Home"
+        name="Main"
         options={{
           tabBarIcon: TabBarIconHome,
         }}

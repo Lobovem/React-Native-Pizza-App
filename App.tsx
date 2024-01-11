@@ -1,24 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SettingsScreen } from './src/screens/home/SettingsScreen';
-import { HomeScreens } from './src/screens/home/HomeScreen';
-import { PizzaScreen } from './src/screens/home/PizzaScreen';
 import { FC } from 'react';
-
-const HomeStack = createNativeStackNavigator();
+import { Navigations } from './src/navigation/Navigations';
 
 const App: FC = () => {
-  // return <Navigation />;
-  return (
-    <NavigationContainer>
-      <HomeStack.Navigator>
-        {/* <HomeStack.Screen name="Home" component={MyTabs} /> */}
-        <HomeStack.Screen name="Home" component={HomeScreens} />
-        <HomeStack.Screen name="Pizza" component={PizzaScreen} />
-        <HomeStack.Screen name="Setting" component={SettingsScreen} />
-      </HomeStack.Navigator>
-    </NavigationContainer>
-  );
+  return <Navigations />;
 };
 
 export default App;
