@@ -8,33 +8,22 @@ import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
 import { IMockDataType } from './components/MochData';
 
-import iconBack from '../home/img/icon-back.png';
-
 interface IRouteParams {
-  id: string;
-  mockItemDatas: IMockDataType[];
+  id?: string;
+  mockItemDatas?: IMockDataType[];
 }
 
 export const PizzaScreen: FC = () => {
   const route = useRoute();
-  const items: IRouteParams = route.params as IRouteParams;
+  const items: IRouteParams = route.params;
 
   const item: IMockDataType | undefined = items.mockItemDatas.find(
     (item: IMockDataType) => item.id === items.id
   );
 
-  const navigation = useNavigation();
-  const onBack = () => {
-    navigation.goBack();
-  };
-
   return (
     item && (
       <SafeAreaView style={styles.wrap}>
-        <Pressable style={styles.btnBack} onPress={onBack}>
-          <Image source={iconBack}></Image>
-        </Pressable>
-
         <View style={styles.imgWrap}>
           <Image style={styles.img} source={item.img}></Image>
         </View>
@@ -66,10 +55,7 @@ const styles = StyleSheet.create({
   wrap: {
     paddingHorizontal: 20,
   },
-  btnBack: {
-    marginTop: 10,
-    marginBottom: 10,
-  },
+
   imgWrap: {
     alignItems: 'center',
     marginBottom: 40,

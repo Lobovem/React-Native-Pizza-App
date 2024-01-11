@@ -20,22 +20,26 @@ import {
 } from './components/MochData';
 import ColorsVariable from '../../components/Colors';
 import { Header } from './components/Header';
-import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/Navigations';
 
 interface IItemProps {
   item: IMockDataType;
 }
 
-// interface INavigation {
-//   navigate(screen: string, id: string): void;
-// }
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
 
-export const HomeScreens: FC = () => {
+export const HomeScreens: FC<{ navigation: HomeScreenNavigationProp }> = ({
+  navigation,
+}) => {
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
-  const navigation: any = useNavigation(); //TODO check out type to navigation
+  // const navigation = useNavigation<ProfileScreenNavigationProp>(); //TODO check out type to navigation
 
   // const route = useRoute();
   // console.log(route.params);
