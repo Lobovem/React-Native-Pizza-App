@@ -15,7 +15,11 @@ export const Navigations: FC = () => {
           component={MyTabs}
           options={{ headerShown: false }}
         />
-        <HomeStack.Screen name="Pizza" component={PizzaScreen} />
+        <HomeStack.Screen
+          name="Pizza"
+          component={PizzaScreen}
+          options={{ headerShown: false }}
+        />
       </HomeStack.Navigator>
     </NavigationContainer>
   );

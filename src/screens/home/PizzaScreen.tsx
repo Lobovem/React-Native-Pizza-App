@@ -1,12 +1,14 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
 import { IMockDataType, mockItemData } from './components/MochData';
+
+import iconBack from '../home/img/icon-back.png';
 
 interface IRouteParams {
   id: string;
@@ -21,9 +23,18 @@ export const PizzaScreen: FC = () => {
     (item: IMockDataType) => item.id === items.id
   );
 
+  const navigation = useNavigation();
+  const onBack = () => {
+    navigation.goBack();
+  };
+
   return (
     item && (
       <SafeAreaView style={styles.wrap}>
+        <Pressable style={styles.btnBack} onPress={onBack}>
+          <Image source={iconBack}></Image>
+        </Pressable>
+
         <View style={styles.imgWrap}>
           <Image style={styles.img} source={item.img}></Image>
         </View>
@@ -33,9 +44,9 @@ export const PizzaScreen: FC = () => {
         </View>
         <Text style={styles.desc}>{item.description}</Text>
         <View style={styles.buyWrap}>
-          <View>
-            <Text>Price:</Text>
-            <View style={styles.wrapPrice}>
+          <View style={styles.wrapPrice}>
+            <Text style={styles.titlePrice}>Price:</Text>
+            <View>
               <Text style={styles.priceNew}>{item.priceNew}</Text>
               {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
             </View>
@@ -53,11 +64,15 @@ export const PizzaScreen: FC = () => {
 
 const styles = StyleSheet.create({
   wrap: {
-    gap: 40,
     paddingHorizontal: 20,
+  },
+  btnBack: {
+    marginTop: 10,
+    marginBottom: 10,
   },
   imgWrap: {
     alignItems: 'center',
+    marginBottom: 40,
   },
   img: {
     width: 400,
@@ -66,6 +81,7 @@ const styles = StyleSheet.create({
   },
   wrapTitle: {
     flexDirection: 'row',
+    marginBottom: 40,
     alignItems: 'center',
   },
   title: {
@@ -78,14 +94,18 @@ const styles = StyleSheet.create({
     height: 34,
   },
   desc: {
+    marginBottom: 40,
     fontSize: 16,
   },
 
   buyWrap: {
     flexDirection: 'row',
   },
-
   wrapPrice: {},
+  titlePrice: {
+    marginBottom: 6,
+    fontSize: 16,
+  },
   priceNew: {
     fontSize: 16,
     fontWeight: '800',
