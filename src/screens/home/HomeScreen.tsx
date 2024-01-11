@@ -30,10 +30,8 @@ interface INavigation {
   navigate(screen: string, id: string): void;
 }
 
-export const HomeScreens: any = ({ route }) => {
-  const { mockItemDatas, setMockItemData } = route.params;
-  console.log('mockItemDatas', mockItemDatas);
-
+export const HomeScreens: FC = () => {
+  const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
@@ -86,10 +84,8 @@ export const HomeScreens: any = ({ route }) => {
   };
 
   const renderItem = ({ item }: IItemProps) => {
-    console.log(item.id);
-
     return (
-      <Pressable onPress={() => onPressItem(item.id)}>
+      <Pressable onPress={() => onPressItem(item)}>
         <View style={styles.container}>
           <View style={styles.item}>
             <View>
@@ -129,9 +125,8 @@ export const HomeScreens: any = ({ route }) => {
     );
   };
 
-  const onPressItem = (id: string): void => {
-    // console.log(id);
-    navigation.navigate('Pizza', id);
+  const onPressItem = (item): void => {
+    navigation.navigate('Pizza', item);
   };
 
   return (

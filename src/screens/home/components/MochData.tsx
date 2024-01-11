@@ -20,8 +20,9 @@ export type mockDataImgType = {
 export const mockItemData: MockDataType[] = [
   {
     id: '1',
-    title: 'Pizza with meat',
-    description: 'Pizza with meat is really delision',
+    title: 'Pizza «Маргарита»',
+    description:
+      '«Маргарита» считается неаполитанской пиццей. Само слово переводится как морской или моряцкий. Однако это не значит, что пицца должна быть с морепродуктами. Возможно, пиццу так назвали в честь рыбаков, которые употребляли ее практически каждое утро.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.jpg'),
@@ -31,8 +32,9 @@ export const mockItemData: MockDataType[] = [
 
   {
     id: '2',
-    title: 'Pizza with cheese',
-    description: 'Pizza with cheese is really delision',
+    title: 'Pizza «Четыре сезона»',
+    description:
+      '«Четыре сезона» — одна из самых популярных и является лидером продаж. Имеется множество вариантов сочетаний начинок. В традиционной «Четыре сезона» три сектора (сезона) начинки заняты морепродуктами, а один грибами. Состав: тесто, моцареллла, помидоры, соленые грибы, варено-мороженные мидии, свежие или мороженные в панцире креветки, маслины, соленый анчоус, петрушка, чеснок, апельсин, соль, сахар, перец, вустерширский соус, соус табаско, свежий базилик, пармезан.',
     isNew: false,
     sale: false,
     img: require('../img/pizza-2.jpg'),
@@ -42,8 +44,9 @@ export const mockItemData: MockDataType[] = [
 
   {
     id: '3',
-    title: 'Pizza with becon',
-    description: 'Special proposal of pizza with becon',
+    title: 'Pizza «Маринара»',
+    description:
+      '«Маринара» считается неаполитанской пиццей. Само слово переводится как морской или моряцкий. Однако это не значит, что пицца должна быть с морепродуктами. Возможно, пиццу так назвали в честь рыбаков, которые употребляли ее практически каждое утро.',
     isNew: false,
     sale: true,
     img: require('../img/pizza-3.jpg'),
@@ -152,7 +155,11 @@ export const newItem: MockDataType = {
 };
 
 export const mockDataImg: mockDataImgType[] = [
-  { id: '0', img: require('../img/banner-1-burger.jpg'), link: 'http://google.com.ua' },
+  {
+    id: '0',
+    img: require('../img/banner-1-burger.jpg'),
+    link: 'http://google.com.ua',
+  },
   {
     id: '1',
     img: require('../img/banner-2-pizzaBase.jpg'),
