@@ -122,7 +122,7 @@ export const HomeScreens: FC = () => {
   };
 
   const onPressItem = (id: string): void => {
-    navigation.navigate('Pizza', id);
+    navigation.navigate('Pizza', { id, mockItemDatas });
   };
 
   return (

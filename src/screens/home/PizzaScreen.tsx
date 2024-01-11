@@ -8,37 +8,46 @@ import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
 import { IMockDataType, mockItemData } from './components/MochData';
 
+interface IRouteParams {
+  id: string;
+  mockItemDatas: IMockDataType[];
+}
+
 export const PizzaScreen: FC = () => {
   const route = useRoute();
-  const itemId = route.params;
+  const items: IRouteParams = route.params as IRouteParams;
 
-  const item: IMockDataType = mockItemData.find((item) => item.id === itemId[0]);
+  const item: IMockDataType | undefined = items.mockItemDatas.find(
+    (item: IMockDataType) => item.id === items.id
+  );
 
   return (
-    <SafeAreaView style={styles.wrap}>
-      <View style={styles.imgWrap}>
-        <Image style={styles.img} source={item.img}></Image>
-      </View>
-      <View style={styles.wrapTitle}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Image style={styles.iconHeart} source={iconHeart}></Image>
-      </View>
-      <Text style={styles.desc}>{item.description}</Text>
-      <View style={styles.buyWrap}>
-        <View>
-          <Text>Price:</Text>
-          <View style={styles.wrapPrice}>
-            <Text style={styles.priceNew}>{item.priceNew}</Text>
-            {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+    item && (
+      <SafeAreaView style={styles.wrap}>
+        <View style={styles.imgWrap}>
+          <Image style={styles.img} source={item.img}></Image>
+        </View>
+        <View style={styles.wrapTitle}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Image style={styles.iconHeart} source={iconHeart}></Image>
+        </View>
+        <Text style={styles.desc}>{item.description}</Text>
+        <View style={styles.buyWrap}>
+          <View>
+            <Text>Price:</Text>
+            <View style={styles.wrapPrice}>
+              <Text style={styles.priceNew}>{item.priceNew}</Text>
+              {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+            </View>
+          </View>
+
+          <View style={styles.wrapCard}>
+            <Text style={styles.titleCard}>Buy</Text>
+            <Image style={styles.card} source={iconCard}></Image>
           </View>
         </View>
-
-        <View style={styles.wrapCard}>
-          <Text style={styles.titleCard}>Buy</Text>
-          <Image style={styles.card} source={iconCard}></Image>
-        </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    )
   );
 };
 
