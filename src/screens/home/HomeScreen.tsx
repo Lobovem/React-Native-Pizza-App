@@ -90,9 +90,7 @@ export const HomeScreens: FC = () => {
           <View style={styles.item}>
             <View>
               <Image style={styles.img} source={item.img} />
-              {item.isNew && (
-                <Image style={styles.iconNew} source={iconNew}></Image>
-              )}
+              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
             </View>
 
             <View style={styles.wrapRight}>
@@ -103,9 +101,7 @@ export const HomeScreens: FC = () => {
 
               <View style={styles.wrapPrice}>
                 <Text style={styles.priceNew}>{item.priceNew}</Text>
-                {item.sale && (
-                  <Text style={styles.priceOld}>{item.priceOld}</Text>
-                )}
+                {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
               </View>
 
               <View style={styles.wrapDesc}>

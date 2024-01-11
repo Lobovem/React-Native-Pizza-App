@@ -12,16 +12,13 @@ export const PizzaScreen: FC = () => {
   const route = useRoute();
   const itemId = route.params;
 
-  const item: IMockDataType = mockItemData.find((item) => {
-    return item.id === itemId[0];
-  });
+  const item: IMockDataType = mockItemData.find((item) => item.id === itemId[0]);
 
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.imgWrap}>
         <Image style={styles.img} source={item.img}></Image>
       </View>
-      r
       <View style={styles.wrapTitle}>
         <Text style={styles.title}>{item.title}</Text>
         <Image style={styles.iconHeart} source={iconHeart}></Image>
