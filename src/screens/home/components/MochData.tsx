@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 
-export interface IMockDataType {
+export interface IMockData {
   id: string;
   title: string;
   description: string;
@@ -11,13 +11,13 @@ export interface IMockDataType {
   priceNew: string;
 }
 
-export interface IMockDataImgType {
+export interface IMockDataImg {
   id: string;
   img: ImageSourcePropType;
   link: string;
 }
 
-export const mockItemData: IMockDataType[] = [
+export const mockItemData: IMockData[] = [
   {
     id: '1',
     title: 'Pizza «Маргарита»',
@@ -110,7 +110,7 @@ export const mockItemData: IMockDataType[] = [
   },
 ];
 
-export const newItems: IMockDataType[] = [
+export const newItems: IMockData[] = [
   {
     id: '9',
     title: 'New pizza 2',
@@ -143,7 +143,7 @@ export const newItems: IMockDataType[] = [
   },
 ];
 
-export const newItem: IMockDataType = {
+export const newItem: IMockData = {
   id: '0',
   title: 'New pizza',
   description: 'Pizza is really delision',
@@ -154,7 +154,7 @@ export const newItem: IMockDataType = {
   priceNew: '100 UAH',
 };
 
-export const mockDataImg: IMockDataImgType[] = [
+export const mockDataImg: IMockDataImg[] = [
   {
     id: '0',
     img: require('../img/banner-1-burger.jpg'),

@@ -9,14 +9,14 @@ import {
   ViewStyle,
 } from 'react-native';
 
-type CustomTouchableProps = {
+type CustomTouchablePropsType = {
   onPress(): void;
   children?: ReactNode;
   style?: StyleProp<ViewStyle>;
   withoutFeedback: boolean;
 } & (PressableProps | TouchableWithoutFeedbackProps);
 
-export const CustomTouchable: FC<CustomTouchableProps> = ({
+export const CustomTouchable: FC<CustomTouchablePropsType> = ({
   onPress,
   children,
   style,

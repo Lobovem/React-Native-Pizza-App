@@ -12,37 +12,28 @@ import iconNew from './img/icon-new.png';
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 
-import {
-  IMockDataType,
-  mockItemData,
-  newItems,
-  newItem,
-} from './components/MochData';
+import { IMockData, mockItemData, newItems, newItem } from './components/MochData';
 import ColorsVariable from '../../components/Colors';
 import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/Navigations';
+import { RootStackParamListType } from '../../navigation/HomeStack';
 
 interface IItemProps {
-  item: IMockDataType;
+  item: IMockData;
 }
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
+type HomeScreenNavigationPropType = NativeStackNavigationProp<
+  RootStackParamListType,
   'Home'
 >;
 
-export const HomeScreens: FC<{ navigation: HomeScreenNavigationProp }> = ({
+export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   navigation,
 }) => {
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
-  // const navigation = useNavigation<ProfileScreenNavigationProp>(); //TODO check out type to navigation
-
-  // const route = useRoute();
-  // console.log(route.params);
 
   const onRefresh = useCallback((): void => {
     setRefreshing(true);
@@ -75,10 +66,7 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationProp }> = ({
   //   setModalVisible(!modalVisible);
   // };
 
-  const search = (
-    mockItemData: IMockDataType[],
-    textInput: string
-  ): IMockDataType[] => {
+  const search = (mockItemData: IMockData[], textInput: string): IMockData[] => {
     return mockItemData.filter((item) => {
       const title = item.title.toLocaleLowerCase();
       const inputText = textInput.trim().toLocaleLowerCase();

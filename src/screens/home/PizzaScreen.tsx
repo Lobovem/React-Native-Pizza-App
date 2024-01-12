@@ -1,25 +1,19 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
-import { IMockDataType } from './components/MochData';
-
-export type RootStackParamList = {
-  Pizza: { id: string; mockItemDatas: IMockDataType[] }; // Parameters for the Pizza screen
-  // ... other screens
-};
+import { IMockData } from './components/MochData';
+import { RootStackParamListType } from '../../navigation/HomeStack';
 
 export const PizzaScreen: FC = () => {
-  const route = useRoute<RouteProp<RootStackParamList, 'Pizza'>>();
+  const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();
   const items = route.params;
 
-  const item = items.mockItemDatas.find(
-    (item: IMockDataType) => item.id === items.id
-  );
+  const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
 
   return (
     item && (

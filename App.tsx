@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Navigations } from './src/navigation/Navigations';
+import { Navigation } from './src/navigation/Navigation';
 
 const App: FC = () => {
-  return <Navigations />;
+  return <Navigation />;
 };
 
 export default App;

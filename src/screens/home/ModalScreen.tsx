@@ -1,7 +1,6 @@
-import React, { MutableRefObject, useCallback, useRef, useState } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import {
   ListRenderItem,
-  Modal,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
@@ -9,15 +8,23 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import { IMockDataImgType, mockDataImg } from './components/MochData';
+import { IMockDataImg, mockDataImg } from './components/MochData';
 import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
 import { StatusBar } from 'expo-status-bar';
 import { CustomTouchable } from '../../components/CustomTouchable';
 import { FlatList } from 'react-native-gesture-handler';
 import { FlatList as RNFlatList } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamListType } from '../../navigation/HomeStack';
 
-export const ModalScreen = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+type ModalScreenNavigationPropType = NativeStackNavigationProp<
+  RootStackParamListType,
+  'Modal'
+>;
+
+export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
+  navigation,
+}) => {
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
 
   const ref = useRef<RNFlatList>(null);
@@ -33,16 +40,12 @@ export const ModalScreen = ({ navigation }) => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const onVisible = (): void => {
-    setModalVisible(!modalVisible);
-  };
-
-  const handleCloseModal = (): void => {
+  const closeModal = (): void => {
     navigation.navigate('Home');
     setIconSliderIndex(0);
   };
 
-  const renderSliderDots: ListRenderItem<IMockDataImgType> = useCallback(
+  const renderSliderDots: ListRenderItem<IMockDataImg> = useCallback(
     ({ index }) => {
       return (
         <Pressable onPress={() => pressDotsSlider(index)}>
@@ -85,7 +88,7 @@ export const ModalScreen = ({ navigation }) => {
 
       <CustomTouchable
         withoutFeedback={true}
-        onPress={handleCloseModal}
+        onPress={closeModal}
         style={styles.customWrapper}
       >
         <Image

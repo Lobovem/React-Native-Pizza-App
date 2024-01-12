@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Pressable, Share, Image, Dimensions, Alert } from 'react-native';
-import { IMockDataImgType } from './MochData';
+import { IMockDataImg } from './MochData';
 
 export interface IItemSliderImgProps {
-  item?: IMockDataImgType;
-  index?: number;
+  item: IMockDataImg;
+  // index: number;
 }
 
 const windowDimensions = Dimensions.get('window');

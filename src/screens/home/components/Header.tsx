@@ -1,22 +1,8 @@
-import React, {
-  FlatList,
-  Modal,
-  TextInput,
-  View,
-  Image,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  Pressable,
-  StyleSheet,
-  ListRenderItem,
-} from 'react-native';
+import React, { TextInput, View, Image, StyleSheet } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
-import { StatusBar } from 'expo-status-bar';
-import { FC, MutableRefObject, useCallback, useRef, useState } from 'react';
-import { mockDataImg, IMockDataImgType } from './MochData';
+import { FC, useState } from 'react';
 
 import iconSearch from '../img/icon-search.png';
-import { IItemSliderImgProps, ItemSliderImg } from './ItemSliderImg';
 
 interface IHeaderProps {
   setTextInput: (value: string) => void;
