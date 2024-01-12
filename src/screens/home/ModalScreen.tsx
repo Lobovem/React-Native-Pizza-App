@@ -7,18 +7,20 @@ import {
   Pressable,
   View,
   StyleSheet,
+  Image,
 } from 'react-native';
 import { IMockDataImgType, mockDataImg } from './components/MochData';
-import { FlatList } from 'react-native-gesture-handler';
 import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomTouchable } from '../../components/CustomTouchable';
+import { FlatList } from 'react-native-gesture-handler';
+import { FlatList as RNFlatList } from 'react-native';
 
-export const ModalScreen = () => {
+export const ModalScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
 
-  const ref: MutableRefObject<FlatList> = useRef(null);
+  const ref = useRef<RNFlatList>(null);
 
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
@@ -36,7 +38,7 @@ export const ModalScreen = () => {
   };
 
   const handleCloseModal = (): void => {
-    setModalVisible(!modalVisible);
+    navigation.navigate('Home');
     setIconSliderIndex(0);
   };
 
@@ -58,21 +60,7 @@ export const ModalScreen = () => {
   };
 
   return (
-    <SafeAreaView>
-      {/* <View style={styles.searchIconWrap}> */}
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={onVisible}
-      > */}
-      {/* <TouchableWithoutFeedback
-    onPress={handleModalPress}
-    style={styles.modalOverlay}
-  > */}
-      {/* <View style={styles.modalOverlay}>
-      <View style={styles.modalContent}> */}
-
+    <View>
       <FlatList
         style={styles.wrapBanner}
         data={mockDataImg}
@@ -86,34 +74,26 @@ export const ModalScreen = () => {
       />
       <StatusBar style="light" />
 
-      {/* <View style={styles.wrapDots}>
+      <View style={styles.wrapDots}>
         <FlatList
           data={mockDataImg}
           renderItem={renderSliderDots}
           keyExtractor={(item) => item.id}
           horizontal
         />
-      </View> */}
+      </View>
 
-      {/* <CustomTouchable
+      <CustomTouchable
         withoutFeedback={true}
-        onPress={onVisible}
+        onPress={handleCloseModal}
         style={styles.customWrapper}
       >
         <Image
           style={styles.modalIconClose}
           source={require('../home/img/icon-close.png')}
         />
-      </CustomTouchable> */}
-      {/* </View>
-    </View> */}
-      {/* </TouchableWithoutFeedback> */}
-      {/* <Image source={require('../img/')}></Image> */}
-      {/* </Modal> */}
-      {/* <CustomTouchable withoutFeedback={true} onPress={handleCloseModal}>
-        <Image style={styles.searchHeart} source={iconHeart}></Image>
-      </CustomTouchable> */}
-    </SafeAreaView>
+      </CustomTouchable>
+    </View>
   );
 };
 

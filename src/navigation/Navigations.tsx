@@ -36,7 +36,9 @@ export const Navigations: FC = () => {
           />
         </HomeStack.Group>
 
-        <HomeStack.Group screenOptions={{ presentation: 'modal' }}>
+        <HomeStack.Group
+          screenOptions={{ presentation: 'containedModal', headerShown: false }}
+        >
           <HomeStack.Screen name="Modal" component={ModalScreen} />
         </HomeStack.Group>
       </HomeStack.Navigator>
