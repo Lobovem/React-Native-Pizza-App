@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsScreen } from '../screens/home/SettingsScreen';
 import { Image, StyleSheet } from 'react-native';
-import { HomeStack } from './HomeStack';
+import { HomeStackScreen } from './HomeStackScreen';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -46,7 +46,7 @@ export const HomeTabs: FC = () => {
         options={{
           tabBarIcon: TabBarIconHome,
         }}
-        component={HomeStack}
+        component={HomeStackScreen}
       />
       <Tab.Screen
         name="Settings"

@@ -16,7 +16,7 @@ import { IMockData, mockItemData, newItems, newItem } from './components/MochDat
 import ColorsVariable from '../../components/Colors';
 import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamListType } from '../../navigation/HomeStack';
+import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 interface IItemProps {
   item: IMockData;

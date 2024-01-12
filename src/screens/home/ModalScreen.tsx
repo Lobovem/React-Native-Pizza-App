@@ -15,7 +15,7 @@ import { CustomTouchable } from '../../components/CustomTouchable';
 import { FlatList } from 'react-native-gesture-handler';
 import { FlatList as RNFlatList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamListType } from '../../navigation/HomeStack';
+import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
   RootStackParamListType,

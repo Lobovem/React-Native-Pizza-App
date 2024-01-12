@@ -12,30 +12,34 @@ export type RootStackParamListType = {
   Modal: { id: string; mockItemDatas: IMockData[] }; // Parameters for the Pizza screen
   // ... other screens
 };
+const HomeStack = createNativeStackNavigator();
 
-export const HomeStack: FC = () => {
-  const HomeStack = createNativeStackNavigator();
+export const HomeStackScreen: FC = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="Home"
-        component={HomeScreens}
-        options={{ headerShown: false }}
-      />
-      <HomeStack.Screen
-        name="Pizza"
-        component={PizzaScreen}
-        options={{
-          headerStyle: { backgroundColor: ColorsVariable.greyLight },
-          headerTitle: '',
-        }}
-      />
+      <HomeStack.Group>
+        <HomeStack.Screen
+          name="Home"
+          component={HomeScreens}
+          options={{ headerShown: false }}
+        />
+        <HomeStack.Screen
+          name="Pizza"
+          component={PizzaScreen}
+          options={{
+            headerStyle: { backgroundColor: ColorsVariable.greyLight },
+            headerTitle: '',
+          }}
+        />
+      </HomeStack.Group>
 
-      <HomeStack.Screen
-        name="Modal"
-        options={{ presentation: 'containedModal', headerShown: false }}
-        component={ModalScreen}
-      />
+      <HomeStack.Group>
+        <HomeStack.Screen
+          name="Modal"
+          options={{ presentation: 'modal', headerShown: false }}
+          component={ModalScreen}
+        />
+      </HomeStack.Group>
     </HomeStack.Navigator>
   );
 };

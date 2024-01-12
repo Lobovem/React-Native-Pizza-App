@@ -7,7 +7,7 @@ import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
 import { IMockData } from './components/MochData';
-import { RootStackParamListType } from '../../navigation/HomeStack';
+import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 export const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();

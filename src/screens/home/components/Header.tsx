@@ -6,7 +6,7 @@ import iconHeart from '../img/icon-heart.png';
 import iconSearch from '../img/icon-search.png';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamListType } from '../../../navigation/HomeStack';
+import { RootStackParamListType } from '../../../navigation/HomeStackScreen';
 
 interface IHeaderProps {
   setTextInput: (value: string) => void;
