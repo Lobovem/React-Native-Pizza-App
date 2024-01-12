@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const SettingsScreen = () => {
+export const SettingsScreen: FC = () => {
   return (
     <SafeAreaView style={styles.wrap}>
       <Text>Settings Screen</Text>
