@@ -121,10 +121,6 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     <SafeAreaView style={styles.container}>
       <Header setTextInput={setTextInput} textInput={textInput} />
 
-      <Pressable onPress={() => navigation.navigate('Modal')}>
-        <Image source={iconHeart}></Image>
-      </Pressable>
-
       <FlatList
         data={search(mockItemDatas, textInput)}
         renderItem={renderItem}

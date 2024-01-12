@@ -1,19 +1,32 @@
-import React, { TextInput, View, Image, StyleSheet } from 'react-native';
+import React, { TextInput, View, Image, StyleSheet, Pressable } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { FC, useState } from 'react';
 
+import iconHeart from '../img/icon-heart.png';
 import iconSearch from '../img/icon-search.png';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamListType } from '../../../navigation/HomeStack';
 
 interface IHeaderProps {
   setTextInput: (value: string) => void;
   textInput: string;
 }
 
+type ModalScreenNavigationPropType = NativeStackNavigationProp<
+  RootStackParamListType,
+  'Modal'
+>;
+
 export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
-
+  const navigation = useNavigation<ModalScreenNavigationPropType>();
   const onSearch = (): void => {
     setIsActiveSearch(!isActiveSearch);
+  };
+
+  const openModalScreen = () => {
+    navigation.navigate('Modal');
   };
 
   return (
@@ -31,6 +44,10 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
       <View style={styles.searchIconWrap}>
         <CustomTouchable withoutFeedback={true} onPress={onSearch}>
           <Image style={styles.searchIcon} source={iconSearch}></Image>
+        </CustomTouchable>
+
+        <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
+          <Image style={styles.heartIcon} source={iconHeart}></Image>
         </CustomTouchable>
       </View>
     </View>
@@ -56,7 +73,7 @@ const styles = StyleSheet.create({
     height: 30,
   },
 
-  searchHeart: {
+  heartIcon: {
     width: 30,
     height: 30,
   },
