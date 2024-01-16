@@ -1,6 +1,6 @@
 import React, { TextInput, View, Image, StyleSheet, Pressable } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 
 import iconHeart from '../img/icon-heart.png';
 import iconSearch from '../img/icon-search.png';
@@ -18,9 +18,7 @@ type ModalScreenNavigationPropType = NativeStackNavigationProp<
   'Modal'
 >;
 
-export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
-  console.log('header');
-
+export const Header: FC<IHeaderProps> = memo(({ textInput, setTextInput }) => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const navigation = useNavigation<ModalScreenNavigationPropType>();
   const onSearch = (): void => {
@@ -54,7 +52,7 @@ export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   searchWrap: {

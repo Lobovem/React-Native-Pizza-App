@@ -35,7 +35,6 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
-  const [set, setPress] = useState(false);
 
   const filterData = useMemo(() => {
     return mockItemDatas.filter((item) => {
@@ -76,10 +75,6 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   //   }
   //   setModalVisible(!modalVisible);
   // };
-
-  const press = () => setPress(true);
-
-  console.log('render home');
 
   const renderItem = useCallback(
     ({ item }: IItemProps) => {
@@ -129,7 +124,6 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   return (
     <SafeAreaView style={styles.container}>
       <Header setTextInput={setTextInput} textInput={textInput} />
-      <Button title="press" onPress={press}></Button>
 
       <FlatList
         data={filterData}
