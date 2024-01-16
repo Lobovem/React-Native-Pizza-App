@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   Pressable,
+  Button,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconCard from './img/icon-card.png';
@@ -34,8 +35,18 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
+  const [set, setPress] = useState(false);
 
-  const onRefresh = useCallback((): void => {
+  const filterData = useMemo(() => {
+    return mockItemDatas.filter((item) => {
+      const title = item.title.toLocaleLowerCase();
+      const inputText = textInput.trim().toLocaleLowerCase();
+
+      return title.includes(inputText);
+    });
+  }, [textInput, mockItemDatas]);
+
+  const onRefresh = (): void => {
     setRefreshing(true);
     setTimeout(() => {
       setMockItemData([newItem, ...mockItemDatas]);
@@ -43,7 +54,7 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
       setRefreshing(false);
       setIsEndReached(false);
     }, 1000);
-  }, []);
+  };
 
   const addNewItem = (): void => {
     if (!isEndReached) {
@@ -66,52 +77,50 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   //   setModalVisible(!modalVisible);
   // };
 
-  const search = (mockItemData: IMockData[], textInput: string): IMockData[] => {
-    return mockItemData.filter((item) => {
-      const title = item.title.toLocaleLowerCase();
-      const inputText = textInput.trim().toLocaleLowerCase();
+  const press = () => setPress(true);
 
-      return title.includes(inputText);
-    });
-  };
+  console.log('render home');
 
-  const renderItem = ({ item }: IItemProps) => {
-    return (
-      <Pressable onPress={() => onPressItem(item.id)}>
-        <View style={styles.container}>
-          <View style={styles.item}>
-            <View>
-              <Image style={styles.img} source={item.img} />
-              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-            </View>
-
-            <View style={styles.wrapRight}>
-              <View style={styles.wrapTitle}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Image style={styles.iconHeart} source={iconHeart}></Image>
+  const renderItem = useCallback(
+    ({ item }: IItemProps) => {
+      return (
+        <Pressable onPress={() => onPressItem(item.id)}>
+          <View style={styles.container}>
+            <View style={styles.item}>
+              <View>
+                <Image style={styles.img} source={item.img} />
+                {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
               </View>
 
-              <View style={styles.wrapPrice}>
-                <Text style={styles.priceNew}>{item.priceNew}</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-              </View>
+              <View style={styles.wrapRight}>
+                <View style={styles.wrapTitle}>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Image style={styles.iconHeart} source={iconHeart}></Image>
+                </View>
 
-              <View style={styles.wrapDesc}>
-                <Text numberOfLines={1} style={styles.desc}>
-                  {item.description}
-                </Text>
+                <View style={styles.wrapPrice}>
+                  <Text style={styles.priceNew}>{item.priceNew}</Text>
+                  {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+                </View>
 
-                <View style={styles.wrapCard}>
-                  <Text style={styles.titleCard}>Buy</Text>
-                  <Image style={styles.card} source={iconCard}></Image>
+                <View style={styles.wrapDesc}>
+                  <Text numberOfLines={1} style={styles.desc}>
+                    {item.description}
+                  </Text>
+
+                  <View style={styles.wrapCard}>
+                    <Text style={styles.titleCard}>Buy</Text>
+                    <Image style={styles.card} source={iconCard}></Image>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
-        </View>
-      </Pressable>
-    );
-  };
+        </Pressable>
+      );
+    },
+    [mockItemDatas, textInput]
+  );
 
   const onPressItem = (id: string): void => {
     navigation.navigate('Pizza', { id, mockItemDatas });
@@ -120,9 +129,10 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   return (
     <SafeAreaView style={styles.container}>
       <Header setTextInput={setTextInput} textInput={textInput} />
+      <Button title="press" onPress={press}></Button>
 
       <FlatList
-        data={search(mockItemDatas, textInput)}
+        data={filterData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         refreshing={refreshing}

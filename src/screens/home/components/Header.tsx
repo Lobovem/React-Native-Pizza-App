@@ -19,6 +19,8 @@ type ModalScreenNavigationPropType = NativeStackNavigationProp<
 >;
 
 export const Header: FC<IHeaderProps> = ({ textInput, setTextInput }) => {
+  console.log('header');
+
   const [isActiveSearch, setIsActiveSearch] = useState(false);
   const navigation = useNavigation<ModalScreenNavigationPropType>();
   const onSearch = (): void => {

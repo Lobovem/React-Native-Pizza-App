@@ -12,9 +12,10 @@ export type RootStackParamListType = {
   Modal: { id: string; mockItemDatas: IMockData[] }; // Parameters for the Pizza screen
   // ... other screens
 };
-const HomeStack = createNativeStackNavigator();
 
 export const HomeStackScreen: FC = () => {
+  const HomeStack = createNativeStackNavigator();
+
   return (
     <HomeStack.Navigator>
       <HomeStack.Group>
