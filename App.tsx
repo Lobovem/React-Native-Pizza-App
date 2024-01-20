@@ -17,6 +17,12 @@ const App: FC = () => {
         <Navigation />
       )}
     </>
+
+    // <>
+    //   <ImageBackground source={hiddenBackground} style={styles.wrap} />
+
+    //   {app !== 'inactive' && <Navigation />}
+    // </>
   );
 };
 
