@@ -3,7 +3,7 @@ import { Navigation } from './src/navigation/Navigation';
 import { useAppState } from './src/hooks/useAppState';
 import { ImageBackground, StyleSheet } from 'react-native';
 
-import hiddenBackground from './src/screens/home/img/hidden-background.jpeg';
+import hiddenBackground from './src/screens/home/img/hidden-background.png';
 
 const App: FC = () => {
   const app = useAppState();
@@ -28,9 +28,15 @@ const App: FC = () => {
 
 const styles = StyleSheet.create({
   wrap: {
-    ...StyleSheet.absoluteFillObject,
-    opacity: 0.5,
-    resizeMode: 'cover',
+    // ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 250,
+    bottom: 0,
+    opacity: 0.3,
+    height: '65%',
+    // resizeMode: 'center',
   },
 });
 
