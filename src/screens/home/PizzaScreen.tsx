@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import iconCard from './img/icon-card.png';
@@ -9,11 +9,17 @@ import ColorsVariable from '../../components/Colors';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
+import orderStore from '../../store/Orders';
+
 export const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();
   const items = route.params;
 
   const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
+
+  const addToOrder = (item: IMockData): void => {
+    orderStore.setOrders(item);
+  };
 
   return (
     item && (
@@ -35,10 +41,12 @@ export const PizzaScreen: FC = () => {
             </View>
           </View>
 
-          <View style={styles.wrapCard}>
-            <Text style={styles.titleCard}>Buy</Text>
-            <Image style={styles.card} source={iconCard}></Image>
-          </View>
+          <Pressable style={styles.boxCard} onPress={() => addToOrder(item)}>
+            <View style={styles.wrapCard}>
+              <Text style={styles.titleCard}>Buy</Text>
+              <Image style={styles.card} source={iconCard}></Image>
+            </View>
+          </Pressable>
         </View>
       </SafeAreaView>
     )
@@ -95,6 +103,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textDecorationLine: 'line-through',
     color: ColorsVariable.red,
+  },
+
+  boxCard: {
+    flex: 1,
+    flexDirection: 'row',
   },
   wrapCard: {
     flex: 1,

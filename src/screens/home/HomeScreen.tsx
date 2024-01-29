@@ -19,6 +19,8 @@ import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
+import orderStore from '../../store/Orders';
+
 interface IItemProps {
   item: IMockData;
 }
@@ -76,42 +78,51 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   //   setModalVisible(!modalVisible);
   // };
 
+  const addToOrder = (item: IMockData): void => {
+    orderStore.setOrders(item);
+  };
+
   const renderItem = useCallback(
     ({ item }: IItemProps) => {
       return (
-        <Pressable onPress={() => onPressItem(item.id)}>
-          <View style={styles.container}>
-            <View style={styles.item}>
-              <View>
+        <View style={styles.container}>
+          <View style={styles.item}>
+            <View>
+              <Pressable onPress={() => onPressItem(item.id)}>
                 <Image style={styles.img} source={item.img} />
-                {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+              </Pressable>
+              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+            </View>
+
+            <View style={styles.wrapRight}>
+              <View style={styles.wrapTitle}>
+                <Pressable style={styles.titleBox} onPress={() => onPressItem(item.id)}>
+                  <Text style={styles.title}>{item.title}</Text>
+                </Pressable>
+
+                <Image style={styles.iconHeart} source={iconHeart}></Image>
               </View>
 
-              <View style={styles.wrapRight}>
-                <View style={styles.wrapTitle}>
-                  <Text style={styles.title}>{item.title}</Text>
-                  <Image style={styles.iconHeart} source={iconHeart}></Image>
-                </View>
+              <View style={styles.wrapPrice}>
+                <Text style={styles.priceNew}>{item.priceNew}</Text>
+                {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+              </View>
 
-                <View style={styles.wrapPrice}>
-                  <Text style={styles.priceNew}>{item.priceNew}</Text>
-                  {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
-                </View>
+              <View style={styles.wrapDesc}>
+                <Text numberOfLines={1} style={styles.desc}>
+                  {item.description}
+                </Text>
 
-                <View style={styles.wrapDesc}>
-                  <Text numberOfLines={1} style={styles.desc}>
-                    {item.description}
-                  </Text>
-
-                  <View style={styles.wrapCard}>
-                    <Text style={styles.titleCard}>Buy</Text>
+                <View style={styles.wrapCard}>
+                  <Text style={styles.titleCard}>Buy</Text>
+                  <Pressable onPress={() => addToOrder(item)}>
                     <Image style={styles.card} source={iconCard}></Image>
-                  </View>
+                  </Pressable>
                 </View>
               </View>
             </View>
           </View>
-        </Pressable>
+        </View>
       );
     },
     [mockItemDatas, textInput]
@@ -175,7 +186,11 @@ const styles = StyleSheet.create({
 
   wrapTitle: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    // alignItems: 'flex-end',
+  },
+
+  titleBox: {
+    flex: 1,
   },
 
   title: {
@@ -183,6 +198,7 @@ const styles = StyleSheet.create({
     color: ColorsVariable.black,
     fontWeight: '500',
     flex: 1,
+    flexWrap: 'wrap',
   },
 
   img: {
@@ -204,6 +220,7 @@ const styles = StyleSheet.create({
   iconHeart: {
     maxWidth: 40,
     maxHeight: 40,
+    marginLeft: 'auto',
   },
 
   wrapPrice: {
@@ -230,7 +247,7 @@ const styles = StyleSheet.create({
   wrapDesc: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 40,
+    gap: 30,
   },
 
   wrapCard: {

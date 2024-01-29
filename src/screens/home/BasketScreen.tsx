@@ -1,14 +1,20 @@
 import React, { FC } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import orderStore from '../../store/Orders';
 
 const BasketScreen: FC = () => {
   return (
     <SafeAreaView style={styles.wrap}>
       <Text style={styles.title}>Cart</Text>
-      <View>
-        <Image style={styles.iconCart} source={require('../home/img/icon-cart.png')} />
-      </View>
+      {orderStore.orders[0] ? (
+        orderStore.orders.map((item) => <Text key={item.id}>{item.title}</Text>)
+      ) : (
+        <View>
+          <Image style={styles.iconCart} source={require('../home/img/icon-cart.png')} />
+        </View>
+      )}
+
       <View style={styles.wrapPrice}>
         <Text style={styles.totalPrice}>Total:</Text>
       </View>
@@ -29,6 +35,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
+    fontWeight: '500',
     textAlign: 'center',
   },
   iconCart: {

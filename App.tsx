@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Navigation } from './src/navigation/Navigation';
 import { useAppState } from './src/hooks/useAppState';
 import { ImageBackground, StyleSheet } from 'react-native';
 
 import hiddenBackground from './src/screens/home/img/hidden-background.png';
+import { Navigation } from './src/navigation/Navigation';
 
 const App: FC = () => {
   const app = useAppState();
