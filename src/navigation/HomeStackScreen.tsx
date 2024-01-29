@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ColorsVariable from '../components/Colors';
 import { IMockData } from '../screens/home/components/MochData';
 import { ModalScreen } from '../screens/home/ModalScreen';
-import { HomeScreens } from '../screens/home/HomeScreen';
+import HomeScreens from '../screens/home/HomeScreen';
+import { observer } from 'mobx-react';
 
 export type RootStackParamListType = {
   Home: undefined; // No additional parameters for the Home screen
@@ -13,7 +14,7 @@ export type RootStackParamListType = {
   // ... other screens
 };
 
-export const HomeStackScreen: FC = () => {
+const HomeStackScreen: FC = () => {
   const HomeStack = createNativeStackNavigator();
 
   return (
@@ -45,3 +46,5 @@ export const HomeStackScreen: FC = () => {
     </HomeStack.Navigator>
   );
 };
+
+export default HomeStackScreen;

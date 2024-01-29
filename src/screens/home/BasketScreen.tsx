@@ -2,27 +2,43 @@ import React, { FC } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import orderStore from '../../store/Orders';
+import { observer } from 'mobx-react';
 
 const BasketScreen: FC = () => {
+  const calcSumOrders = orderStore.orders.reduce((acc, item) => item.priceNew + acc, 0);
+
+  console.log('calcSumOrders', calcSumOrders);
+
   return (
     <SafeAreaView style={styles.wrap}>
       <Text style={styles.title}>Cart</Text>
-      {orderStore.orders[0] ? (
-        orderStore.orders.map((item) => <Text key={item.id}>{item.title}</Text>)
-      ) : (
-        <View>
-          <Image style={styles.iconCart} source={require('../home/img/icon-cart.png')} />
-        </View>
-      )}
+
+      <View>
+        {orderStore.orders[0] ? (
+          orderStore.orders.map((item) => (
+            <View key={item.id} style={styles.wrapItems}>
+              <Text>{item.title}</Text>
+              <Text>{item.priceNew}</Text>
+            </View>
+          ))
+        ) : (
+          <View>
+            <Image
+              style={styles.iconCart}
+              source={require('../home/img/icon-cart.png')}
+            />
+          </View>
+        )}
+      </View>
 
       <View style={styles.wrapPrice}>
-        <Text style={styles.totalPrice}>Total:</Text>
+        <Text style={styles.totalPrice}>Total order: {calcSumOrders} UAH</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default BasketScreen;
+export default observer(BasketScreen);
 
 const styles = StyleSheet.create({
   wrap: {
@@ -32,6 +48,12 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     // alignItems: 'center',
     // alignSelf: 'center',
+  },
+  wrapItems: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    gap: 20,
   },
   title: {
     fontSize: 40,

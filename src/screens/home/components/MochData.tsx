@@ -7,8 +7,8 @@ export interface IMockData {
   isNew: boolean;
   sale: boolean;
   img: ImageSourcePropType;
-  priceOld: string;
-  priceNew: string;
+  priceOld: number;
+  priceNew: number;
 }
 
 export interface IMockDataImg {
@@ -26,8 +26,8 @@ export const mockItemData: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.jpg'),
-    priceOld: '300 UAH',
-    priceNew: '250 UAH',
+    priceOld: 300,
+    priceNew: 250,
   },
 
   {
@@ -38,8 +38,8 @@ export const mockItemData: IMockData[] = [
     isNew: false,
     sale: false,
     img: require('../img/pizza-2.jpg'),
-    priceOld: '250 UAH',
-    priceNew: '200 UAH',
+    priceOld: 250,
+    priceNew: 200,
   },
 
   {
@@ -50,8 +50,8 @@ export const mockItemData: IMockData[] = [
     isNew: false,
     sale: true,
     img: require('../img/pizza-3.jpg'),
-    priceOld: '320 UAH',
-    priceNew: '150 UAH',
+    priceOld: 320,
+    priceNew: 150,
   },
 
   {
@@ -61,8 +61,8 @@ export const mockItemData: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-4.jpg'),
-    priceOld: '400 UAH',
-    priceNew: '250 UAH',
+    priceOld: 400,
+    priceNew: 250,
   },
 
   {
@@ -72,8 +72,8 @@ export const mockItemData: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.jpg'),
-    priceOld: '300 UAH',
-    priceNew: '250 UAH',
+    priceOld: 300,
+    priceNew: 250,
   },
 
   {
@@ -83,8 +83,8 @@ export const mockItemData: IMockData[] = [
     isNew: false,
     sale: false,
     img: require('../img/pizza-2.jpg'),
-    priceOld: '250 UAH',
-    priceNew: '200 UAH',
+    priceOld: 250,
+    priceNew: 200,
   },
 
   {
@@ -94,8 +94,8 @@ export const mockItemData: IMockData[] = [
     isNew: false,
     sale: true,
     img: require('../img/pizza-3.jpg'),
-    priceOld: '320 UAH',
-    priceNew: '150 UAH',
+    priceOld: 320,
+    priceNew: 150,
   },
 
   {
@@ -105,8 +105,8 @@ export const mockItemData: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-4.jpg'),
-    priceOld: '400 UAH',
-    priceNew: '250 UAH',
+    priceOld: 400,
+    priceNew: 250,
   },
 ];
 
@@ -118,8 +118,8 @@ export const newItems: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.jpg'),
-    priceOld: '450 UAH',
-    priceNew: '100 UAH',
+    priceOld: 450,
+    priceNew: 100,
   },
   {
     id: '10',
@@ -128,8 +128,8 @@ export const newItems: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.jpg'),
-    priceOld: '450 UAH',
-    priceNew: '100 UAH',
+    priceOld: 450,
+    priceNew: 100,
   },
   {
     id: '11',
@@ -138,8 +138,8 @@ export const newItems: IMockData[] = [
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.jpg'),
-    priceOld: '450 UAH',
-    priceNew: '100 UAH',
+    priceOld: 450,
+    priceNew: 100,
   },
 ];
 
@@ -150,8 +150,8 @@ export const newItem: IMockData = {
   isNew: true,
   sale: true,
   img: require('../img/pizza-1.jpg'),
-  priceOld: '450 UAH',
-  priceNew: '100 UAH',
+  priceOld: 450,
+  priceNew: 100,
 };
 
 export const mockDataImg: IMockDataImg[] = [

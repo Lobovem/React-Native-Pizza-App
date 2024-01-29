@@ -2,10 +2,11 @@ import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsScreen } from '../screens/home/SettingsScreen';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { HomeStackScreen } from './HomeStackScreen';
+import HomeStackScreen from './HomeStackScreen';
 import BasketScreen from '../screens/home/BasketScreen';
 
 import orderStore from '../store/Orders';
+import { observer } from 'mobx-react';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -41,7 +42,7 @@ const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
   );
 };
 
-const TabIconBasket: FC<ITabBarIconProps> = (props) => {
+const TabIconBasket = observer((props: ITabBarIconProps) => {
   return (
     <View>
       <Text style={styles.countBasket}>{orderStore.orders.length}</Text>
@@ -55,9 +56,9 @@ const TabIconBasket: FC<ITabBarIconProps> = (props) => {
       />
     </View>
   );
-};
+});
 
-export const HomeTabs: FC = () => {
+const HomeTabs: FC = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
@@ -70,7 +71,11 @@ export const HomeTabs: FC = () => {
 
       <Tab.Screen
         name="Basket"
-        options={{ tabBarIcon: TabIconBasket }}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIconBasket focused={focused} color={color} size={size} />
+          ),
+        }}
         component={BasketScreen}
       />
 
@@ -82,6 +87,8 @@ export const HomeTabs: FC = () => {
     </Tab.Navigator>
   );
 };
+
+export default HomeTabs;
 
 const styles = StyleSheet.create({
   iconTab: {

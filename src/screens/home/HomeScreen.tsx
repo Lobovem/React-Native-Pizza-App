@@ -20,6 +20,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
+import { observer } from 'mobx-react';
 
 interface IItemProps {
   item: IMockData;
@@ -30,7 +31,7 @@ type HomeScreenNavigationPropType = NativeStackNavigationProp<
   'Home'
 >;
 
-export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
+const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   navigation,
 }) => {
   const [mockItemDatas, setMockItemData] = useState(mockItemData);
@@ -82,6 +83,10 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     orderStore.setOrders(item);
   };
 
+  const onPressItem = (id: string): void => {
+    navigation.navigate('Pizza', { id, mockItemDatas });
+  };
+
   const renderItem = useCallback(
     ({ item }: IItemProps) => {
       return (
@@ -104,8 +109,8 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
               </View>
 
               <View style={styles.wrapPrice}>
-                <Text style={styles.priceNew}>{item.priceNew}</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+                <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
+                {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
               </View>
 
               <View style={styles.wrapDesc}>
@@ -128,10 +133,6 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     [mockItemDatas, textInput]
   );
 
-  const onPressItem = (id: string): void => {
-    navigation.navigate('Pizza', { id, mockItemDatas });
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <Header setTextInput={setTextInput} textInput={textInput} />
@@ -148,6 +149,8 @@ export const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     </SafeAreaView>
   );
 };
+
+export default HomeScreens;
 
 const styles = StyleSheet.create({
   container: {
