@@ -142,10 +142,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: ColorsVariable.greyLight,
     flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 
   item: {
-    margin: 10,
+    marginTop: 10,
+    marginBottom: 10,
     padding: 10,
     flexDirection: 'row',
     backgroundColor: ColorsVariable.white,

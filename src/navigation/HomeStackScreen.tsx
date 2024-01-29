@@ -24,6 +24,7 @@ export const HomeStackScreen: FC = () => {
           component={HomeScreens}
           options={{ headerShown: false }}
         />
+
         <HomeStack.Screen
           name="Pizza"
           component={PizzaScreen}

@@ -9,10 +9,15 @@ export const SettingsScreen: FC = () => {
     setCount((prev) => prev + 1);
   };
 
+  const cleanCount = () => {
+    setCount(0);
+  };
+
   return (
     <SafeAreaView style={styles.wrap}>
-      <Button title="press" onPress={plusCount}></Button>
+      <Button title="press to add" onPress={plusCount}></Button>
       <Text>{count}</Text>
+      <Button title="clean counts" onPress={cleanCount}></Button>
     </SafeAreaView>
   );
 };
