@@ -16,6 +16,10 @@ class OrdersStore implements IOrderStore {
   @action setOrders(data: IMockData) {
     this.orders = [...this.orders, data];
   }
+
+  @action removeOrders(data: IMockData[]) {
+    this.orders = [...data];
+  }
 }
 
 export default new OrdersStore();
