@@ -1,4 +1,5 @@
 import { ImageSourcePropType } from 'react-native';
+import { generateUniqueKey } from '../../../common/generateUniqueKey';
 
 export interface IMockData {
   id: string;
@@ -19,7 +20,7 @@ export interface IMockDataImg {
 
 export const mockItemData: IMockData[] = [
   {
-    id: '1',
+    id: generateUniqueKey(),
     title: 'Pizza «Маргарита»',
     description:
       '«Маргарита» считается неаполитанской пиццей. Само слово переводится как морской или моряцкий. Однако это не значит, что пицца должна быть с морепродуктами. Возможно, пиццу так назвали в честь рыбаков, которые употребляли ее практически каждое утро.',
@@ -31,7 +32,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '2',
+    id: generateUniqueKey(),
     title: 'Pizza «Четыре сезона»',
     description:
       '«Четыре сезона» — одна из самых популярных и является лидером продаж. Имеется множество вариантов сочетаний начинок. В традиционной «Четыре сезона» три сектора (сезона) начинки заняты морепродуктами, а один грибами. Состав: тесто, моцареллла, помидоры, соленые грибы, варено-мороженные мидии, свежие или мороженные в панцире креветки, маслины, соленый анчоус, петрушка, чеснок, апельсин, соль, сахар, перец, вустерширский соус, соус табаско, свежий базилик, пармезан.',
@@ -43,7 +44,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '3',
+    id: generateUniqueKey(),
     title: 'Pizza «Маринара»',
     description:
       '«Маринара» считается неаполитанской пиццей. Само слово переводится как морской или моряцкий. Однако это не значит, что пицца должна быть с морепродуктами. Возможно, пиццу так назвали в честь рыбаков, которые употребляли ее практически каждое утро.',
@@ -55,7 +56,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '4',
+    id: generateUniqueKey(),
     title: 'Pizza with becon and cheese',
     description: 'Special proposal of pizza with becon and cheese',
     isNew: true,
@@ -66,7 +67,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '5',
+    id: generateUniqueKey(),
     title: 'Pizza with meat ',
     description: 'Pizza with meat is really delision',
     isNew: true,
@@ -77,7 +78,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '6',
+    id: generateUniqueKey(),
     title: 'Pizza with cheese',
     description: 'Pizza with cheese is really delision',
     isNew: false,
@@ -88,7 +89,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '7',
+    id: generateUniqueKey(),
     title: 'Pizza with becon',
     description: 'Special proposal of pizza with becon',
     isNew: false,
@@ -99,7 +100,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: '8',
+    id: generateUniqueKey(),
     title: 'Pizza with becon and cheese',
     description: 'Special proposal of pizza with becon and cheese',
     isNew: true,
@@ -112,7 +113,7 @@ export const mockItemData: IMockData[] = [
 
 export const newItems: IMockData[] = [
   {
-    id: '9',
+    id: generateUniqueKey(),
     title: 'New pizza 2',
     description: 'Pizza is really delision',
     isNew: true,
@@ -122,7 +123,7 @@ export const newItems: IMockData[] = [
     priceNew: 100,
   },
   {
-    id: '10',
+    id: generateUniqueKey(),
     title: 'New pizza 3',
     description: 'Pizza is really delision',
     isNew: true,
@@ -132,7 +133,7 @@ export const newItems: IMockData[] = [
     priceNew: 100,
   },
   {
-    id: '11',
+    id: generateUniqueKey(),
     title: 'New pizza 4',
     description: 'Pizza is really delision',
     isNew: true,
@@ -144,7 +145,7 @@ export const newItems: IMockData[] = [
 ];
 
 export const newItem: IMockData = {
-  id: '0',
+  id: generateUniqueKey(),
   title: 'New pizza',
   description: 'Pizza is really delision',
   isNew: true,
@@ -156,17 +157,17 @@ export const newItem: IMockData = {
 
 export const mockDataImg: IMockDataImg[] = [
   {
-    id: '0',
+    id: generateUniqueKey(),
     img: require('../img/banner-1-burger.jpg'),
     link: 'http://google.com.ua',
   },
   {
-    id: '1',
+    id: generateUniqueKey(),
     img: require('../img/banner-2-pizzaBase.jpg'),
     link: 'http://google.com.ua',
   },
   {
-    id: '2',
+    id: generateUniqueKey(),
     img: require('../img/banner-3-pizzaCheese.jpg'),
     link: 'http://google.com.ua',
   },

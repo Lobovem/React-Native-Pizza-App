@@ -3,6 +3,7 @@ const ColorsVariable = {
   white: 'white',
   black: 'black',
   red: 'red',
+  orange:"orange"
 };
 
 export default ColorsVariable;

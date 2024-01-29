@@ -45,7 +45,9 @@ const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
 const TabIconBasket = observer((props: ITabBarIconProps) => {
   return (
     <View>
-      <Text style={styles.countBasket}>{orderStore.orders.length}</Text>
+      <Text style={styles.countBasket}>
+        {orderStore.orders[0] ? orderStore.orders.length : ''}
+      </Text>
       <Image
         style={styles.iconTab}
         source={

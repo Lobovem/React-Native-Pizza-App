@@ -35,9 +35,9 @@ export const PizzaScreen: FC = () => {
         <View style={styles.buyWrap}>
           <View style={styles.wrapPrice}>
             <Text style={styles.titlePrice}>Price:</Text>
-            <View>
-              <Text style={styles.priceNew}>{item.priceNew}</Text>
-              {item.sale && <Text style={styles.priceOld}>{item.priceOld}</Text>}
+            <View style={styles.priceWrap}>
+              <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
+              {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
             </View>
           </View>
 
@@ -90,6 +90,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   wrapPrice: {},
+  priceWrap: {
+    flexDirection: 'row',
+    gap: 10,
+  },
   titlePrice: {
     marginBottom: 6,
     fontSize: 16,

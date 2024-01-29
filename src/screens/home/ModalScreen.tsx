@@ -16,6 +16,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { FlatList as RNFlatList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
+import { generateUniqueKey } from '../../common/generateUniqueKey';
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
   RootStackParamListType,
@@ -49,9 +50,7 @@ export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
     ({ index }) => {
       return (
         <Pressable onPress={() => pressDotsSlider(index)}>
-          <View
-            style={index === iconSliderIndex ? styles.dotsActive : styles.dots}
-          />
+          <View style={index === iconSliderIndex ? styles.dotsActive : styles.dots} />
         </Pressable>
       );
     },
