@@ -8,17 +8,19 @@ import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/Colors';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
-
-import orderStore from '../../store/Orders';
+import { useDispatch } from 'react-redux';
+import { addOrder } from '../../store/counterSlice';
 
 export const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();
   const items = route.params;
+  const dispatch = useDispatch();
 
   const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
 
   const addToOrder = (item: IMockData): void => {
-    orderStore.setOrders(item);
+    // orderStore.setOrders(item);
+    dispatch(addOrder(item));
   };
 
   return (

@@ -7,7 +7,6 @@ import {
   Image,
   FlatList,
   Pressable,
-  Button,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconCard from './img/icon-card.png';
@@ -19,9 +18,6 @@ import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
-import orderStore from '../../store/Orders';
-import { observer } from 'mobx-react';
-import { generateUniqueKey } from '../../common/generateUniqueKey';
 import { useDispatch } from 'react-redux';
 import { addOrder } from '../../store/counterSlice';
 

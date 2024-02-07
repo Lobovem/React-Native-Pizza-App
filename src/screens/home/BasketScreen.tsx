@@ -1,21 +1,25 @@
 import React, { FC } from 'react';
 import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
 import { IMockData } from './components/MochData';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/Colors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteOrder } from '../../store/counterSlice';
+import { RootState } from '../../store/store';
 
 const BasketScreen: FC = () => {
   const dispatch = useDispatch();
-  const calcSumOrders = orderStore.orders.reduce((acc, item) => item.priceNew + acc, 0);
+  const ordersCounter = useSelector((state: RootState) => state.orders.countOrder);
+  const calcSumOrders = ordersCounter.reduce(
+    (acc: number, item: IMockData) => item.priceNew + acc,
+    0
+  );
 
   const removeItemFromOrder = (item: IMockData): void => {
-    let orders = orderStore.orders.filter((order) => order.id !== item.id);
-    orderStore.removeOrders(orders);
+    let orders = ordersCounter.filter((order: IMockData) => order.id !== item.id);
+    dispatch(deleteOrder(orders));
   };
 
   const sendOrder = (): void => {
@@ -27,8 +31,8 @@ const BasketScreen: FC = () => {
       <Text style={styles.title}>Cart</Text>
 
       <View>
-        {orderStore.orders[0] ? (
-          orderStore.orders.map((item) => (
+        {ordersCounter[0] ? (
+          ordersCounter.map((item: IMockData) => (
             <View key={generateUniqueKey()} style={styles.wrapItems}>
               <Text style={styles.titleItem}>{item.title}</Text>
               <Text style={styles.priceItem}>{item.priceNew}</Text>
@@ -49,7 +53,7 @@ const BasketScreen: FC = () => {
         <Text style={styles.totalPrice}>Total order: {calcSumOrders} UAH</Text>
       </View>
 
-      {orderStore.orders[0] && (
+      {ordersCounter[0] && (
         <View style={styles.orderSendBox}>
           <Pressable onPress={sendOrder} style={styles.orderSendWrap}>
             <Text style={styles.orderSendTitle}>Send order</Text>

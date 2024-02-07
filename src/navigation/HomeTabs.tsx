@@ -5,9 +5,9 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
 import BasketScreen from '../screens/home/BasketScreen';
 
-import orderStore from '../store/Orders';
 import { observer } from 'mobx-react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -44,7 +44,7 @@ const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
 };
 
 const TabIconBasket: FC<ITabBarIconProps> = (props) => {
-  const countOrders = useSelector((state) => state.orders.countOrder);
+  const countOrders = useSelector((state: RootState) => state.orders.countOrder);
 
   return (
     <View>

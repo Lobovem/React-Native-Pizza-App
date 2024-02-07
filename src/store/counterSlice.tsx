@@ -13,8 +13,12 @@ const counterSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    addOrder(state): void {},
-    deleteOrder(state): void {},
+    addOrder(state, action): void {
+      state.countOrder = [...state.countOrder, action.payload];
+    },
+    deleteOrder(state, action): void {
+      state.countOrder = [...action.payload];
+    },
   },
 });
 
