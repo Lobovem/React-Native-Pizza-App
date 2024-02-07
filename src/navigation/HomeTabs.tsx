@@ -7,6 +7,7 @@ import BasketScreen from '../screens/home/BasketScreen';
 
 import orderStore from '../store/Orders';
 import { observer } from 'mobx-react';
+import { useSelector } from 'react-redux';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -42,12 +43,12 @@ const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
   );
 };
 
-const TabIconBasket = observer((props: ITabBarIconProps) => {
+const TabIconBasket: FC<ITabBarIconProps> = (props) => {
+  const countOrders = useSelector((state) => state.orders.countOrder);
+
   return (
     <View>
-      <Text style={styles.countBasket}>
-        {orderStore.orders[0] ? orderStore.orders.length : ''}
-      </Text>
+      <Text style={styles.countBasket}>{countOrders ? countOrders.length : ''}</Text>
       <Image
         style={styles.iconTab}
         source={
@@ -58,7 +59,7 @@ const TabIconBasket = observer((props: ITabBarIconProps) => {
       />
     </View>
   );
-});
+};
 
 const HomeTabs: FC = () => {
   return (

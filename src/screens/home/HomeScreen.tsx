@@ -22,6 +22,8 @@ import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
+import { useDispatch } from 'react-redux';
+import { addOrder } from '../../store/counterSlice';
 
 interface IItemProps {
   item: IMockData;
@@ -39,6 +41,8 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
+
+  const dispatch = useDispatch();
 
   const filterData = useMemo(() => {
     return mockItemDatas.filter((item) => {
@@ -81,7 +85,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   // };
 
   const addToOrder = (item: IMockData): void => {
-    orderStore.setOrders(item);
+    dispatch(addOrder(item));
   };
 
   const onPressItem = (id: string): void => {

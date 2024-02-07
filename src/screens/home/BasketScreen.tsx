@@ -6,8 +6,11 @@ import { observer } from 'mobx-react';
 import { IMockData } from './components/MochData';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/Colors';
+import { useDispatch } from 'react-redux';
+import { deleteOrder } from '../../store/counterSlice';
 
 const BasketScreen: FC = () => {
+  const dispatch = useDispatch();
   const calcSumOrders = orderStore.orders.reduce((acc, item) => item.priceNew + acc, 0);
 
   const removeItemFromOrder = (item: IMockData): void => {
@@ -16,7 +19,7 @@ const BasketScreen: FC = () => {
   };
 
   const sendOrder = (): void => {
-    orderStore.removeOrders([]);
+    dispatch(deleteOrder([]));
   };
 
   return (

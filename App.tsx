@@ -4,6 +4,8 @@ import { ImageBackground, StyleSheet } from 'react-native';
 
 import hiddenBackground from './src/screens/home/img/hidden-background.png';
 import { Navigation } from './src/navigation/Navigation';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 
 const App: FC = () => {
   const app = useAppState();
@@ -13,7 +15,9 @@ const App: FC = () => {
       {app === 'inactive' ? (
         <ImageBackground source={hiddenBackground} style={styles.wrap} />
       ) : (
-        <Navigation />
+        <Provider store={store}>
+          <Navigation />
+        </Provider>
       )}
     </>
 
