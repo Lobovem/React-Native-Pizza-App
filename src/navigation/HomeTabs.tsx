@@ -74,9 +74,7 @@ const HomeTabs: FC = () => {
       <Tab.Screen
         name="Basket"
         options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <TabIconBasket focused={focused} color={color} size={size} />
-          ),
+          tabBarIcon: (props) => <TabIconBasket {...props} />,
         }}
         component={BasketScreen}
       />

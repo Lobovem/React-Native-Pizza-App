@@ -7,7 +7,6 @@ import { Navigation } from './src/navigation/Navigation';
 
 const App: FC = () => {
   const app = useAppState();
-  console.log(app);
 
   return (
     <>
