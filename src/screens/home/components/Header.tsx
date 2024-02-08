@@ -7,7 +7,16 @@ import iconSearch from '../img/icon-search.png';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../../navigation/HomeStackScreen';
-import { BounceIn, BounceOut } from 'react-native-reanimated';
+import {
+  BounceIn,
+  BounceInLeft,
+  BounceOut,
+  BounceOutLeft,
+  FlipInEasyX,
+  FlipOutEasyX,
+  LightSpeedInLeft,
+  LightSpeedOutLeft,
+} from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
 interface IHeaderProps {
@@ -34,7 +43,10 @@ export const Header: FC<IHeaderProps> = memo(({ textInput, setTextInput }) => {
   return (
     <View style={styles.searchWrap}>
       {isActiveSearch && (
-        <Animated.View entering={BounceIn} exiting={BounceOut}>
+        <Animated.View
+          entering={LightSpeedInLeft.duration(1000)}
+          exiting={LightSpeedOutLeft.duration(1000)}
+        >
           <TextInput
             keyboardType="default"
             style={styles.textInput}
