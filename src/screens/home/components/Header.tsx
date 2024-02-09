@@ -1,4 +1,11 @@
-import React, { TextInput, View, Image, StyleSheet } from 'react-native';
+import React, {
+  TextInput,
+  View,
+  Image,
+  StyleSheet,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { FC, memo, useState } from 'react';
 
@@ -7,7 +14,11 @@ import iconSearch from '../img/icon-search.png';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../../navigation/HomeStackScreen';
-import { LightSpeedInLeft, LightSpeedOutLeft } from 'react-native-reanimated';
+import {
+  LightSpeedInLeft,
+  LightSpeedOutLeft,
+  useSharedValue,
+} from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
 interface IHeaderProps {
@@ -27,8 +38,14 @@ export const Header: FC<IHeaderProps> = memo(({ textInput, setTextInput }) => {
     setIsActiveSearch(!isActiveSearch);
   };
 
-  const openModalScreen = () => {
+  const openModalScreen = (): void => {
     navigation.navigate('Modal');
+  };
+
+  const offsetY = useSharedValue(0);
+
+  const scrollHandler = (event): void => {
+    offsetY.value = event.contentOffset.y;
   };
 
   return (

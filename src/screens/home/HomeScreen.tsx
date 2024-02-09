@@ -19,6 +19,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
+import Animated, {
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 interface IItemProps {
   item: IMockData;
@@ -131,11 +136,21 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     [mockItemDatas, textInput]
   );
 
+  const offsetY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler((e) => {
+    offsetY.value = e.contentOffset.y;
+  });
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return { opacity: offsetY.value > 0 ? 0 : 1 };
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <Header setTextInput={setTextInput} textInput={textInput} />
+      <Animated.Text style={animatedStyle}>TEXT</Animated.Text>
 
-      <FlatList
+      <Animated.FlatList
         data={filterData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -143,6 +158,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         onRefresh={onRefresh}
         onEndReachedThreshold={0.2}
         onEndReached={addNewItem}
+        onScroll={scrollHandler}
       />
     </SafeAreaView>
   );
