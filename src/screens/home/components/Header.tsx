@@ -5,6 +5,9 @@ import React, {
   StyleSheet,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  TextStyle,
+  ImageStyle,
+  ViewStyle,
 } from 'react-native';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 import { FC, memo, useState } from 'react';
@@ -15,6 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../../navigation/HomeStackScreen';
 import {
+  AnimatedStyleProp,
   LightSpeedInLeft,
   LightSpeedOutLeft,
   useSharedValue,
@@ -24,6 +28,7 @@ import Animated from 'react-native-reanimated';
 interface IHeaderProps {
   setTextInput: (value: string) => void;
   textInput: string;
+  animatedStyle: AnimatedStyleProp<ViewStyle>;
 }
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
@@ -31,52 +36,48 @@ type ModalScreenNavigationPropType = NativeStackNavigationProp<
   'Modal'
 >;
 
-export const Header: FC<IHeaderProps> = memo(({ textInput, setTextInput }) => {
-  const [isActiveSearch, setIsActiveSearch] = useState(false);
-  const navigation = useNavigation<ModalScreenNavigationPropType>();
-  const onSearch = (): void => {
-    setIsActiveSearch(!isActiveSearch);
-  };
+export const Header: FC<IHeaderProps> = memo(
+  ({ textInput, setTextInput, animatedStyle }) => {
+    const [isActiveSearch, setIsActiveSearch] = useState(false);
+    const navigation = useNavigation<ModalScreenNavigationPropType>();
+    const onSearch = (): void => {
+      setIsActiveSearch(!isActiveSearch);
+    };
 
-  const openModalScreen = (): void => {
-    navigation.navigate('Modal');
-  };
+    const openModalScreen = (): void => {
+      navigation.navigate('Modal');
+    };
 
-  const offsetY = useSharedValue(0);
+    return (
+      <Animated.View style={[styles.searchWrap, animatedStyle]}>
+        {isActiveSearch && (
+          <Animated.View
+            entering={LightSpeedInLeft.duration(1000)}
+            exiting={LightSpeedOutLeft.duration(1000)}
+          >
+            <TextInput
+              keyboardType="default"
+              style={styles.textInput}
+              placeholder="Search here"
+              onChangeText={setTextInput}
+              value={textInput}
+            />
+          </Animated.View>
+        )}
 
-  const scrollHandler = (event): void => {
-    offsetY.value = event.contentOffset.y;
-  };
+        <View style={styles.searchIconWrap}>
+          <CustomTouchable withoutFeedback={true} onPress={onSearch}>
+            <Image style={styles.searchIcon} source={iconSearch}></Image>
+          </CustomTouchable>
 
-  return (
-    <View style={styles.searchWrap}>
-      {isActiveSearch && (
-        <Animated.View
-          entering={LightSpeedInLeft.duration(1000)}
-          exiting={LightSpeedOutLeft.duration(1000)}
-        >
-          <TextInput
-            keyboardType="default"
-            style={styles.textInput}
-            placeholder="Search here"
-            onChangeText={setTextInput}
-            value={textInput}
-          />
-        </Animated.View>
-      )}
-
-      <View style={styles.searchIconWrap}>
-        <CustomTouchable withoutFeedback={true} onPress={onSearch}>
-          <Image style={styles.searchIcon} source={iconSearch}></Image>
-        </CustomTouchable>
-
-        <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
-          <Image style={styles.heartIcon} source={iconHeart}></Image>
-        </CustomTouchable>
-      </View>
-    </View>
-  );
-});
+          <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
+            <Image style={styles.heartIcon} source={iconHeart}></Image>
+          </CustomTouchable>
+        </View>
+      </Animated.View>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   searchWrap: {

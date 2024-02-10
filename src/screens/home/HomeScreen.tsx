@@ -151,8 +151,12 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header setTextInput={setTextInput} textInput={textInput} />
-      <Animated.Text style={animatedStyle}>TEXT</Animated.Text>
+      <Header
+        setTextInput={setTextInput}
+        textInput={textInput}
+        animatedStyle={animatedStyle}
+      />
+      {/* <Animated.Text style={animatedStyle}>TEXT</Animated.Text> */}
 
       <Animated.FlatList
         data={filterData}
