@@ -20,6 +20,7 @@ import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
 import Animated, {
+  interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -142,7 +143,10 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   });
 
   const animatedStyle = useAnimatedStyle(() => {
-    return { opacity: offsetY.value > 0 ? 0 : 1 };
+    return {
+      //interpolate are watching to change. first arr is range offsetY, second arr is range  value of opacity
+      opacity: interpolate(offsetY.value, [0, 200], [1, 0]),
+    };
   });
 
   return (
