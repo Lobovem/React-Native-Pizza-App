@@ -13,12 +13,37 @@ class OrdersStore implements IOrderStore {
     makeObservable(this);
   }
 
-  @action setOrders(data: IMockData) {
-    this.orders = [...this.orders, data];
+  @action setOrders(data: IMockData): void {
+    this.orders.forEach((item) => {
+      if (item.id === data.id) {
+        item.quantity += 1;
+      }
+    });
+
+    const existingItem = this.orders.find((item) => item.id === data.id);
+    if (!existingItem) {
+      this.orders = [...this.orders, data];
+    }
   }
 
-  @action removeOrders(data: IMockData[]) {
+  @action removeOrders(data: IMockData[]): void {
     this.orders = [...data];
+  }
+
+  @action addQuantity(item: IMockData): void {
+    this.orders.forEach((itemSearch: IMockData) => {
+      if (item.id === itemSearch.id) {
+        itemSearch.quantity += 1;
+      }
+    });
+  }
+
+  @action delQuantity(item: IMockData): void {
+    this.orders.forEach((itemSearch: IMockData) => {
+      if (item.id === itemSearch.id && itemSearch.quantity > 0) {
+        itemSearch.quantity -= 1;
+      }
+    });
   }
 }
 

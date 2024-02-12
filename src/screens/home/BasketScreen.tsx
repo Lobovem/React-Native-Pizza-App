@@ -29,6 +29,11 @@ const BasketScreen: FC = () => {
             <View key={generateUniqueKey()} style={styles.wrapItems}>
               <Text style={styles.titleItem}>{item.title}</Text>
               <Text style={styles.priceItem}>{item.priceNew}</Text>
+              <View style={styles.wrapQuantity}>
+                <Button title="-" onPress={() => orderStore.delQuantity(item)} />
+                <Text>{item.quantity}</Text>
+                <Button title="+" onPress={() => orderStore.addQuantity(item)} />
+              </View>
               <Button title="delete" onPress={() => removeItemFromOrder(item)} />
             </View>
           ))
@@ -96,6 +101,11 @@ const styles = StyleSheet.create({
   priceItem: {
     marginLeft: 'auto',
     fontWeight: '500',
+  },
+
+  wrapQuantity: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   orderSendBox: {
     marginTop: 50,

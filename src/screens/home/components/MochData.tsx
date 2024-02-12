@@ -10,6 +10,7 @@ export interface IMockData {
   img: ImageSourcePropType;
   priceOld: number;
   priceNew: number;
+  quantity: number;
 }
 
 export interface IMockDataImg {
@@ -29,6 +30,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-1.jpg'),
     priceOld: 300,
     priceNew: 250,
+    quantity: 1,
   },
 
   {
@@ -41,6 +43,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-2.jpg'),
     priceOld: 250,
     priceNew: 200,
+    quantity: 1,
   },
 
   {
@@ -53,6 +56,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-3.jpg'),
     priceOld: 320,
     priceNew: 150,
+    quantity: 1,
   },
 
   {
@@ -64,6 +68,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-4.jpg'),
     priceOld: 400,
     priceNew: 250,
+    quantity: 1,
   },
 
   {
@@ -75,6 +80,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-1.jpg'),
     priceOld: 300,
     priceNew: 250,
+    quantity: 1,
   },
 
   {
@@ -86,6 +92,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-2.jpg'),
     priceOld: 250,
     priceNew: 200,
+    quantity: 1,
   },
 
   {
@@ -97,6 +104,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-3.jpg'),
     priceOld: 320,
     priceNew: 150,
+    quantity: 1,
   },
 
   {
@@ -108,6 +116,7 @@ export const mockItemData: IMockData[] = [
     img: require('../img/pizza-4.jpg'),
     priceOld: 400,
     priceNew: 250,
+    quantity: 1,
   },
 ];
 
@@ -121,6 +130,7 @@ export const newItems: IMockData[] = [
     img: require('../img/pizza-1.jpg'),
     priceOld: 450,
     priceNew: 100,
+    quantity: 1,
   },
   {
     id: generateUniqueKey(),
@@ -131,6 +141,7 @@ export const newItems: IMockData[] = [
     img: require('../img/pizza-1.jpg'),
     priceOld: 450,
     priceNew: 100,
+    quantity: 1,
   },
   {
     id: generateUniqueKey(),
@@ -141,6 +152,7 @@ export const newItems: IMockData[] = [
     img: require('../img/pizza-1.jpg'),
     priceOld: 450,
     priceNew: 100,
+    quantity: 1,
   },
 ];
 
@@ -153,6 +165,7 @@ export const newItem: IMockData = {
   img: require('../img/pizza-1.jpg'),
   priceOld: 450,
   priceNew: 100,
+  quantity: 1,
 };
 
 export const mockDataImg: IMockDataImg[] = [
