@@ -8,7 +8,10 @@ import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/Colors';
 
 const BasketScreen: FC = () => {
-  const calcSumOrders = orderStore.orders.reduce((acc, item) => item.priceNew + acc, 0);
+  const calcSumOrders = orderStore.orders.reduce(
+    (acc, item) => item.priceNew * item.quantity + acc,
+    0
+  );
 
   const removeItemFromOrder = (item: IMockData): void => {
     let orders = orderStore.orders.filter((order) => order.id !== item.id);
