@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
-import ColorsVariable from '../../components/Colors';
+import ColorsVariable from '../../components/ColorsVariable';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 

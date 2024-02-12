@@ -13,7 +13,7 @@ import iconCard from './img/icon-card.png';
 import iconHeart from './img/icon-heart.png';
 
 import { IMockData, mockItemData, newItems, newItem } from './components/MochData';
-import ColorsVariable from '../../components/Colors';
+import ColorsVariable from '../../components/ColorsVariable';
 import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';

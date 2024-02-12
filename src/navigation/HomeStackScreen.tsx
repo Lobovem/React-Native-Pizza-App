@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { PizzaScreen } from '../screens/home/PizzaScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ColorsVariable from '../components/Colors';
+import ColorsVariable from '../components/ColorsVariable';
 import { IMockData } from '../screens/home/components/MochData';
 import { ModalScreen } from '../screens/home/ModalScreen';
 import HomeScreens from '../screens/home/HomeScreen';

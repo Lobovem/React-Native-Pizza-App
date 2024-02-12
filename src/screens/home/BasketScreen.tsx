@@ -5,7 +5,7 @@ import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
 import { IMockData } from './components/MochData';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
-import ColorsVariable from '../../components/Colors';
+import ColorsVariable from '../../components/ColorsVariable';
 
 const BasketScreen: FC = () => {
   const calcSumOrders = orderStore.orders.reduce(
