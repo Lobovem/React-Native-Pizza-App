@@ -20,6 +20,10 @@ const Tab = createBottomTabNavigator();
 const TabIconBasket = observer((props: ITabBarIconProps) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
+      <Image
+        style={styles.iconWave}
+        source={require('../screens/home/img/icon-wave.png')}
+      />
       <View style={props.focused && styles.iconTabActive}>
         <View
         // style={{
@@ -53,6 +57,10 @@ const TabIconBasket = observer((props: ITabBarIconProps) => {
 const TabBarIconHeart: FC<ITabBarIconProps> = (props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
+      <Image
+        style={styles.iconWave}
+        source={require('../screens/home/img/icon-wave.png')}
+      />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
@@ -70,6 +78,10 @@ const TabBarIconHeart: FC<ITabBarIconProps> = (props) => {
 const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
+      <Image
+        style={styles.iconWave}
+        source={require('../screens/home/img/icon-wave.png')}
+      />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
@@ -87,6 +99,10 @@ const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
 const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
+      <Image
+        style={styles.iconWave}
+        source={require('../screens/home/img/icon-wave.png')}
+      />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
@@ -104,6 +120,10 @@ const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
 const TabBarIconUser: FC<ITabBarIconProps> = (props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
+      <Image
+        style={styles.iconWave}
+        source={require('../screens/home/img/icon-wave.png')}
+      />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
@@ -140,13 +160,7 @@ const HomeTabs: FC = () => {
         //   // margin: 100,
         //   // backgroundColor: 'green',
         // },
-        // tabBarStyle: {
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   alignContent: 'center',
-        //   // margin: 100,
-        //   backgroundColor: 'green',
-        // },
+        tabBarStyle: styles.tabBarStyle,
       }}
     >
       <Tab.Screen
@@ -196,29 +210,45 @@ const styles = StyleSheet.create({
     height: 30,
   },
 
-  iconActive: {
-    width: 40,
-    height: 40,
+  tabBarStyle: {
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: -20,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 20,
+
+    elevation: 18,
   },
+
+  iconActive: {
+    width: 30,
+    height: 30,
+  },
+
   iconTabActiveWrap: {
-    width: 90,
-    height: 90,
-    borderRadius: 50,
-    top: -16,
+    width: 70,
+    height: 70,
+    top: -12,
     justifyContent: 'space-evenly',
-    // paddingTop: 20,
     alignItems: 'center',
-    backgroundColor: ColorsVariable.white,
-    // top: -20,
+  },
+
+  iconWave: {
+    width: 120,
+    height: 40,
+    zIndex: -1,
+    position: 'absolute',
+    top: -8,
   },
 
   iconTabActive: {
     backgroundColor: ColorsVariable.orange,
-    width: 66,
-    height: 66,
+    width: 50,
+    height: 50,
     borderRadius: 40,
     justifyContent: 'center',
-    // paddingTop: 20,
 
     alignItems: 'center',
   },
@@ -236,19 +266,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     position: 'absolute',
-    // right: -10,
-    // top: -10,
-    // width: 15,
-    // height: 15,
   },
+
   countBasket: {
     color: ColorsVariable.white,
     fontSize: 12,
     fontWeight: 'bold',
     zIndex: 3,
     position: 'absolute',
-    // top: -20,
-    // right: 0,
-    // top: 0,
   },
 });
