@@ -121,9 +121,11 @@ const TabBarIconUser: FC<ITabBarIconProps> = (props) => {
 const HomeTabs: FC = () => {
   return (
     <Tab.Navigator
+      initialRouteName="HOME"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+
         // tabBarIconStyle: {
         //   justifyContent: 'center',
         //   alignItems: 'center',
