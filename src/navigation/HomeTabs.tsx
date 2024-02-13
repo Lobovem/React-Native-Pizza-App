@@ -19,79 +19,134 @@ const Tab = createBottomTabNavigator();
 
 const TabIconBasket = observer((props: ITabBarIconProps) => {
   return (
-    <View>
-      <View style={orderStore.orders.length && styles.wrapCountBasket}>
-        <Text style={styles.countBasket}>
-          {orderStore.orders[0] ? orderStore.orders.length : ''}
-        </Text>
+    <View style={props.focused && styles.iconTabActiveWrap}>
+      <View style={props.focused && styles.iconTabActive}>
+        <View
+        // style={{
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        //   alignContent: 'center',
+        //   flex: 1,
+        //   height: 500,
+        //   width: 100,
+        // }}
+        >
+          <View style={orderStore.orders.length && styles.wrapCountBasket}>
+            <Text style={styles.countBasket}>
+              {orderStore.orders[0] && orderStore.orders.length}
+            </Text>
+          </View>
+          <Image
+            style={props.focused ? styles.iconActive : styles.iconTab}
+            source={
+              props.focused
+                ? require('../screens/home/img/icon-basket-active.png')
+                : require('../screens/home/img/icon-basket.png')
+            }
+          />
+        </View>
       </View>
-      <Image
-        style={styles.iconTab}
-        source={
-          props.focused
-            ? require('../screens/home/img/icon-basket-active.png')
-            : require('../screens/home/img/icon-basket.png')
-        }
-      />
     </View>
   );
 });
 
 const TabBarIconHeart: FC<ITabBarIconProps> = (props) => {
   return (
-    <Image
-      style={styles.iconTab}
-      source={
-        props.focused
-          ? require('../screens/home/img/icon-heart.png')
-          : require('../screens/home/img/icon-heart.png')
-      }
-    />
+    <View style={props.focused && styles.iconTabActiveWrap}>
+      <View style={props.focused && styles.iconTabActive}>
+        <Image
+          style={props.focused ? styles.iconActive : styles.iconTab}
+          source={
+            props.focused
+              ? require('../screens/home/img/icon-heart-active.png')
+              : require('../screens/home/img/icon-heart.png')
+          }
+        />
+      </View>
+    </View>
   );
 };
 
 const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
   return (
-    <Image
-      style={styles.iconTab}
-      source={
-        props.focused
-          ? require('../screens/home/img/icon-home-active.png')
-          : require('../screens/home/img/icon-home.png')
-      }
-    />
+    <View style={props.focused && styles.iconTabActiveWrap}>
+      <View style={props.focused && styles.iconTabActive}>
+        <Image
+          style={props.focused ? styles.iconActive : styles.iconTab}
+          source={
+            props.focused
+              ? require('../screens/home/img/icon-home-active.png')
+              : require('../screens/home/img/icon-home.png')
+          }
+        />
+      </View>
+    </View>
   );
 };
 
 const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
   return (
-    <Image
-      style={styles.iconTab}
-      source={
-        props.focused
-          ? require('../screens/home/img/icon-setting-active.png')
-          : require('../screens/home/img/icon-setting.png')
-      }
-    />
+    <View style={props.focused && styles.iconTabActiveWrap}>
+      <View style={props.focused && styles.iconTabActive}>
+        <Image
+          style={props.focused ? styles.iconActive : styles.iconTab}
+          source={
+            props.focused
+              ? require('../screens/home/img/icon-setting-active.png')
+              : require('../screens/home/img/icon-setting.png')
+          }
+        />
+      </View>
+    </View>
   );
 };
 
 const TabBarIconUser: FC<ITabBarIconProps> = (props) => {
   return (
-    <Image
-      style={styles.iconTab}
-      source={
-        props.focused
-          ? require('../screens/home/img/icon-user.png')
-          : require('../screens/home/img/icon-user.png')
-      }
-    />
+    <View style={props.focused && styles.iconTabActiveWrap}>
+      <View style={props.focused && styles.iconTabActive}>
+        <Image
+          style={props.focused ? styles.iconActive : styles.iconTab}
+          source={
+            props.focused
+              ? require('../screens/home/img/icon-user-active.png')
+              : require('../screens/home/img/icon-user.png')
+          }
+        />
+      </View>
+    </View>
   );
 };
 
 const HomeTabs: FC = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        // tabBarIconStyle: {
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        //   // margin: 100,
+        //   textAlign: 'center',
+        //   backgroundColor: 'green',
+        // },
+        // tabBarItemStyle: {
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        //   alignContent: 'center',
+        //   // margin: 100,
+        //   // backgroundColor: 'green',
+        // },
+        // tabBarStyle: {
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        //   alignContent: 'center',
+        //   // margin: 100,
+        //   backgroundColor: 'green',
+        // },
+      }}
+    >
       <Tab.Screen
         name="CART"
         options={{
@@ -135,23 +190,50 @@ export default HomeTabs;
 
 const styles = StyleSheet.create({
   iconTab: {
-    width: 26,
-    height: 26,
+    width: 30,
+    height: 30,
+  },
+
+  iconActive: {
+    width: 40,
+    height: 40,
+  },
+  iconTabActiveWrap: {
+    width: 90,
+    height: 90,
+    borderRadius: 50,
+    top: -16,
+    justifyContent: 'space-evenly',
+    // paddingTop: 20,
+    alignItems: 'center',
+    backgroundColor: ColorsVariable.white,
+    // top: -20,
+  },
+
+  iconTabActive: {
+    backgroundColor: ColorsVariable.orange,
+    width: 66,
+    height: 66,
+    borderRadius: 40,
+    justifyContent: 'center',
+    // paddingTop: 20,
+
+    alignItems: 'center',
   },
 
   wrapCountBasket: {
     backgroundColor: ColorsVariable.orange,
     width: 15,
     height: 16,
-    right: -16,
-    top: 10,
+    right: -4,
+    top: -4,
     borderRadius: 8,
     borderColor: ColorsVariable.black,
     borderWidth: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     zIndex: 1,
-    // position: 'absolute',
+    position: 'absolute',
     // right: -10,
     // top: -10,
     // width: 15,
@@ -162,6 +244,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     zIndex: 3,
+    position: 'absolute',
+    // top: -20,
     // right: 0,
     // top: 0,
   },

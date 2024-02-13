@@ -91,52 +91,58 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     navigation.navigate('Pizza', { id, mockItemDatas });
   };
 
+  // const renderItem = useCallback(
+  //   ({ item }: IItemProps) => {
+  //     return (
+  //       <View style={styles.container}>
+  //         <View style={styles.item}>
+  //           <View>
+  //             <Pressable onPress={() => onPressItem(item.id)}>
+  //               <Image style={styles.img} source={item.img} />
+  //             </Pressable>
+  //             {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+  //           </View>
+
+  //           <View style={styles.wrapRight}>
+  //             <View style={styles.wrapTitle}>
+  //               <Pressable style={styles.titleBox} onPress={() => onPressItem(item.id)}>
+  //                 <Text style={styles.title}>{item.title}</Text>
+  //               </Pressable>
+
+  //               <Image style={styles.iconHeart} source={iconHeart}></Image>
+  //             </View>
+
+  //             <View style={styles.wrapPrice}>
+  //               <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
+  //               {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
+  //             </View>
+
+  //             <View style={styles.wrapDesc}>
+  //               <Text numberOfLines={1} style={styles.desc}>
+  //                 {item.description}
+  //               </Text>
+
+  //               <View style={styles.wrapCard}>
+  //                 <Text style={styles.titleCard}>Buy</Text>
+  //                 <Pressable onPress={() => addToOrder(item)}>
+  //                   <Image style={styles.card} source={iconCard}></Image>
+  //                 </Pressable>
+  //               </View>
+  //             </View>
+  //           </View>
+  //         </View>
+  //       </View>
+  //     );
+  //   },
+  //   [mockItemDatas, textInput]
+  // );
+
   const renderItem = useCallback(
     ({ item }: IItemProps) => {
-      return (
-        <View style={styles.container}>
-          <View style={styles.item}>
-            <View>
-              <Pressable onPress={() => onPressItem(item.id)}>
-                <Image style={styles.img} source={item.img} />
-              </Pressable>
-              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-            </View>
-
-            <View style={styles.wrapRight}>
-              <View style={styles.wrapTitle}>
-                <Pressable style={styles.titleBox} onPress={() => onPressItem(item.id)}>
-                  <Text style={styles.title}>{item.title}</Text>
-                </Pressable>
-
-                <Image style={styles.iconHeart} source={iconHeart}></Image>
-              </View>
-
-              <View style={styles.wrapPrice}>
-                <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
-              </View>
-
-              <View style={styles.wrapDesc}>
-                <Text numberOfLines={1} style={styles.desc}>
-                  {item.description}
-                </Text>
-
-                <View style={styles.wrapCard}>
-                  <Text style={styles.titleCard}>Buy</Text>
-                  <Pressable onPress={() => addToOrder(item)}>
-                    <Image style={styles.card} source={iconCard}></Image>
-                  </Pressable>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      );
+      return <View style={styles.container}></View>;
     },
     [mockItemDatas, textInput]
   );
-
   const offsetY = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((e) => {
     offsetY.value = e.contentOffset.y;
