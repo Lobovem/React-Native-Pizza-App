@@ -25,27 +25,25 @@ const TabIconBasket = observer((props: ITabBarIconProps) => {
         source={require('../screens/home/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
-        <View
-        // style={{
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   alignContent: 'center',
-        //   flex: 1,
-        //   height: 500,
-        //   width: 100,
-        // }}
-        >
-          <View style={orderStore.orders.length && styles.wrapCountBasket}>
-            <Text style={styles.countBasket}>
+        <View>
+          <View
+            style={
+              props.focused
+                ? orderStore.orders.length && styles.wrapCountBasketActive
+                : orderStore.orders.length && styles.wrapCountBasket
+            }
+          >
+            <Text style={props.focused ? styles.countBasketActive : styles.countBasket}>
               {orderStore.orders[0] && orderStore.orders.length}
             </Text>
           </View>
+
           <Image
             style={props.focused ? styles.iconActive : styles.iconTab}
             source={
               props.focused
-                ? require('../screens/home/img/icon-basket-active.png')
-                : require('../screens/home/img/icon-basket.png')
+                ? require('../screens/home/img/icon-card-active.png')
+                : require('../screens/home/img/icon-card.png')
             }
           />
         </View>
@@ -146,20 +144,14 @@ const HomeTabs: FC = () => {
         headerShown: false,
         tabBarShowLabel: false,
 
-        // tabBarIconStyle: {
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   // margin: 100,
-        //   textAlign: 'center',
-        //   backgroundColor: 'green',
-        // },
-        // tabBarItemStyle: {
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   alignContent: 'center',
-        //   // margin: 100,
-        //   // backgroundColor: 'green',
-        // },
+        tabBarIconStyle: {},
+        tabBarItemStyle: {
+          // justifyContent: 'center',
+          // alignItems: 'center',
+          // alignContent: 'center',
+          // margin: 100,
+          // backgroundColor: 'green',
+        },
         tabBarStyle: styles.tabBarStyle,
       }}
     >
@@ -211,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   tabBarStyle: {
-    shadowColor: 'black',
+    shadowColor: ColorsVariable.black,
     shadowOffset: {
       width: 0,
       height: -20,
@@ -230,7 +222,7 @@ const styles = StyleSheet.create({
   iconTabActiveWrap: {
     width: 70,
     height: 70,
-    top: -12,
+    top: -20,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
@@ -240,22 +232,22 @@ const styles = StyleSheet.create({
     height: 40,
     zIndex: -1,
     position: 'absolute',
-    top: -8,
+    top: -2,
   },
 
   iconTabActive: {
     backgroundColor: ColorsVariable.orange,
     width: 50,
     height: 50,
+    top: 8,
     borderRadius: 40,
     justifyContent: 'center',
-
     alignItems: 'center',
   },
 
   wrapCountBasket: {
     backgroundColor: ColorsVariable.orange,
-    width: 15,
+    width: 16,
     height: 16,
     right: -4,
     top: -4,
@@ -270,6 +262,29 @@ const styles = StyleSheet.create({
 
   countBasket: {
     color: ColorsVariable.white,
+    fontSize: 12,
+    fontWeight: 'bold',
+    zIndex: 3,
+    position: 'absolute',
+  },
+
+  wrapCountBasketActive: {
+    backgroundColor: ColorsVariable.white,
+    width: 16,
+    height: 16,
+    right: -4,
+    top: -4,
+    borderRadius: 8,
+    borderColor: ColorsVariable.black,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+    position: 'absolute',
+  },
+
+  countBasketActive: {
+    color: ColorsVariable.black,
     fontSize: 12,
     fontWeight: 'bold',
     zIndex: 3,
