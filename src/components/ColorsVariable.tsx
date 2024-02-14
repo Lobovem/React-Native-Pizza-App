@@ -1,5 +1,6 @@
 const ColorsVariable = {
   greyLight: '#F1F1F1',
+  grey: '#ACACAC',
   white: 'white',
   black: 'black',
   red: 'red',

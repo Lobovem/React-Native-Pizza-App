@@ -42,8 +42,8 @@ const TabIconBasket = observer((props: ITabBarIconProps) => {
             style={props.focused ? styles.iconActive : styles.iconTab}
             source={
               props.focused
-                ? require('../screens/home/img/icon-card-active.png')
-                : require('../screens/home/img/icon-card.png')
+                ? require('../screens/home/img/icon-cart-active.png')
+                : require('../screens/home/img/icon-cart.png')
             }
           />
         </View>

@@ -1,5 +1,13 @@
 import React, { FC } from 'react';
-import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
@@ -24,43 +32,45 @@ const BasketScreen: FC = () => {
 
   return (
     <SafeAreaView style={styles.wrap}>
-      <Text style={styles.title}>Cart</Text>
+      <ScrollView>
+        <Text style={styles.title}>Cart</Text>
 
-      <View>
-        {orderStore.orders[0] ? (
-          orderStore.orders.map((item) => (
-            <View key={generateUniqueKey()} style={styles.wrapItems}>
-              <Text style={styles.titleItem}>{item.title}</Text>
-              <Text style={styles.priceItem}>{item.priceNew}</Text>
-              <View style={styles.wrapQuantity}>
-                <Button title="-" onPress={() => orderStore.delQuantity(item)} />
-                <Text>{item.quantity}</Text>
-                <Button title="+" onPress={() => orderStore.addQuantity(item)} />
+        <View>
+          {orderStore.orders[0] ? (
+            orderStore.orders.map((item) => (
+              <View key={generateUniqueKey()} style={styles.wrapItems}>
+                <Text style={styles.titleItem}>{item.title}</Text>
+                <Text style={styles.priceItem}>{item.priceNew}</Text>
+                <View style={styles.wrapQuantity}>
+                  <Button title="-" onPress={() => orderStore.delQuantity(item)} />
+                  <Text>{item.quantity}</Text>
+                  <Button title="+" onPress={() => orderStore.addQuantity(item)} />
+                </View>
+                <Button title="delete" onPress={() => removeItemFromOrder(item)} />
               </View>
-              <Button title="delete" onPress={() => removeItemFromOrder(item)} />
+            ))
+          ) : (
+            <View>
+              <Image
+                style={styles.iconCart}
+                source={require('../home/img/icon-cartLarge.png')}
+              />
             </View>
-          ))
-        ) : (
-          <View>
-            <Image
-              style={styles.iconCart}
-              source={require('../home/img/icon-cart.png')}
-            />
+          )}
+        </View>
+
+        <View style={styles.wrapPrice}>
+          <Text style={styles.totalPrice}>Total order: {calcSumOrders} UAH</Text>
+        </View>
+
+        {orderStore.orders[0] && (
+          <View style={styles.orderSendBox}>
+            <Pressable onPress={sendOrder} style={styles.orderSendWrap}>
+              <Text style={styles.orderSendTitle}>Send order</Text>
+            </Pressable>
           </View>
         )}
-      </View>
-
-      <View style={styles.wrapPrice}>
-        <Text style={styles.totalPrice}>Total order: {calcSumOrders} UAH</Text>
-      </View>
-
-      {orderStore.orders[0] && (
-        <View style={styles.orderSendBox}>
-          <Pressable onPress={sendOrder} style={styles.orderSendWrap}>
-            <Text style={styles.orderSendTitle}>Send order</Text>
-          </Pressable>
-        </View>
-      )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

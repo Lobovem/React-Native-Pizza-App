@@ -1,9 +1,9 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import iconCard from './img/icon-card.png';
+import iconCart from './img/icon-cart.png';
 import iconHeart from './img/icon-heart.png';
 import ColorsVariable from '../../components/ColorsVariable';
 import { IMockData } from './components/MochData';
@@ -23,31 +23,33 @@ export const PizzaScreen: FC = () => {
 
   return (
     item && (
-      <SafeAreaView style={styles.wrap}>
-        <View style={styles.imgWrap}>
-          <Image style={styles.img} source={item.img}></Image>
-        </View>
-        <View style={styles.wrapTitle}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Image style={styles.iconHeart} source={iconHeart}></Image>
-        </View>
-        <Text style={styles.desc}>{item.description}</Text>
-        <View style={styles.buyWrap}>
-          <View style={styles.wrapPrice}>
-            <Text style={styles.titlePrice}>Price:</Text>
-            <View style={styles.priceWrap}>
-              <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
-              {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
-            </View>
+      <SafeAreaView>
+        <ScrollView style={styles.wrap}>
+          <View style={styles.imgWrap}>
+            <Image style={styles.img} source={item.img}></Image>
           </View>
-
-          <Pressable style={styles.boxCard} onPress={() => addToOrder(item)}>
-            <View style={styles.wrapCard}>
-              <Text style={styles.titleCard}>Buy</Text>
-              <Image style={styles.card} source={iconCard}></Image>
+          <View style={styles.wrapTitle}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Image style={styles.iconHeart} source={iconHeart}></Image>
+          </View>
+          <Text style={styles.desc}>{item.description}</Text>
+          <View style={styles.buyWrap}>
+            <View style={styles.wrapPrice}>
+              <Text style={styles.titlePrice}>Price:</Text>
+              <View style={styles.priceWrap}>
+                <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
+                {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
+              </View>
             </View>
-          </Pressable>
-        </View>
+
+            <Pressable style={styles.boxCard} onPress={() => addToOrder(item)}>
+              <View style={styles.wrapCard}>
+                <Text style={styles.titleCard}>Buy</Text>
+                <Image style={styles.card} source={iconCart}></Image>
+              </View>
+            </Pressable>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     )
   );

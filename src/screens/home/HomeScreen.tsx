@@ -9,8 +9,8 @@ import {
   Pressable,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
-import iconCard from './img/icon-card.png';
-import iconHeart from './img/icon-heart.png';
+import iconCart from './img/icon-cart.png';
+import iconHeart from './img/icon-heartCart.png';
 
 import { IMockData, mockItemData, newItems, newItem } from './components/MochData';
 import ColorsVariable from '../../components/ColorsVariable';
@@ -103,32 +103,28 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
               {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
             </View>
 
-            <View style={styles.wrapRight}>
-              <View style={styles.wrapTitle}>
-                <Pressable style={styles.titleBox} onPress={() => onPressItem(item.id)}>
-                  <Text style={styles.title}>{item.title}</Text>
-                </Pressable>
+            <View style={styles.wrapTitle}>
+              <Pressable onPress={() => onPressItem(item.id)}>
+                <Text style={styles.title}>{item.title}</Text>
+              </Pressable>
+            </View>
 
-                <Image style={styles.iconHeart} source={iconHeart}></Image>
-              </View>
+            <View style={styles.wrapDesc}>
+              <Text numberOfLines={1} style={styles.desc}>
+                {item.description}
+              </Text>
+            </View>
 
-              <View style={styles.wrapPrice}>
-                <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
-              </View>
+            <View style={styles.wrapPrice}>
+              <Text style={styles.priceNew}>{item.priceNew} $</Text>
+              {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+            </View>
 
-              <View style={styles.wrapDesc}>
-                <Text numberOfLines={1} style={styles.desc}>
-                  {item.description}
-                </Text>
-
-                <View style={styles.wrapCard}>
-                  <Text style={styles.titleCard}>Buy</Text>
-                  <Pressable onPress={() => addToOrder(item)}>
-                    <Image style={styles.card} source={iconCard}></Image>
-                  </Pressable>
-                </View>
-              </View>
+            <View style={styles.wrapCard}>
+              <Image style={styles.iconHeart} source={iconHeart}></Image>
+              <Pressable onPress={() => addToOrder(item)}>
+                <Image style={styles.card} source={iconCart}></Image>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -150,7 +146,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.mainContainer}>
       <Header
         setTextInput={setTextInput}
         textInput={textInput}
@@ -162,6 +158,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         data={filterData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        numColumns={2}
         refreshing={refreshing}
         onRefresh={onRefresh}
         onEndReachedThreshold={0.2}
@@ -175,117 +172,126 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
 export default HomeScreens;
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: ColorsVariable.white,
+  },
   container: {
     backgroundColor: ColorsVariable.white,
+    paddingLeft: 20,
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 20,
+    paddingTop: 50,
   },
 
   item: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 50,
     padding: 10,
-    flexDirection: 'row',
+    paddingBottom: 20,
+    flexDirection: 'column',
     backgroundColor: ColorsVariable.white,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 20,
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+    gap: 6,
     borderRadius: 20,
     minHeight: 100,
     shadowColor: ColorsVariable.black,
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 5,
+      height: 5,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-
-  wrapRight: {
-    gap: 10,
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 25,
     flex: 1,
   },
 
-  wrapTitle: {
-    flexDirection: 'row',
-  },
-
-  titleBox: {
-    flex: 1,
-  },
-
-  title: {
-    fontSize: 20,
-    color: ColorsVariable.black,
-    fontWeight: '500',
-    flex: 1,
-    flexWrap: 'wrap',
-  },
-
+  // wrapRight: {
+  //   gap: 10,
+  //   flex: 1,
+  // },
   img: {
-    width: 100,
-    height: 90,
-    borderRadius: 14,
-    resizeMode: 'stretch',
+    width: 150,
+    height: 150,
+    top: -50,
+    // resizeMode: 'stretch',
   },
 
   iconNew: {
     position: 'absolute',
     maxHeight: 44,
     borderRadius: 6,
-    left: -16,
-    top: -8,
+    right: -16,
+    top: -48,
     resizeMode: 'contain',
   },
 
-  iconHeart: {
-    maxWidth: 40,
-    maxHeight: 40,
-    marginLeft: 'auto',
+  wrapTitle: {
+    top: -40,
+    // marginBottom: 'auto',
+    // flexDirection: 'row',
+    marginTop: 'auto',
+    marginBottom: 'auto',
   },
 
-  wrapPrice: {
-    flexDirection: 'row',
-    gap: 20,
+  title: {
+    fontSize: 18,
+    color: ColorsVariable.black,
+    fontWeight: 'bold',
+    textAlign: 'center',
+
+    // flex: 1,
+    // flexWrap: 'wrap',
   },
 
-  priceNew: {
-    fontSize: 16,
-    fontWeight: '800',
-  },
-
-  priceOld: {
-    fontSize: 16,
-    textDecorationLine: 'line-through',
-    color: ColorsVariable.red,
+  wrapDesc: {
+    top: -40, // flexDirection: 'row',
+    // alignItems: 'center',
+    // gap: 30,
   },
 
   desc: {
     fontSize: 16,
-    flex: 1,
+    color: ColorsVariable.grey,
+    // flex: 1,
   },
 
-  wrapDesc: {
+  wrapPrice: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 30,
+    justifyContent: 'center',
+    gap: 20,
+    top: -30,
+  },
+
+  priceNew: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+
+  priceOld: {
+    fontSize: 22,
+    textDecorationLine: 'line-through',
+    fontWeight: 'bold',
+
+    color: ColorsVariable.red,
   },
 
   wrapCard: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    // alignItems: 'flex-start',
+    // alignItems: 'center',
   },
 
-  titleCard: {
-    fontSize: 16,
-    fontWeight: '600',
+  iconHeart: {
+    width: 30,
+    height: 30,
+    // marginLeft: 'auto',
   },
 
   card: {
-    maxWidth: 40,
-    maxHeight: 40,
+    width: 30,
+    height: 30,
   },
 });
