@@ -31,6 +31,7 @@ export const PizzaScreen: FC = () => {
   };
 
   const addToOrder = (item: IMockData): void => {
+    //i did exacly that becouse i change value with item outside (i get item from homeScreen)
     const updateItem = { ...item };
     updateItem.quantity = itemQuantity;
     updateItem.options = optionsItems;
@@ -85,7 +86,15 @@ export const PizzaScreen: FC = () => {
                 style={option.active ? styles.optionsItemActive : styles.optionsItem}
                 onPress={() => hanldeActiveOption(option.name)}
               >
-                <Text style={styles.optionsItemTitle}>{option.name}</Text>
+                <Text
+                  style={
+                    option.active
+                      ? styles.optionsItemTitleActive
+                      : styles.optionsItemTitle
+                  }
+                >
+                  {option.name}
+                </Text>
               </Pressable>
             ))}
 

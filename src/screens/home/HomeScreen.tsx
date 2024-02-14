@@ -84,8 +84,6 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   // };
 
   const addToOrder = (item: IMockData): void => {
-    console.log('homeScreen', item.quantity);
-
     orderStore.setOrders(item);
   };
 
