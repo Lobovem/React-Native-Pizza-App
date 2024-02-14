@@ -64,8 +64,8 @@ const TabBarIconHeart: FC<ITabBarIconProps> = (props) => {
           style={props.focused ? styles.iconActive : styles.iconTab}
           source={
             props.focused
-              ? require('../screens/home/img/icon-heart-active.png')
-              : require('../screens/home/img/icon-heart.png')
+              ? require('../screens/home/img/icon-heartCart-active.png')
+              : require('../screens/home/img/icon-heartCart.png')
           }
         />
       </View>

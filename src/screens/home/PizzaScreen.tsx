@@ -4,7 +4,7 @@ import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import iconCart from './img/icon-cart.png';
-import iconHeart from './img/icon-heart.png';
+import iconHeart from './img/icon-heartCart.png';
 import ColorsVariable from '../../components/ColorsVariable';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
@@ -24,7 +24,7 @@ export const PizzaScreen: FC = () => {
   return (
     item && (
       <SafeAreaView>
-        <ScrollView style={styles.wrap}>
+        <ScrollView style={styles.container}>
           <View style={styles.imgWrap}>
             <Image style={styles.img} source={item.img}></Image>
           </View>
@@ -37,14 +37,13 @@ export const PizzaScreen: FC = () => {
             <View style={styles.wrapPrice}>
               <Text style={styles.titlePrice}>Price:</Text>
               <View style={styles.priceWrap}>
-                <Text style={styles.priceNew}>{item.priceNew} UAH</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld} UAH</Text>}
+                <Text style={styles.priceNew}>{item.priceNew} $</Text>
+                {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
               </View>
             </View>
 
             <Pressable style={styles.boxCard} onPress={() => addToOrder(item)}>
               <View style={styles.wrapCard}>
-                <Text style={styles.titleCard}>Buy</Text>
                 <Image style={styles.card} source={iconCart}></Image>
               </View>
             </Pressable>
@@ -56,8 +55,9 @@ export const PizzaScreen: FC = () => {
 };
 
 const styles = StyleSheet.create({
-  wrap: {
+  container: {
     paddingHorizontal: 20,
+    backgroundColor: ColorsVariable.white,
   },
 
   imgWrap: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   img: {
     width: 400,
     height: 300,
-    borderRadius: 20,
+    resizeMode: 'contain',
   },
   wrapTitle: {
     flexDirection: 'row',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: 'bold',
   },
   iconHeart: {
     marginLeft: 'auto',
@@ -98,17 +98,17 @@ const styles = StyleSheet.create({
   },
   titlePrice: {
     marginBottom: 6,
-    fontSize: 16,
+    fontSize: 20,
   },
   priceNew: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '800',
   },
 
   priceOld: {
-    fontSize: 16,
+    fontSize: 20,
     textDecorationLine: 'line-through',
-    color: ColorsVariable.red,
+    color: ColorsVariable.orange,
   },
 
   boxCard: {
