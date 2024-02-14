@@ -1,5 +1,5 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -10,20 +10,52 @@ import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
+import { observer } from 'mobx-react';
 
 export const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();
   const items = route.params;
 
   const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
+  const [itemQuantity, setItemQuantity] = useState(item.quantity);
+  const [optionsItems, setOptionsItems] = useState(item.options);
+
+  const addQuantity = (): void => {
+    setItemQuantity((prev) => prev + 1);
+  };
+
+  const removeQuantity = (): void => {
+    if (itemQuantity > 1) {
+      setItemQuantity((prev) => prev - 1);
+    }
+  };
 
   const addToOrder = (item: IMockData): void => {
-    orderStore.setOrders(item);
+    const updateItem = { ...item };
+    updateItem.quantity = itemQuantity;
+    updateItem.options = optionsItems;
+    console.log(updateItem.quantity);
+
+    orderStore.setOrders(updateItem);
+    setItemQuantity(1);
+  };
+
+  const hanldeActiveOption = (name: string): void => {
+    const updateOptions = [...optionsItems];
+
+    optionsItems?.forEach((item) => {
+      if (item.name === name) {
+        item.active = true;
+      } else {
+        item.active = false;
+      }
+    });
+
+    setOptionsItems(updateOptions);
   };
 
   return (
     item && (
-      // <SafeAreaView style={{ backgroundColor: 'white' }}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.itemWrap}>
           <View style={styles.imgWrap}>
@@ -31,9 +63,15 @@ export const PizzaScreen: FC = () => {
           </View>
 
           <View style={styles.quantityWrap}>
-            <Text style={styles.quantity}>-</Text>
-            <Text style={styles.quantity}>3</Text>
-            <Text style={styles.quantity}>+</Text>
+            <Pressable onPress={removeQuantity}>
+              <Text style={styles.quantity}>-</Text>
+            </Pressable>
+
+            <Text style={styles.quantity}>{itemQuantity}</Text>
+
+            <Pressable onPress={addQuantity}>
+              <Text style={styles.quantity}>+</Text>
+            </Pressable>
           </View>
 
           <View style={styles.wrapTitle}>
@@ -41,17 +79,19 @@ export const PizzaScreen: FC = () => {
           </View>
 
           <View style={styles.optionsItemWrap}>
-            <View style={styles.optionsItem}>
-              <Text style={styles.optionsItemTitle}>S</Text>
-            </View>
+            {optionsItems?.map((option, index) => (
+              <Pressable
+                key={index}
+                style={option.active ? styles.optionsItemActive : styles.optionsItem}
+                onPress={() => hanldeActiveOption(option.name)}
+              >
+                <Text style={styles.optionsItemTitle}>{option.name}</Text>
+              </Pressable>
+            ))}
 
-            <View style={styles.optionsItemActive}>
-              <Text style={styles.optionsItemTitleActive}>M</Text>
-            </View>
-
-            <View style={styles.optionsItem}>
+            {/* <View style={styles.optionsItem}>
               <Text style={styles.optionsItemTitle}>L</Text>
-            </View>
+            </View> */}
           </View>
 
           <View style={styles.priceWrap}>
@@ -59,25 +99,16 @@ export const PizzaScreen: FC = () => {
             {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
           </View>
 
-          {/* <View style={{ flexDirection: 'row' }}>
-             <Image style={styles.iconHeart} source={iconHeart} />
-        
-             <Image style={styles.iconHeart} source={iconCart} />
-           </View> */}
-
           <Text style={styles.desc}>{item.description}</Text>
 
           <View style={styles.buyWrap}>
             <Image style={styles.iconHeart} source={iconHeart} />
             <Pressable style={styles.cart} onPress={() => addToOrder(item)}>
-              <Text style={{ fontSize: 30, color: ColorsVariable.white }}>
-                Add to cart
-              </Text>
+              <Text style={styles.cartTitle}>Add to cart</Text>
             </Pressable>
           </View>
         </View>
       </ScrollView>
-      // </SafeAreaView>
     )
   );
 };
@@ -194,7 +225,6 @@ const styles = StyleSheet.create({
 
   quantity: {
     fontSize: 30,
-    // fontWeight: 'bold',
     alignSelf: 'center',
   },
 
@@ -220,8 +250,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  titleCard: {
-    fontSize: 16,
-    fontWeight: '600',
+  cartTitle: {
+    fontSize: 30,
+    color: ColorsVariable.white,
   },
 });

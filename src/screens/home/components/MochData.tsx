@@ -11,6 +11,7 @@ export interface IMockData {
   priceOld: number;
   priceNew: number;
   quantity: number;
+  options?: { name: string; active: boolean }[];
 }
 
 export interface IMockDataImg {
@@ -31,6 +32,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 30,
     priceNew: 25,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -44,6 +50,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 25,
     priceNew: 20,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -57,6 +68,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 32,
     priceNew: 15,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -69,6 +85,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 40,
     priceNew: 25,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -81,6 +102,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 30,
     priceNew: 25,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -93,6 +119,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 25,
     priceNew: 20,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -105,6 +136,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 32,
     priceNew: 15,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 
   {
@@ -117,6 +153,11 @@ export const mockItemData: IMockData[] = [
     priceOld: 40,
     priceNew: 25,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 ];
 
@@ -131,6 +172,11 @@ export const newItems: IMockData[] = [
     priceOld: 45,
     priceNew: 10,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
   {
     id: generateUniqueKey(),
@@ -142,6 +188,11 @@ export const newItems: IMockData[] = [
     priceOld: 45,
     priceNew: 10,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
   {
     id: generateUniqueKey(),
@@ -153,6 +204,11 @@ export const newItems: IMockData[] = [
     priceOld: 45,
     priceNew: 10,
     quantity: 1,
+    options: [
+      { name: 'S', active: false },
+      { name: 'M', active: true },
+      { name: 'L', active: false },
+    ],
   },
 ];
 
@@ -166,6 +222,11 @@ export const newItem: IMockData = {
   priceOld: 45,
   priceNew: 10,
   quantity: 1,
+  options: [
+    { name: 'S', active: false },
+    { name: 'M', active: true },
+    { name: 'L', active: false },
+  ],
 };
 
 export const mockDataImg: IMockDataImg[] = [

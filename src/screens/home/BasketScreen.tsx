@@ -60,7 +60,7 @@ const BasketScreen: FC = () => {
         </View>
 
         <View style={styles.wrapPrice}>
-          <Text style={styles.totalPrice}>Total order: {calcSumOrders} UAH</Text>
+          <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
         </View>
 
         {orderStore.orders[0] && (

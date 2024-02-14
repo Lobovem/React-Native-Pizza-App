@@ -16,7 +16,7 @@ class OrdersStore implements IOrderStore {
   @action setOrders(data: IMockData): void {
     this.orders.forEach((item) => {
       if (item.id === data.id) {
-        item.quantity += 1;
+        item.quantity = item.quantity + data.quantity;
       }
     });
 
