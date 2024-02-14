@@ -23,8 +23,9 @@ export const PizzaScreen: FC = () => {
 
   return (
     item && (
-      <SafeAreaView>
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      // <SafeAreaView style={{ backgroundColor: 'white' }}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.itemWrap}>
           <View style={styles.imgWrap}>
             <Image style={styles.img} source={item.img}></Image>
           </View>
@@ -59,10 +60,10 @@ export const PizzaScreen: FC = () => {
           </View>
 
           {/* <View style={{ flexDirection: 'row' }}>
-            <Image style={styles.iconHeart} source={iconHeart} />
-
-            <Image style={styles.iconHeart} source={iconCart} />
-          </View> */}
+             <Image style={styles.iconHeart} source={iconHeart} />
+        
+             <Image style={styles.iconHeart} source={iconCart} />
+           </View> */}
 
           <Text style={styles.desc}>{item.description}</Text>
 
@@ -74,8 +75,9 @@ export const PizzaScreen: FC = () => {
               </Text>
             </Pressable>
           </View>
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+      </ScrollView>
+      // </SafeAreaView>
     )
   );
 };
@@ -85,12 +87,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: ColorsVariable.white,
     showsVerticalScrollIndicator: 'true',
+    paddingTop: 20,
+  },
+
+  itemWrap: {
+    paddingBottom: 80,
   },
 
   imgWrap: {
     alignItems: 'center',
     marginBottom: 30,
   },
+
   img: {
     width: 400,
     height: 300,
@@ -182,9 +190,6 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: 30,
-
-    // gap: 10,
-    // padding: 4,
   },
 
   quantity: {

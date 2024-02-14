@@ -18,7 +18,14 @@ const HomeStackScreen: FC = () => {
   const HomeStack = createNativeStackNavigator();
 
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        // headerMode: 'screen',
+        headerTintColor: 'white',
+        headerStyle: { backgroundColor: ColorsVariable.orange },
+      }}
+    >
       <HomeStack.Group>
         <HomeStack.Screen
           name="Home"
@@ -29,17 +36,22 @@ const HomeStackScreen: FC = () => {
         <HomeStack.Screen
           name="Pizza"
           component={PizzaScreen}
-          options={{
-            headerStyle: { backgroundColor: ColorsVariable.greyLight },
-            headerTitle: '',
-          }}
+          // options={
+          //   {
+          //     // headerStyle: { backgroundColor: ColorsVariable.greyLight },
+          //     // headerTitle: '',
+          //   }
+          options={{ headerShown: true }}
         />
       </HomeStack.Group>
 
       <HomeStack.Group>
         <HomeStack.Screen
           name="Modal"
-          options={{ presentation: 'modal', headerShown: false }}
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
           component={ModalScreen}
         />
       </HomeStack.Group>
