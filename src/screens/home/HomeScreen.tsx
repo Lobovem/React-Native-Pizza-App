@@ -94,38 +94,36 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   const renderItem = useCallback(
     ({ item }: IItemProps) => {
       return (
-        <View style={styles.container}>
-          <View style={styles.item}>
-            <View>
-              <Pressable onPress={() => onPressItem(item.id)}>
-                <Image style={styles.img} source={item.img} />
-              </Pressable>
-              {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
-            </View>
+        <View style={styles.item}>
+          <View>
+            <Pressable onPress={() => onPressItem(item.id)}>
+              <Image style={styles.img} source={item.img} />
+            </Pressable>
+            {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
+          </View>
 
-            <View style={styles.wrapTitle}>
-              <Pressable onPress={() => onPressItem(item.id)}>
-                <Text style={styles.title}>{item.title}</Text>
-              </Pressable>
-            </View>
+          <View style={styles.wrapTitle}>
+            <Pressable onPress={() => onPressItem(item.id)}>
+              <Text style={styles.title}>{item.title}</Text>
+            </Pressable>
+          </View>
 
-            <View style={styles.wrapDesc}>
-              <Text numberOfLines={1} style={styles.desc}>
-                {item.description}
-              </Text>
-            </View>
+          <View style={styles.wrapDesc}>
+            <Text numberOfLines={1} style={styles.desc}>
+              {item.description}
+            </Text>
+          </View>
 
-            <View style={styles.wrapPrice}>
-              <Text style={styles.priceNew}>{item.priceNew} $</Text>
-              {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
-            </View>
+          <View style={styles.wrapPrice}>
+            <Text style={styles.priceNew}>{item.priceNew} $</Text>
+            {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+          </View>
 
-            <View style={styles.wrapCard}>
-              <Image style={styles.iconHeart} source={iconHeart}></Image>
-              <Pressable onPress={() => addToOrder(item)}>
-                <Image style={styles.card} source={iconCart}></Image>
-              </Pressable>
-            </View>
+          <View style={styles.wrapCard}>
+            <Image style={styles.iconHeart} source={iconHeart}></Image>
+            <Pressable onPress={() => addToOrder(item)}>
+              <Image style={styles.card} source={iconCart}></Image>
+            </Pressable>
           </View>
         </View>
       );
@@ -164,6 +162,8 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         onEndReachedThreshold={0.2}
         onEndReached={addNewItem}
         onScroll={scrollHandler}
+        showsVerticalScrollIndicator={false}
+        style={styles.itemsList}
       />
     </SafeAreaView>
   );
@@ -177,22 +177,31 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: ColorsVariable.white,
-    paddingLeft: 20,
     flex: 1,
-    paddingRight: 20,
+    paddingHorizontal: 20,
     paddingTop: 50,
   },
 
+  itemsList: {
+    //TODO check out marginBottom
+    backgroundColor: ColorsVariable.white,
+    // flex: 1,
+    paddingHorizontal: 10,
+    paddingTop: 50,
+    // marginBottom: 100,
+  },
+
   item: {
-    marginTop: 10,
-    marginBottom: 50,
+    marginBottom: 80,
+    marginRight: 10,
+    marginLeft: 10,
     padding: 10,
-    paddingBottom: 20,
+    paddingBottom: 14,
     flexDirection: 'column',
     backgroundColor: ColorsVariable.white,
     // justifyContent: 'space-between',
     // alignItems: 'center',
-    gap: 6,
+    gap: 10,
     borderRadius: 20,
     minHeight: 100,
     shadowColor: ColorsVariable.black,
@@ -206,36 +215,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  // wrapRight: {
-  //   gap: 10,
-  //   flex: 1,
-  // },
   img: {
     width: 150,
     height: 150,
     top: -50,
-    // resizeMode: 'stretch',
   },
 
   iconNew: {
     position: 'absolute',
     maxHeight: 44,
-    borderRadius: 6,
-    right: -16,
-    top: -48,
+    right: 0,
+    top: -60,
     resizeMode: 'contain',
+    transform: [{ rotate: '-14deg' }],
   },
 
   wrapTitle: {
     top: -40,
-    // marginBottom: 'auto',
-    // flexDirection: 'row',
     marginTop: 'auto',
     marginBottom: 'auto',
   },
 
   title: {
-    fontSize: 18,
+    fontSize: 20,
     color: ColorsVariable.black,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     fontWeight: 'bold',
 
-    color: ColorsVariable.red,
+    color: ColorsVariable.orange,
   },
 
   wrapCard: {
