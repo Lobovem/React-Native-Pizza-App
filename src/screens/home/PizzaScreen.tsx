@@ -24,28 +24,54 @@ export const PizzaScreen: FC = () => {
   return (
     item && (
       <SafeAreaView>
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
           <View style={styles.imgWrap}>
             <Image style={styles.img} source={item.img}></Image>
           </View>
+
+          <View style={styles.quantityWrap}>
+            <Text style={styles.quantity}>-</Text>
+            <Text style={styles.quantity}>3</Text>
+            <Text style={styles.quantity}>+</Text>
+          </View>
+
           <View style={styles.wrapTitle}>
             <Text style={styles.title}>{item.title}</Text>
-            <Image style={styles.iconHeart} source={iconHeart}></Image>
           </View>
-          <Text style={styles.desc}>{item.description}</Text>
-          <View style={styles.buyWrap}>
-            <View style={styles.wrapPrice}>
-              <Text style={styles.titlePrice}>Price:</Text>
-              <View style={styles.priceWrap}>
-                <Text style={styles.priceNew}>{item.priceNew} $</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
-              </View>
+
+          <View style={styles.optionsItemWrap}>
+            <View style={styles.optionsItem}>
+              <Text style={styles.optionsItemTitle}>S</Text>
             </View>
 
-            <Pressable style={styles.boxCard} onPress={() => addToOrder(item)}>
-              <View style={styles.wrapCard}>
-                <Image style={styles.card} source={iconCart}></Image>
-              </View>
+            <View style={styles.optionsItemActive}>
+              <Text style={styles.optionsItemTitleActive}>M</Text>
+            </View>
+
+            <View style={styles.optionsItem}>
+              <Text style={styles.optionsItemTitle}>L</Text>
+            </View>
+          </View>
+
+          <View style={styles.priceWrap}>
+            <Text style={styles.priceNew}>{item.priceNew} $</Text>
+            {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+          </View>
+
+          {/* <View style={{ flexDirection: 'row' }}>
+            <Image style={styles.iconHeart} source={iconHeart} />
+
+            <Image style={styles.iconHeart} source={iconCart} />
+          </View> */}
+
+          <Text style={styles.desc}>{item.description}</Text>
+
+          <View style={styles.buyWrap}>
+            <Image style={styles.iconHeart} source={iconHeart} />
+            <Pressable style={styles.cart} onPress={() => addToOrder(item)}>
+              <Text style={{ fontSize: 30, color: ColorsVariable.white }}>
+                Add to cart
+              </Text>
             </Pressable>
           </View>
         </ScrollView>
@@ -58,11 +84,12 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     backgroundColor: ColorsVariable.white,
+    showsVerticalScrollIndicator: 'true',
   },
 
   imgWrap: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 30,
   },
   img: {
     width: 400,
@@ -70,65 +97,126 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   wrapTitle: {
-    flexDirection: 'row',
-    marginBottom: 40,
+    marginBottom: 20,
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
   },
-  iconHeart: {
-    marginLeft: 'auto',
-    width: 34,
-    height: 34,
+
+  optionsItemWrap: {
+    flexDirection: 'row',
+    gap: 20,
+    justifyContent: 'center',
+    marginBottom: 20,
   },
+
+  optionsItem: {
+    width: 80,
+    height: 50,
+    backgroundColor: '#FCE6D9',
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  optionsItemActive: {
+    width: 80,
+    height: 50,
+    backgroundColor: ColorsVariable.orange,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  optionsItemTitle: {
+    fontSize: 30,
+    color: ColorsVariable.black,
+  },
+
+  optionsItemTitleActive: {
+    fontSize: 30,
+    color: ColorsVariable.white,
+  },
+
   desc: {
-    marginBottom: 40,
+    marginBottom: 30,
     fontSize: 16,
   },
 
-  buyWrap: {
-    flexDirection: 'row',
-  },
-  wrapPrice: {},
   priceWrap: {
     flexDirection: 'row',
-    gap: 10,
+    marginBottom: 20,
+    justifyContent: 'center',
+    gap: 20,
   },
-  titlePrice: {
-    marginBottom: 6,
-    fontSize: 20,
-  },
+
   priceNew: {
-    fontSize: 20,
-    fontWeight: '800',
+    fontSize: 30,
+    fontWeight: 'bold',
   },
 
   priceOld: {
-    fontSize: 20,
+    fontSize: 30,
+    fontWeight: 'bold',
     textDecorationLine: 'line-through',
     color: ColorsVariable.orange,
   },
 
-  boxCard: {
-    flex: 1,
+  quantityWrap: {
     flexDirection: 'row',
+    borderRadius: 28,
+    backgroundColor: ColorsVariable.white,
+    shadowColor: ColorsVariable.black,
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 25,
+    width: 150,
+    height: 40,
+    justifyContent: 'space-evenly',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 30,
+
+    // gap: 10,
+    // padding: 4,
   },
-  wrapCard: {
-    flex: 1,
-    justifyContent: 'flex-end',
+
+  quantity: {
+    fontSize: 30,
+    // fontWeight: 'bold',
+    alignSelf: 'center',
+  },
+
+  buyWrap: {
+    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+  },
+
+  iconHeart: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+  },
+
+  cart: {
+    width: 270,
+    height: 60,
+    backgroundColor: ColorsVariable.orange,
+    borderRadius: 30,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
   titleCard: {
     fontSize: 16,
     fontWeight: '600',
-  },
-
-  card: {
-    maxWidth: 40,
-    maxHeight: 40,
   },
 });
