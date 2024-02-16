@@ -22,8 +22,7 @@ const BasketScreen: FC = () => {
   );
 
   const removeItemFromOrder = (item: IMockData): void => {
-    let orders = orderStore.orders.filter((order) => order.id !== item.id);
-    orderStore.removeOrders(orders);
+    orderStore.removeOrders(item);
   };
 
   const sendOrder = (): void => {

@@ -13,29 +13,31 @@ class OrdersStore implements IOrderStore {
     makeObservable(this);
   }
 
-  @action setOrders(data: IMockData): void {
-    this.orders.forEach((item) => {
-      const activeOption = item.options.find((option) => option.active === true);
+  @action setOrders(itemOrdering: IMockData): void {
+    const existingItem = this.orders.find((itemBasket: IMockData) => {
+      const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
 
-      if (item.id === data.id && activeOption.active === true) {
-        item.quantity += data.quantity;
-      }
+      return (
+        itemBasket.id === itemOrdering.id &&
+        itemOrderingOption.name === itemFromBasketOption.name
+      );
     });
 
-    const existingItem = this.orders.find((item) => {
-      const activeItem = item.options.find((option) => option.active === true);
-      console.log(activeItem);
-
-      return item.id === data.id && activeItem.active === true;
-    });
-
-    if (!existingItem) {
-      this.orders = [...this.orders, data];
+    if (existingItem) {
+      existingItem.quantity += itemOrdering.quantity;
+    } else {
+      this.orders = [...this.orders, itemOrdering];
     }
   }
 
-  @action removeOrders(data: IMockData[]): void {
-    this.orders = [...data];
+  @action removeOrders(item: IMockData | []): void {
+    if (Array.isArray(item)) {
+      this.orders = [];
+    } else {
+      let orders = this.orders.filter((order) => order.id !== item.id);
+      this.orders = [...orders];
+    }
   }
 
   @action addQuantity(item: IMockData): void {
