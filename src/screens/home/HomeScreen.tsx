@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   Pressable,
+  ImageBackground,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconCart from './img/icon-cart.png';
@@ -95,11 +96,12 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
     ({ item }: IItemProps) => {
       return (
         <View style={styles.item}>
-          <View>
+          <View style={{ position: 'relative' }}>
             <Pressable onPress={() => onPressItem(item.id)}>
-              <Image style={styles.img} source={item.img} />
+              <ImageBackground style={styles.img} source={item.img}>
+                {item.sale && <Image style={styles.iconNew} source={iconNew} />}
+              </ImageBackground>
             </Pressable>
-            {item.isNew && <Image style={styles.iconNew} source={iconNew}></Image>}
           </View>
 
           <View style={styles.wrapTitle}>
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsVariable.white,
     // flex: 1,
     paddingHorizontal: 10,
-    paddingTop: 50,
+    paddingTop: 66,
     marginBottom: 60,
   },
 
@@ -225,8 +227,8 @@ const styles = StyleSheet.create({
   iconNew: {
     position: 'absolute',
     maxHeight: 44,
-    right: 0,
-    top: -60,
+    right: -15,
+    top: -15,
     resizeMode: 'contain',
     transform: [{ rotate: '-14deg' }],
   },
