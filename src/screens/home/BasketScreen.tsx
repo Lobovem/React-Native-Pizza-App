@@ -40,7 +40,16 @@ const BasketScreen: FC = () => {
             orderStore.orders.map((item) => (
               <View key={generateUniqueKey()} style={styles.wrapItems}>
                 <Text style={styles.titleItem}>{item.title}</Text>
-                <Text style={styles.priceItem}>{item.priceNew}</Text>
+                {item.options.map(
+                  (item, index) =>
+                    item.active && (
+                      <Text key={index} style={styles.priceItem}>
+                        {item.name}
+                      </Text>
+                    )
+                )}
+
+                <Text style={styles.priceItem}>{item.priceNew} $</Text>
                 <View style={styles.wrapQuantity}>
                   <Button title="-" onPress={() => orderStore.delQuantity(item)} />
                   <Text>{item.quantity}</Text>

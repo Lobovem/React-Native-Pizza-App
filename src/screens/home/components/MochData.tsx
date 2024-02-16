@@ -23,9 +23,9 @@ export interface IMockDataImg {
 export const mockItemData: IMockData[] = [
   {
     id: generateUniqueKey(),
-    title: 'Meat',
+    title: 'Margherita Pizza',
     description:
-      '«Маргарита» считается неаполитанской пиццей. Само слово переводится как морской или моряцкий. Однако это не значит, что пицца должна быть с морепродуктами. Возможно, пиццу так назвали в честь рыбаков, которые употребляли ее практически каждое утро.',
+      'Margherita Pizza: Classic and simple, the Margherita pizza features a perfect balance of tangy tomato sauce, creamy mozzarella cheese, and fragrant basil leaves on a thin, crispy crust.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -41,9 +41,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Four season',
+    title: 'Pepperoni Pizza',
     description:
-      '«Четыре сезона» — одна из самых популярных и является лидером продаж. Имеется множество вариантов сочетаний начинок. В традиционной «Четыре сезона» три сектора (сезона) начинки заняты морепродуктами, а один грибами. Состав: тесто, моцареллла, помидоры, соленые грибы, варено-мороженные мидии, свежие или мороженные в панцире креветки, маслины, соленый анчоус, петрушка, чеснок, апельсин, соль, сахар, перец, вустерширский соус, соус табаско, свежий базилик, пармезан.',
+      'Pepperoni Pizza: A beloved favorite, pepperoni pizza boasts a zesty tomato sauce topped with generous slices of spicy pepperoni and gooey melted cheese, all baked to golden perfection.',
     isNew: false,
     sale: false,
     img: require('../img/pizza-1.png'),
@@ -59,9 +59,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Marinara',
+    title: 'Vegetarian Pizza',
     description:
-      '«Маринара» считается неаполитанской пиццей. Само слово переводится как морской или моряцкий. Однако это не значит, что пицца должна быть с морепродуктами. Возможно, пиццу так назвали в честь рыбаков, которые употребляли ее практически каждое утро.',
+      'Vegetarian Pizza: Bursting with colorful vegetables like bell peppers, mushrooms, onions, and olives, this vegetarian delight offers a flavorful and wholesome alternative for pizza lovers.',
     isNew: false,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -77,8 +77,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Becon and cheese',
-    description: 'Special proposal of pizza with becon and cheese',
+    title: 'Hawaiian Pizza',
+    description:
+      'Hawaiian Pizza: A tropical twist on tradition, Hawaiian pizza combines savory ham, juicy pineapple chunks, and melted cheese atop a savory tomato sauce base, creating a sweet and savory flavor sensation.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -94,8 +95,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Meat ',
-    description: 'Pizza with meat is really delision',
+    title: 'BBQ Chicken Pizza ',
+    description:
+      'BBQ Chicken Pizza: Featuring tender chunks of grilled chicken, tangy barbecue sauce, caramelized onions, and smoky gouda cheese, BBQ chicken pizza offers a mouthwatering blend of flavors with every bite.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -111,8 +113,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Cheese',
-    description: 'Pizza with cheese is really delision',
+    title: 'Four Cheese Pizza',
+    description:
+      'Four Cheese Pizza: Cheese lovers rejoice! The four cheese pizza combines the creamy richness of mozzarella, provolone, fontina, and Parmesan cheeses, creating a decadent and indulgent pizza experience.',
     isNew: false,
     sale: false,
     img: require('../img/pizza-1.png'),
@@ -128,8 +131,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Becon',
-    description: 'Special proposal of pizza with becon',
+    title: 'Supreme Pizza',
+    description:
+      'Supreme Pizza: Piled high with an assortment of savory toppings such as pepperoni, sausage, bell peppers, onions, and olives, the supreme pizza is a hearty and satisfying choice for pizza enthusiasts.',
     isNew: false,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -145,8 +149,9 @@ export const mockItemData: IMockData[] = [
 
   {
     id: generateUniqueKey(),
-    title: 'Becon and cheese',
-    description: 'Special proposal of pizza with becon and cheese',
+    title: 'Mushroom Truffle Pizza',
+    description:
+      'Mushroom Truffle Pizza: Indulge in the earthy richness of mushroom truffle pizza, adorned with a decadent blend of exotic mushrooms, aromatic truffle oil, and creamy fontina cheese, all atop a crisp crust.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -164,8 +169,9 @@ export const mockItemData: IMockData[] = [
 export const newItems: IMockData[] = [
   {
     id: generateUniqueKey(),
-    title: 'New pizza 2',
-    description: 'Pizza is really delision',
+    title: 'Buffalo Chicken Pizza',
+    description:
+      'Buffalo Chicken Pizza: Spice things up with buffalo chicken pizza, featuring tender chicken coated in fiery buffalo sauce, tangy blue cheese crumbles, and crisp celery, delivering a fiery kick with every bite.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -180,8 +186,9 @@ export const newItems: IMockData[] = [
   },
   {
     id: generateUniqueKey(),
-    title: 'New pizza 3',
-    description: 'Pizza is really delision',
+    title: 'Capricciosa Pizza',
+    description:
+      'Capricciosa Pizza: A classic Italian favorite, the Capricciosa pizza boasts a medley of artichoke hearts, savory ham, earthy mushrooms, and briny olives, all nestled atop a bed of tomato sauce and mozzarella cheese.',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -196,8 +203,9 @@ export const newItems: IMockData[] = [
   },
   {
     id: generateUniqueKey(),
-    title: 'New pizza 4',
-    description: 'Pizza is really delision',
+    title: 'Buffalo Chicken Pizza',
+    description:
+      'Spice things up with buffalo chicken pizza, featuring tender chicken coated in fiery buffalo sauce',
     isNew: true,
     sale: true,
     img: require('../img/pizza-1.png'),
@@ -214,8 +222,9 @@ export const newItems: IMockData[] = [
 
 export const newItem: IMockData = {
   id: generateUniqueKey(),
-  title: 'New pizza',
-  description: 'Pizza is really delision',
+  title: 'Capricciosa Pizza',
+  description:
+    'Capricciosa Pizza: A classic Italian favorite, the Capricciosa pizza boasts a medley of artichoke hearts',
   isNew: true,
   sale: true,
   img: require('../img/pizza-1.png'),

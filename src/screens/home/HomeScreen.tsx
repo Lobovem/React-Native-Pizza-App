@@ -152,6 +152,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
       />
       {/* <Animated.Text style={animatedStyle}>TEXT</Animated.Text> */}
 
+      {/* <View style={{ marginBottom: 120 }}> */}
       <Animated.FlatList
         data={filterData}
         renderItem={renderItem}
@@ -165,6 +166,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         showsVerticalScrollIndicator={false}
         style={styles.itemsList}
       />
+      {/* </View> */}
     </SafeAreaView>
   );
 };
@@ -183,12 +185,11 @@ const styles = StyleSheet.create({
   },
 
   itemsList: {
-    //TODO check out marginBottom
     backgroundColor: ColorsVariable.white,
     // flex: 1,
     paddingHorizontal: 10,
     paddingTop: 50,
-    // marginBottom: 100,
+    marginBottom: 60,
   },
 
   item: {

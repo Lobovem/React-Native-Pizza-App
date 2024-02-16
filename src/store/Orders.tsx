@@ -15,12 +15,20 @@ class OrdersStore implements IOrderStore {
 
   @action setOrders(data: IMockData): void {
     this.orders.forEach((item) => {
-      if (item.id === data.id) {
-        item.quantity = item.quantity + data.quantity;
+      const activeOption = item.options.find((option) => option.active === true);
+
+      if (item.id === data.id && activeOption.active === true) {
+        item.quantity += data.quantity;
       }
     });
 
-    const existingItem = this.orders.find((item) => item.id === data.id);
+    const existingItem = this.orders.find((item) => {
+      const activeItem = item.options.find((option) => option.active === true);
+      console.log(activeItem);
+
+      return item.id === data.id && activeItem.active === true;
+    });
+
     if (!existingItem) {
       this.orders = [...this.orders, data];
     }
