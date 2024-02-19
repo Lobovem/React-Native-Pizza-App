@@ -31,26 +31,51 @@ class OrdersStore implements IOrderStore {
     }
   }
 
-  @action removeOrders(item: IMockData | []): void {
-    if (Array.isArray(item)) {
-      this.orders = [];
-    } else {
-      let orders = this.orders.filter((order) => order.id !== item.id);
-      this.orders = [...orders];
-    }
+  @action removeOrders(itemOrdering: IMockData): void {
+    const existingItem = this.orders.find((itemBasket: IMockData) => {
+      const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
+
+      return (
+        itemBasket.id === itemOrdering.id &&
+        itemOrderingOption.name === itemFromBasketOption.name
+      );
+    });
+
+    this.orders = this.orders.filter((order) => existingItem !== order);
   }
 
-  @action addQuantity(item: IMockData): void {
+  @action addQuantity(itemOrdering: IMockData): void {
+    const existingItem = this.orders.find((itemBasket: IMockData) => {
+      const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
+
+      return (
+        itemBasket.id === itemOrdering.id &&
+        itemOrderingOption.name === itemFromBasketOption.name
+      );
+    });
+
     this.orders.forEach((itemSearch: IMockData) => {
-      if (item.id === itemSearch.id) {
+      if (existingItem === itemSearch) {
         itemSearch.quantity += 1;
       }
     });
   }
 
-  @action delQuantity(item: IMockData): void {
+  @action delQuantity(itemOrdering: IMockData): void {
+    const existingItem = this.orders.find((itemBasket: IMockData) => {
+      const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
+
+      return (
+        itemBasket.id === itemOrdering.id &&
+        itemOrderingOption.name === itemFromBasketOption.name
+      );
+    });
+
     this.orders.forEach((itemSearch: IMockData) => {
-      if (item.id === itemSearch.id && itemSearch.quantity > 0) {
+      if (existingItem === itemSearch && itemSearch.quantity > 0) {
         itemSearch.quantity -= 1;
       }
     });
