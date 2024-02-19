@@ -156,9 +156,12 @@ const HomeTabs: FC = () => {
       }}
     >
       <Tab.Screen
-        name="CART"
+        name="Cart"
         options={{
           tabBarIcon: (props) => <TabIconBasket {...props} />,
+          headerShown: true,
+          headerStyle: { backgroundColor: ColorsVariable.orange },
+          headerTintColor: 'white',
         }}
         component={BasketScreen}
       />

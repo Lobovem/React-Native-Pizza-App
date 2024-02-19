@@ -29,88 +29,93 @@ const BasketScreen: FC = () => {
     orderStore.removeOrders([]);
   };
 
+  console.log('Render basket');
+
   return (
-    <SafeAreaView style={styles.wrap}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Cart</Text>
+    // <SafeAreaView style={styles.wrap}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.wrap}>
+      {/* <Text style={styles.title}>Cart</Text> */}
 
-        <View>
-          {orderStore.orders[0] ? (
-            orderStore.orders.map((item) => (
-              <View key={generateUniqueKey()} style={styles.item}>
-                <Image source={`${item.img}`} style={styles.itemImg} />
+      <View>
+        {orderStore.orders[0] ? (
+          orderStore.orders.map((item) => (
+            <View key={generateUniqueKey()} style={styles.item}>
+              <Image source={item.img} style={styles.itemImg} />
 
-                <View style={styles.wrapItemInfo}>
-                  <View style={styles.wrapTitle}>
-                    <Text style={styles.titleItem}>{item.title}</Text>
+              <View style={styles.wrapItemInfo}>
+                <View style={styles.wrapTitle}>
+                  <Text style={styles.titleItem}>{item.title}</Text>
 
-                    <Pressable
-                      style={styles.removeItem}
-                      onPress={() => removeItemFromOrder(item)}
-                    >
-                      <Text style={styles.removeItemTitle}>X</Text>
+                  <Pressable
+                    style={styles.removeItem}
+                    onPress={() => removeItemFromOrder(item)}
+                  >
+                    <Text style={styles.removeItemTitle}>X</Text>
+                  </Pressable>
+                </View>
+
+                <Text style={styles.priceItem}>{item.priceNew} $</Text>
+
+                <View style={styles.optionsWrap}>
+                  {item.options.map(
+                    (item, index) =>
+                      item.active && (
+                        <Text key={index} style={styles.optionItem}>
+                          size: {item.name}
+                        </Text>
+                      )
+                  )}
+
+                  <View style={styles.quantityWrap}>
+                    <Pressable onPress={() => orderStore.delQuantity(item)}>
+                      <Text style={styles.quantity}>-</Text>
                     </Pressable>
-                  </View>
 
-                  <Text style={styles.priceItem}>{item.priceNew} $</Text>
+                    <Text style={styles.quantity}>{item.quantity}</Text>
 
-                  <View style={styles.optionsWrap}>
-                    {item.options.map(
-                      (item, index) =>
-                        item.active && (
-                          <Text key={index} style={styles.optionItem}>
-                            size: {item.name}
-                          </Text>
-                        )
-                    )}
-
-                    <View style={styles.quantityWrap}>
-                      <Pressable onPress={() => orderStore.delQuantity(item)}>
-                        <Text style={styles.quantity}>-</Text>
-                      </Pressable>
-
-                      <Text style={styles.quantity}>{item.quantity}</Text>
-
-                      <Pressable onPress={() => orderStore.addQuantity(item)}>
-                        <Text style={styles.quantity}>+</Text>
-                      </Pressable>
-                    </View>
+                    <Pressable onPress={() => orderStore.addQuantity(item)}>
+                      <Text style={styles.quantity}>+</Text>
+                    </Pressable>
                   </View>
                 </View>
               </View>
-            ))
-          ) : (
-            <View>
-              <Image
-                style={styles.iconCart}
-                source={require('../home/img/icon-cartLarge.png')}
-              />
             </View>
-          )}
-        </View>
-
-        <View style={styles.wrapTotalPrice}>
-          <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
-        </View>
-
-        {orderStore.orders[0] && (
-          <View style={styles.orderSendBox}>
-            <Pressable onPress={sendOrder} style={styles.orderSendWrap}>
-              <Text style={styles.orderSendTitle}>Send order</Text>
-            </Pressable>
+          ))
+        ) : (
+          <View>
+            <Image
+              style={styles.iconCart}
+              source={require('../home/img/icon-cartLarge.png')}
+            />
           </View>
         )}
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+
+      <View style={styles.wrapTotalPrice}>
+        <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
+      </View>
+
+      {orderStore.orders[0] && (
+        <View style={styles.orderSendBox}>
+          <Pressable onPress={sendOrder} style={styles.orderSendWrap}>
+            <Text style={styles.orderSendTitle}>Send order</Text>
+          </Pressable>
+        </View>
+      )}
+    </ScrollView>
+    // </SafeAreaView>
   );
 };
 
 export default observer(BasketScreen);
+//TODO rerendering component basket when i change quantity and delete item from order
 
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
     backgroundColor: ColorsVariable.white,
+    paddingTop: 20,
+    paddingBottom: 160,
   },
   item: {
     marginBottom: 20,
@@ -150,12 +155,12 @@ const styles = StyleSheet.create({
     // top: -50,
   },
 
-  title: {
-    fontSize: 40,
-    fontWeight: '500',
-    textAlign: 'center',
-    marginBottom: 100,
-  },
+  // title: {
+  //   fontSize: 40,
+  //   fontWeight: '500',
+  //   textAlign: 'center',
+  //   marginBottom: 100,
+  // },
 
   wrapItemInfo: {
     flex: 1,
@@ -174,15 +179,16 @@ const styles = StyleSheet.create({
   wrapTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    gap: 10,
   },
 
   titleItem: {
-    fontSize: 20,
+    fontSize: 18,
     color: ColorsVariable.black,
     fontWeight: 'bold',
     // backgroundColor: 'red',
     flex: 1,
+    // flexWrap: 'wrap',
   },
 
   removeItem: {
@@ -201,7 +207,7 @@ const styles = StyleSheet.create({
   },
 
   priceItem: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   optionsWrap: {

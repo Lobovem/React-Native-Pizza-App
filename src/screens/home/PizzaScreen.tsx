@@ -1,16 +1,13 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { FC, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-import iconCart from './img/icon-cart.png';
 import iconHeart from './img/icon-heartCart.png';
 import ColorsVariable from '../../components/ColorsVariable';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
-import { observer } from 'mobx-react';
 
 export const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();

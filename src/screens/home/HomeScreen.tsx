@@ -152,9 +152,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         textInput={textInput}
         animatedStyle={animatedStyle}
       />
-      {/* <Animated.Text style={animatedStyle}>TEXT</Animated.Text> */}
 
-      {/* <View style={{ marginBottom: 120 }}> */}
       <Animated.FlatList
         data={filterData}
         renderItem={renderItem}
@@ -168,7 +166,6 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         showsVerticalScrollIndicator={false}
         style={styles.itemsList}
       />
-      {/* </View> */}
     </SafeAreaView>
   );
 };

@@ -14,8 +14,9 @@ class OrdersStore implements IOrderStore {
   }
 
   @action setOrders(itemOrdering: IMockData): void {
+    const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+
     const existingItem = this.orders.find((itemBasket: IMockData) => {
-      const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
       const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
 
       return (
