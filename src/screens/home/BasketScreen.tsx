@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Button,
   Image,
@@ -16,6 +16,8 @@ import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/ColorsVariable';
 
 const BasketScreen: FC = () => {
+  const [isSuccessful, setIsSuccessful] = useState(false);
+
   const calcSumOrders = orderStore.orders.reduce(
     (acc, item) => item.priceNew * item.quantity + acc,
     0
@@ -27,83 +29,103 @@ const BasketScreen: FC = () => {
 
   const sendOrder = (): void => {
     orderStore.removeOrders([]);
+    setIsSuccessful(true);
+
+    setTimeout(() => {
+      setIsSuccessful(false);
+    }, 3000);
   };
 
-  console.log('Render basket');
+  const exitToBasket = (): void => {
+    setIsSuccessful(false);
+  };
 
   return (
-    // <SafeAreaView style={styles.wrap}>
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.wrap}>
-      {/* <Text style={styles.title}>Cart</Text> */}
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      {orderStore.orders[0] ? (
+        orderStore.orders.map((item) => (
+          <View key={generateUniqueKey()} style={styles.item}>
+            <Image source={item.img} style={styles.itemImg} />
 
-      <View>
-        {orderStore.orders[0] ? (
-          orderStore.orders.map((item) => (
-            <View key={generateUniqueKey()} style={styles.item}>
-              <Image source={item.img} style={styles.itemImg} />
+            <View style={styles.wrapItemInfo}>
+              <View style={styles.wrapTitle}>
+                <Text style={styles.itemTitle}>{item.title}</Text>
 
-              <View style={styles.wrapItemInfo}>
-                <View style={styles.wrapTitle}>
-                  <Text style={styles.titleItem}>{item.title}</Text>
+                <Pressable
+                  style={styles.itemRemove}
+                  onPress={() => removeItemFromOrder(item)}
+                >
+                  <Text style={styles.itemRemoveTitle}>X</Text>
+                </Pressable>
+              </View>
 
-                  <Pressable
-                    style={styles.removeItem}
-                    onPress={() => removeItemFromOrder(item)}
-                  >
-                    <Text style={styles.removeItemTitle}>X</Text>
+              <Text style={styles.itemPrice}>{item.priceNew} $</Text>
+
+              <View style={styles.optionsWrap}>
+                {item.options.map(
+                  (item, index) =>
+                    item.active && (
+                      <Text key={index} style={styles.optionItem}>
+                        size: {item.name}
+                      </Text>
+                    )
+                )}
+
+                <View style={styles.quantityWrap}>
+                  <Pressable onPress={() => orderStore.delQuantity(item)}>
+                    <Text style={styles.quantity}>-</Text>
                   </Pressable>
-                </View>
 
-                <Text style={styles.priceItem}>{item.priceNew} $</Text>
+                  <Text style={styles.quantity}>{item.quantity}</Text>
 
-                <View style={styles.optionsWrap}>
-                  {item.options.map(
-                    (item, index) =>
-                      item.active && (
-                        <Text key={index} style={styles.optionItem}>
-                          size: {item.name}
-                        </Text>
-                      )
-                  )}
-
-                  <View style={styles.quantityWrap}>
-                    <Pressable onPress={() => orderStore.delQuantity(item)}>
-                      <Text style={styles.quantity}>-</Text>
-                    </Pressable>
-
-                    <Text style={styles.quantity}>{item.quantity}</Text>
-
-                    <Pressable onPress={() => orderStore.addQuantity(item)}>
-                      <Text style={styles.quantity}>+</Text>
-                    </Pressable>
-                  </View>
+                  <Pressable onPress={() => orderStore.addQuantity(item)}>
+                    <Text style={styles.quantity}>+</Text>
+                  </Pressable>
                 </View>
               </View>
             </View>
-          ))
-        ) : (
-          <View>
-            <Image
-              style={styles.iconCart}
-              source={require('../home/img/icon-cartLarge.png')}
-            />
           </View>
-        )}
-      </View>
+        ))
+      ) : isSuccessful ? (
+        <View style={styles.orderSuccessful}>
+          <Image
+            style={styles.imgSuccessful}
+            source={require('../home/img/orderSucceseful.png')}
+          />
 
-      <View style={styles.wrapTotalPrice}>
-        <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
-      </View>
+          <View style={styles.wrapTotalPrice}>
+            <Text style={styles.totalPrice}>Withdraw Successful</Text>
+          </View>
+
+          <Pressable onPress={exitToBasket} style={styles.btnOrderSendWrap}>
+            <Text style={styles.btnOrderSendTitle}>OK</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.orderSuccessful}>
+          <Image
+            style={styles.imgCartEmpty}
+            source={require('../home/img/icon-cartLarge.png')}
+          />
+
+          <View style={styles.wrapTotalPrice}>
+            <Text style={styles.totalPrice}>Your cart is empty</Text>
+          </View>
+        </View>
+      )}
 
       {orderStore.orders[0] && (
-        <View style={styles.orderSendBox}>
-          <Pressable onPress={sendOrder} style={styles.orderSendWrap}>
-            <Text style={styles.orderSendTitle}>Send order</Text>
+        <View>
+          <View style={styles.wrapTotalPrice}>
+            <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
+          </View>
+
+          <Pressable onPress={sendOrder} style={styles.btnOrderSendWrap}>
+            <Text style={styles.btnOrderSendTitle}>Send order</Text>
           </Pressable>
         </View>
       )}
     </ScrollView>
-    // </SafeAreaView>
   );
 };
 
@@ -111,22 +133,17 @@ export default observer(BasketScreen);
 //TODO rerendering component basket when i change quantity and delete item from order
 
 const styles = StyleSheet.create({
-  wrap: {
+  container: {
     flex: 1,
     backgroundColor: ColorsVariable.white,
     paddingTop: 20,
     paddingBottom: 160,
+    paddingHorizontal: 20,
   },
   item: {
     marginBottom: 20,
-    marginRight: 20,
-    marginLeft: 20,
-    padding: 10,
-    paddingBottom: 14,
-    // flexDirection: 'column',
+    padding: 14,
     backgroundColor: ColorsVariable.white,
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
     borderRadius: 20,
     minHeight: 100,
     shadowColor: ColorsVariable.black,
@@ -143,37 +160,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  wrapItem: {
-    // justifyContent:
-    // alignSelf: 'center',
-    // alignContent: 'center',
-  },
-
   itemImg: {
     width: 100,
     height: 100,
     // top: -50,
   },
 
-  // title: {
-  //   fontSize: 40,
-  //   fontWeight: '500',
-  //   textAlign: 'center',
-  //   marginBottom: 100,
-  // },
-
   wrapItemInfo: {
     flex: 1,
     gap: 6,
-    // alignSelf: 'center',
-    // alignItems: 'center',
-  },
-
-  iconCart: {
-    alignSelf: 'center',
-    width: 250,
-    height: 250,
-    marginRight: 50,
   },
 
   wrapTitle: {
@@ -182,7 +177,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 
-  titleItem: {
+  itemTitle: {
     fontSize: 18,
     color: ColorsVariable.black,
     fontWeight: 'bold',
@@ -191,7 +186,7 @@ const styles = StyleSheet.create({
     // flexWrap: 'wrap',
   },
 
-  removeItem: {
+  itemRemove: {
     backgroundColor: ColorsVariable.orange,
     borderRadius: 30,
     width: 24,
@@ -200,13 +195,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  removeItemTitle: {
+  itemRemoveTitle: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
   },
 
-  priceItem: {
+  itemPrice: {
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -243,22 +238,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  orderSendBox: {
-    marginTop: 30,
-    marginBottom: 50,
-    // backgroundColor: 'red',
-    marginRight: 20,
-    marginLeft: 20,
-    // flex: 1,
-  },
-  orderSendWrap: {
-    borderRadius: 20,
-    backgroundColor: ColorsVariable.orange,
-    // width: 300,
-    minHeight: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // flex: 1,
+  totalPrice: {
+    fontSize: 30,
+    marginBottom: 30,
   },
 
   wrapTotalPrice: {
@@ -266,15 +248,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  totalPrice: {
-    fontSize: 30,
+  btnOrderSendWrap: {
+    borderRadius: 20,
+    backgroundColor: ColorsVariable.orange,
+    minHeight: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 80,
   },
 
-  orderSendTitle: {
+  btnOrderSendTitle: {
     textAlign: 'center',
     fontWeight: '600',
     padding: 6,
     fontSize: 20,
     color: ColorsVariable.white,
+  },
+
+  emptyCart: {
+    marginTop: 150,
+  },
+
+  imgCartEmpty: {
+    alignSelf: 'center',
+    width: 250,
+    height: 250,
+    marginRight: 50,
+    resizeMode: 'contain',
+  },
+
+  orderSuccessful: {
+    marginTop: 150,
+  },
+
+  imgSuccessful: {
+    alignSelf: 'center',
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+    marginBottom: 50,
   },
 });
