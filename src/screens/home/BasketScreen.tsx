@@ -31,30 +31,52 @@ const BasketScreen: FC = () => {
 
   return (
     <SafeAreaView style={styles.wrap}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Cart</Text>
 
         <View>
           {orderStore.orders[0] ? (
             orderStore.orders.map((item) => (
-              <View key={generateUniqueKey()} style={styles.wrapItems}>
-                <Text style={styles.titleItem}>{item.title}</Text>
-                {item.options.map(
-                  (item, index) =>
-                    item.active && (
-                      <Text key={index} style={styles.priceItem}>
-                        {item.name}
-                      </Text>
-                    )
-                )}
+              <View key={generateUniqueKey()} style={styles.item}>
+                <Image source={`${item.img}`} style={styles.itemImg} />
 
-                <Text style={styles.priceItem}>{item.priceNew} $</Text>
-                <View style={styles.wrapQuantity}>
-                  <Button title="-" onPress={() => orderStore.delQuantity(item)} />
-                  <Text>{item.quantity}</Text>
-                  <Button title="+" onPress={() => orderStore.addQuantity(item)} />
+                <View style={styles.wrapItemInfo}>
+                  <View style={styles.wrapTitle}>
+                    <Text style={styles.titleItem}>{item.title}</Text>
+
+                    <Pressable
+                      style={styles.removeItem}
+                      onPress={() => removeItemFromOrder(item)}
+                    >
+                      <Text style={styles.removeItemTitle}>X</Text>
+                    </Pressable>
+                  </View>
+
+                  <Text style={styles.priceItem}>{item.priceNew} $</Text>
+
+                  <View style={styles.optionsWrap}>
+                    {item.options.map(
+                      (item, index) =>
+                        item.active && (
+                          <Text key={index} style={styles.optionItem}>
+                            size: {item.name}
+                          </Text>
+                        )
+                    )}
+
+                    <View style={styles.quantityWrap}>
+                      <Pressable onPress={() => orderStore.delQuantity(item)}>
+                        <Text style={styles.quantity}>-</Text>
+                      </Pressable>
+
+                      <Text style={styles.quantity}>{item.quantity}</Text>
+
+                      <Pressable onPress={() => orderStore.addQuantity(item)}>
+                        <Text style={styles.quantity}>+</Text>
+                      </Pressable>
+                    </View>
+                  </View>
                 </View>
-                <Button title="delete" onPress={() => removeItemFromOrder(item)} />
               </View>
             ))
           ) : (
@@ -67,7 +89,7 @@ const BasketScreen: FC = () => {
           )}
         </View>
 
-        <View style={styles.wrapPrice}>
+        <View style={styles.wrapTotalPrice}>
           <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
         </View>
 
@@ -88,62 +110,165 @@ export default observer(BasketScreen);
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
+    backgroundColor: ColorsVariable.white,
+  },
+  item: {
+    marginBottom: 20,
+    marginRight: 20,
+    marginLeft: 20,
+    padding: 10,
+    paddingBottom: 14,
+    // flexDirection: 'column',
+    backgroundColor: ColorsVariable.white,
     // justifyContent: 'space-between',
-    paddingLeft: 10,
-    paddingRight: 10,
     // alignItems: 'center',
-    // alignSelf: 'center',
-  },
-  wrapItems: {
+    borderRadius: 20,
+    minHeight: 100,
+    shadowColor: ColorsVariable.black,
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 25,
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     gap: 20,
+    alignItems: 'center',
   },
+
+  wrapItem: {
+    // justifyContent:
+    // alignSelf: 'center',
+    // alignContent: 'center',
+  },
+
+  itemImg: {
+    width: 100,
+    height: 100,
+    // top: -50,
+  },
+
   title: {
     fontSize: 40,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: 100,
   },
+
+  wrapItemInfo: {
+    flex: 1,
+    gap: 6,
+    // alignSelf: 'center',
+    // alignItems: 'center',
+  },
+
   iconCart: {
     alignSelf: 'center',
     width: 250,
     height: 250,
     marginRight: 50,
   },
-  wrapPrice: {
-    marginTop: 50,
+
+  wrapTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  titleItem: {
-    fontWeight: '600',
-  },
-  priceItem: {
-    marginLeft: 'auto',
-    fontWeight: '500',
   },
 
-  wrapQuantity: {
+  titleItem: {
+    fontSize: 20,
+    color: ColorsVariable.black,
+    fontWeight: 'bold',
+    // backgroundColor: 'red',
+    flex: 1,
+  },
+
+  removeItem: {
+    backgroundColor: ColorsVariable.orange,
+    borderRadius: 30,
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  removeItemTitle: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  priceItem: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  optionsWrap: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  orderSendBox: {
-    marginTop: 50,
-    marginBottom: 50,
+
+  optionItem: {
+    fontSize: 22,
+  },
+
+  quantityWrap: {
+    flexDirection: 'row',
+    borderRadius: 28,
+    backgroundColor: ColorsVariable.white,
+    shadowColor: ColorsVariable.black,
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 25,
+    width: 100,
+    height: 30,
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+  },
+
+  quantity: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  orderSendBox: {
+    marginTop: 30,
+    marginBottom: 50,
+    // backgroundColor: 'red',
+    marginRight: 20,
+    marginLeft: 20,
+    // flex: 1,
   },
   orderSendWrap: {
     borderRadius: 20,
     backgroundColor: ColorsVariable.orange,
-    width: 100,
+    // width: 300,
+    minHeight: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // flex: 1,
   },
-  orderSendTitle: {
-    textAlign: 'center',
-    padding: 6,
+
+  wrapTotalPrice: {
+    marginTop: 20,
+    alignItems: 'center',
   },
 
   totalPrice: {
     fontSize: 30,
+  },
+
+  orderSendTitle: {
+    textAlign: 'center',
+    fontWeight: '600',
+    padding: 6,
+    fontSize: 20,
+    color: ColorsVariable.white,
   },
 });
