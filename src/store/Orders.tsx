@@ -31,18 +31,29 @@ class OrdersStore implements IOrderStore {
     }
   }
 
-  @action removeOrders(itemOrdering: IMockData): void {
-    const existingItem = this.orders.find((itemBasket: IMockData) => {
-      const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
-      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
+  @action removeOrders(itemOrdering: IMockData | []): void {
+    if (Array.isArray(itemOrdering) && itemOrdering.length === 0) {
+      this.orders = [];
+    } else {
+      const existingItem = this.orders.find((itemBasket: IMockData) => {
+        if ('options' in itemOrdering) {
+          const itemOrderingOption = itemOrdering.options?.find(
+            (option) => option.active
+          );
+          const itemFromBasketOption = itemBasket.options?.find(
+            (option) => option.active
+          );
 
-      return (
-        itemBasket.id === itemOrdering.id &&
-        itemOrderingOption.name === itemFromBasketOption.name
-      );
-    });
+          return (
+            itemBasket.id === itemOrdering.id &&
+            itemOrderingOption.name === itemFromBasketOption.name
+          );
+        }
+        return false;
+      });
 
-    this.orders = this.orders.filter((order) => existingItem !== order);
+      this.orders = this.orders.filter((order) => existingItem !== order);
+    }
   }
 
   @action addQuantity(itemOrdering: IMockData): void {
