@@ -44,7 +44,7 @@ const BasketScreen: FC = () => {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {orderStore.orders[0] ? (
         orderStore.orders.map((item) => (
-          <View key={generateUniqueKey()} style={styles.item}>
+          <View key={item.id} style={styles.item}>
             <Image source={item.img} style={styles.itemImg} />
 
             <View style={styles.wrapItemInfo}>

@@ -17,6 +17,8 @@ export const PizzaScreen: FC = () => {
   const [itemQuantity, setItemQuantity] = useState(item.quantity);
   const [optionsItems, setOptionsItems] = useState(item.options);
 
+  console.log('rendering');
+
   const addQuantity = (): void => {
     setItemQuantity((prev) => prev + 1);
   };

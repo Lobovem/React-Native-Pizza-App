@@ -22,7 +22,7 @@ export interface IMockDataImg {
 
 export const mockItemData: IMockData[] = [
   {
-    id: generateUniqueKey(),
+    id: '1',
     title: 'Margherita Pizza',
     description:
       'Margherita Pizza: Classic and simple, the Margherita pizza features a perfect balance of tangy tomato sauce, creamy mozzarella cheese, and fragrant basil leaves on a thin, crispy crust.',
@@ -40,7 +40,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '2',
     title: 'Pepperoni Pizza',
     description:
       'Pepperoni Pizza: A beloved favorite, pepperoni pizza boasts a zesty tomato sauce topped with generous slices of spicy pepperoni and gooey melted cheese, all baked to golden perfection.',
@@ -58,7 +58,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '3',
     title: 'Vegetarian Pizza',
     description:
       'Vegetarian Pizza: Bursting with colorful vegetables like bell peppers, mushrooms, onions, and olives, this vegetarian delight offers a flavorful and wholesome alternative for pizza lovers.',
@@ -76,7 +76,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '4',
     title: 'Hawaiian Pizza',
     description:
       'Hawaiian Pizza: A tropical twist on tradition, Hawaiian pizza combines savory ham, juicy pineapple chunks, and melted cheese atop a savory tomato sauce base, creating a sweet and savory flavor sensation.',
@@ -94,7 +94,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '5',
     title: 'BBQ Chicken Pizza ',
     description:
       'BBQ Chicken Pizza: Featuring tender chunks of grilled chicken, tangy barbecue sauce, caramelized onions, and smoky gouda cheese, BBQ chicken pizza offers a mouthwatering blend of flavors with every bite.',
@@ -112,7 +112,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '6',
     title: 'Four Cheese Pizza',
     description:
       'Four Cheese Pizza: Cheese lovers rejoice! The four cheese pizza combines the creamy richness of mozzarella, provolone, fontina, and Parmesan cheeses, creating a decadent and indulgent pizza experience.',
@@ -130,7 +130,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '7',
     title: 'Supreme Pizza',
     description:
       'Supreme Pizza: Piled high with an assortment of savory toppings such as pepperoni, sausage, bell peppers, onions, and olives, the supreme pizza is a hearty and satisfying choice for pizza enthusiasts.',
@@ -148,7 +148,7 @@ export const mockItemData: IMockData[] = [
   },
 
   {
-    id: generateUniqueKey(),
+    id: '8',
     title: 'Mushroom Truffle Pizza',
     description:
       'Mushroom Truffle Pizza: Indulge in the earthy richness of mushroom truffle pizza, adorned with a decadent blend of exotic mushrooms, aromatic truffle oil, and creamy fontina cheese, all atop a crisp crust.',
@@ -168,7 +168,7 @@ export const mockItemData: IMockData[] = [
 
 export const newItems: IMockData[] = [
   {
-    id: generateUniqueKey(),
+    id: '9',
     title: 'Buffalo Chicken Pizza',
     description:
       'Buffalo Chicken Pizza: Spice things up with buffalo chicken pizza, featuring tender chicken coated in fiery buffalo sauce, tangy blue cheese crumbles, and crisp celery, delivering a fiery kick with every bite.',
@@ -185,7 +185,7 @@ export const newItems: IMockData[] = [
     favorite: false,
   },
   {
-    id: generateUniqueKey(),
+    id: '10',
     title: 'Capricciosa Pizza',
     description:
       'Capricciosa Pizza: A classic Italian favorite, the Capricciosa pizza boasts a medley of artichoke hearts, savory ham, earthy mushrooms, and briny olives, all nestled atop a bed of tomato sauce and mozzarella cheese.',
@@ -202,7 +202,7 @@ export const newItems: IMockData[] = [
     favorite: false,
   },
   {
-    id: generateUniqueKey(),
+    id: '11',
     title: 'Buffalo Chicken Pizza',
     description:
       'Spice things up with buffalo chicken pizza, featuring tender chicken coated in fiery buffalo sauce',
@@ -221,7 +221,7 @@ export const newItems: IMockData[] = [
 ];
 
 export const newItem: IMockData = {
-  id: generateUniqueKey(),
+  id: '12',
   title: 'Capricciosa Pizza',
   description:
     'Capricciosa Pizza: A classic Italian favorite, the Capricciosa pizza boasts a medley of artichoke hearts',
@@ -240,17 +240,17 @@ export const newItem: IMockData = {
 
 export const mockDataImg: IMockDataImg[] = [
   {
-    id: generateUniqueKey(),
+    id: '13',
     img: require('../img/banner-1-burger.jpg'),
     link: 'http://google.com.ua',
   },
   {
-    id: generateUniqueKey(),
+    id: '14',
     img: require('../img/banner-2-pizzaBase.jpg'),
     link: 'http://google.com.ua',
   },
   {
-    id: generateUniqueKey(),
+    id: '15',
     img: require('../img/banner-3-pizzaCheese.jpg'),
     link: 'http://google.com.ua',
   },

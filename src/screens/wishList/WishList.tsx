@@ -22,7 +22,7 @@ const WishList: FC = () => {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {orderStore.wishList[0] ? (
         orderStore.wishList.map((item) => (
-          <View key={generateUniqueKey()} style={styles.item}>
+          <View key={item.id} style={styles.item}>
             <Image source={item.img} style={styles.itemImg} />
 
             <View style={styles.wrapItemInfo}>
