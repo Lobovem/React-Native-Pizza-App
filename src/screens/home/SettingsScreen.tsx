@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Text, StyleSheet, Button, View } from 'react-native';
+import orderStore from '../../store/Orders';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const SettingsScreen: FC = () => {

@@ -32,7 +32,6 @@ export const PizzaScreen: FC = () => {
     const updateItem = { ...item };
     updateItem.quantity = itemQuantity;
     updateItem.options = optionsItems;
-    console.log(updateItem.quantity);
 
     orderStore.setOrders(updateItem);
     setItemQuantity(1);
@@ -94,10 +93,6 @@ export const PizzaScreen: FC = () => {
                 </Text>
               </Pressable>
             ))}
-
-            {/* <View style={styles.optionsItem}>
-              <Text style={styles.optionsItemTitle}>L</Text>
-            </View> */}
           </View>
 
           <View style={styles.priceWrap}>
@@ -108,7 +103,9 @@ export const PizzaScreen: FC = () => {
           <Text style={styles.desc}>{item.description}</Text>
 
           <View style={styles.buyWrap}>
-            <Image style={styles.iconHeart} source={iconHeart} />
+            <Pressable onPress={() => orderStore.addToWishList(item)}>
+              <Image style={styles.iconHeart} source={iconHeart} />
+            </Pressable>
             <Pressable style={styles.cart} onPress={() => addToOrder(item)}>
               <Text style={styles.cartTitle}>Add to cart</Text>
             </Pressable>

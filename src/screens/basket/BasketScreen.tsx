@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
-import { IMockData } from './components/MochData';
+import { IMockData } from '../home/components/MochData';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/ColorsVariable';
 

@@ -11,6 +11,7 @@ export interface IMockData {
   priceNew: number;
   quantity: number;
   options?: { name: string; active: boolean }[];
+  favorite: boolean;
 }
 
 export interface IMockDataImg {
@@ -35,6 +36,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -52,6 +54,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -69,6 +72,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -86,6 +90,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -103,6 +108,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -120,6 +126,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -137,6 +144,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 
   {
@@ -154,6 +162,7 @@ export const mockItemData: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 ];
 
@@ -173,6 +182,7 @@ export const newItems: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
   {
     id: generateUniqueKey(),
@@ -189,6 +199,7 @@ export const newItems: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
   {
     id: generateUniqueKey(),
@@ -205,6 +216,7 @@ export const newItems: IMockData[] = [
       { name: 'M', active: true },
       { name: 'L', active: false },
     ],
+    favorite: false,
   },
 ];
 
@@ -223,6 +235,7 @@ export const newItem: IMockData = {
     { name: 'M', active: true },
     { name: 'L', active: false },
   ],
+  favorite: false,
 };
 
 export const mockDataImg: IMockDataImg[] = [

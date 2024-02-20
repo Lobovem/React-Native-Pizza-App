@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { IMockData } from '../screens/home/components/MochData';
+import { IMockData, mockItemData } from '../screens/home/components/MochData';
 
 interface IOrderStore {
   orders: IMockData[];
@@ -7,9 +7,11 @@ interface IOrderStore {
 
 class OrdersStore implements IOrderStore {
   @observable orders: IMockData[];
+  @observable wishList: IMockData[];
 
   constructor() {
     this.orders = [];
+    this.wishList = [];
     makeObservable(this);
   }
 
@@ -91,6 +93,52 @@ class OrdersStore implements IOrderStore {
         itemSearch.quantity -= 1;
       }
     });
+  }
+
+  @action addToWishList(itemOrdering: IMockData): void {
+    const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+    // itemOrdering.favorite = true;
+    // console.log(itemOrdering.favorite);
+
+    const existingItem = this.wishList.find((itemBasket: IMockData) => {
+      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
+
+      return (
+        itemBasket.id === itemOrdering.id &&
+        itemOrderingOption.name === itemFromBasketOption.name
+      );
+    });
+
+    if (existingItem) {
+      existingItem.quantity += itemOrdering.quantity;
+    } else {
+      this.wishList = [...this.wishList, itemOrdering];
+    }
+  }
+
+  @action removeItemFromWishList(itemOrdering: IMockData | []): void {
+    if (Array.isArray(itemOrdering) && itemOrdering.length === 0) {
+      this.wishList = [];
+    } else {
+      const existingItem = this.wishList.find((itemBasket: IMockData) => {
+        if ('options' in itemOrdering) {
+          const itemOrderingOption = itemOrdering.options?.find(
+            (option) => option.active
+          );
+          const itemFromBasketOption = itemBasket.options?.find(
+            (option) => option.active
+          );
+
+          return (
+            itemBasket.id === itemOrdering.id &&
+            itemOrderingOption.name === itemFromBasketOption.name
+          );
+        }
+        return false;
+      });
+
+      this.wishList = this.wishList.filter((order) => existingItem !== order);
+    }
   }
 }
 

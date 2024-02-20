@@ -3,11 +3,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SettingsScreen } from '../screens/home/SettingsScreen';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
-import BasketScreen from '../screens/home/BasketScreen';
+import BasketScreen from '../screens/basket/BasketScreen';
 
 import orderStore from '../store/Orders';
 import { observer } from 'mobx-react';
 import ColorsVariable from '../components/ColorsVariable';
+import WishList from '../screens/wishList/WishList';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -17,7 +18,7 @@ interface ITabBarIconProps {
 
 const Tab = createBottomTabNavigator();
 
-const TabIconBasket = observer((props: ITabBarIconProps) => {
+const TabIconBasket: FC<ITabBarIconProps> = observer((props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
@@ -52,7 +53,7 @@ const TabIconBasket = observer((props: ITabBarIconProps) => {
   );
 });
 
-const TabBarIconHeart: FC<ITabBarIconProps> = (props) => {
+const TabBarIconHeart: FC<ITabBarIconProps> = observer((props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
@@ -60,18 +61,32 @@ const TabBarIconHeart: FC<ITabBarIconProps> = (props) => {
         source={require('../screens/home/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
-        <Image
-          style={props.focused ? styles.iconActive : styles.iconTab}
-          source={
-            props.focused
-              ? require('../screens/home/img/icon-heartCart-active.png')
-              : require('../screens/home/img/icon-heartCart.png')
-          }
-        />
+        <View>
+          <View
+            style={
+              props.focused
+                ? orderStore.wishList.length && styles.wrapCountBasketActive
+                : orderStore.wishList.length && styles.wrapCountBasket
+            }
+          >
+            <Text style={props.focused ? styles.countBasketActive : styles.countBasket}>
+              {orderStore.wishList[0] && orderStore.wishList.length}
+            </Text>
+          </View>
+
+          <Image
+            style={props.focused ? styles.iconActive : styles.iconTab}
+            source={
+              props.focused
+                ? require('../screens/home/img/icon-heartCart-active.png')
+                : require('../screens/home/img/icon-heartCart.png')
+            }
+          />
+        </View>
       </View>
     </View>
   );
-};
+});
 
 const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
   return (
@@ -141,7 +156,9 @@ const HomeTabs: FC = () => {
     <Tab.Navigator
       initialRouteName="HOME"
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerStyle: { backgroundColor: ColorsVariable.orange },
+        headerTintColor: 'white',
         tabBarShowLabel: false,
 
         tabBarIconStyle: {},
@@ -156,7 +173,7 @@ const HomeTabs: FC = () => {
       }}
     >
       <Tab.Screen
-        name="Cart"
+        name="CART"
         options={{
           tabBarIcon: (props) => <TabIconBasket {...props} />,
           headerShown: true,
@@ -169,28 +186,33 @@ const HomeTabs: FC = () => {
       <Tab.Screen
         name="FAVORITE"
         options={{
-          tabBarIcon: TabBarIconHeart,
+          tabBarIcon: (props) => <TabBarIconHeart {...props} />,
         }}
-        component={BasketScreen}
+        component={WishList}
       />
 
       <Tab.Screen
         name="HOME"
         options={{
           tabBarIcon: TabBarIconHome,
+          headerShown: false,
         }}
         component={HomeStackScreen}
       />
 
       <Tab.Screen
         name="SETTINGS"
-        options={{ tabBarIcon: TabBarIconSettings }}
+        options={{
+          tabBarIcon: TabBarIconSettings,
+        }}
         component={SettingsScreen}
       />
 
       <Tab.Screen
         name="USER"
-        options={{ tabBarIcon: TabBarIconUser }}
+        options={{
+          tabBarIcon: TabBarIconUser,
+        }}
         component={SettingsScreen}
       />
     </Tab.Navigator>
