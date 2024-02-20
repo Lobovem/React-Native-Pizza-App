@@ -9,13 +9,13 @@ import ColorsVariable from '../../components/ColorsVariable';
 const WishList: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
-  const calcSumOrders = orderStore.orders.reduce(
-    (acc, item) => item.priceNew * item.quantity + acc,
-    0
-  );
-
   const cleanWishList = (): void => {
     orderStore.removeItemFromWishList([]);
+    setIsSuccessful(true);
+
+    setTimeout(() => {
+      setIsSuccessful(false);
+    }, 3000);
   };
 
   return (
@@ -48,54 +48,33 @@ const WishList: FC = () => {
                       </Text>
                     )
                 )}
-
-                <View style={styles.quantityWrap}>
-                  <Pressable onPress={() => orderStore.delQuantity(item)}>
-                    <Text style={styles.quantity}>-</Text>
-                  </Pressable>
-
-                  <Text style={styles.quantity}>{item.quantity}</Text>
-
-                  <Pressable onPress={() => orderStore.addQuantity(item)}>
-                    <Text style={styles.quantity}>+</Text>
-                  </Pressable>
-                </View>
               </View>
             </View>
           </View>
         ))
       ) : isSuccessful ? (
         <View style={styles.orderSuccessful}>
-          {/* <Image
+          <Image
             style={styles.imgSuccessful}
             source={require('../home/img/orderSucceseful.png')}
-          /> */}
+          />
 
-          <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>Withdraw Successful</Text>
+          <View style={styles.wrapFavoriteTitle}>
+            <Text style={styles.favoriteTitle}>Favorite list was clean</Text>
           </View>
         </View>
       ) : (
         <View style={styles.orderSuccessful}>
-          {/* <Image
-            style={styles.imgCartEmpty}
-            source={require('../home/img/icon-cartLarge.png')}
-          /> */}
-
-          <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>Your cart is empty</Text>
+          <View style={styles.wrapFavoriteTitle}>
+            <Text style={styles.favoriteTitle}>Your favorite list is empty</Text>
           </View>
         </View>
       )}
 
       {orderStore.wishList[0] && (
         <View>
-          <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
-          </View>
-
           <Pressable onPress={cleanWishList} style={styles.btnOrderSendWrap}>
-            <Text style={styles.btnOrderSendTitle}>Clean all wish list</Text>
+            <Text style={styles.btnOrderSendTitle}>Clean all favorite list</Text>
           </Pressable>
         </View>
       )}
@@ -189,35 +168,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
 
-  quantityWrap: {
-    flexDirection: 'row',
-    borderRadius: 28,
-    backgroundColor: ColorsVariable.white,
-    shadowColor: ColorsVariable.black,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 25,
-    width: 100,
-    height: 30,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-
-  quantity: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  totalPrice: {
+  favoriteTitle: {
     fontSize: 30,
     marginBottom: 30,
   },
 
-  wrapTotalPrice: {
+  wrapFavoriteTitle: {
     marginTop: 20,
     alignItems: 'center',
   },

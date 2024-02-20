@@ -109,9 +109,7 @@ class OrdersStore implements IOrderStore {
       );
     });
 
-    if (existingItem) {
-      existingItem.quantity += itemOrdering.quantity;
-    } else {
+    if (!existingItem) {
       this.wishList = [...this.wishList, itemOrdering];
     }
   }
