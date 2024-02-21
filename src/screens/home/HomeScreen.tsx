@@ -5,7 +5,6 @@ import {
   Text,
   SafeAreaView,
   Image,
-  FlatList,
   Pressable,
   ImageBackground,
 } from 'react-native';
@@ -41,7 +40,7 @@ type HomeScreenNavigationPropType = NativeStackNavigationProp<
 const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   navigation,
 }) => {
-  const [mockItemDatas, setMockItemData] = useState(mockItemData);
+  const [mockItemDatas, setMockItemData] = useState(orderStore.mockData);
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
@@ -86,63 +85,65 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   //   setModalVisible(!modalVisible);
   // };
 
-  const addToOrder = (item: IMockData): void => {
-    orderStore.setOrders(item);
-  };
+  // const addToOrder = (item: IMockData): void => {
+  //   orderStore.setOrders(item);
+  // };
 
   const onPressItem = (id: string): void => {
     navigation.navigate('Pizza', { id, mockItemDatas });
   };
 
-  const renderItem = ({ item }: IItemProps) => {
-    return (
-      <Observer>
-        {() => (
-          <View style={styles.item}>
-            <View>
-              <Pressable onPress={() => onPressItem(item.id)}>
-                <ImageBackground style={styles.img} source={item.img}>
-                  {item.sale && <Image style={styles.iconNew} source={iconNew} />}
-                </ImageBackground>
-              </Pressable>
+  const renderItem = useCallback(
+    ({ item }: IItemProps) => {
+      return (
+        <Observer>
+          {() => (
+            <View style={styles.item}>
+              <View>
+                <Pressable onPress={() => onPressItem(item.id)}>
+                  <ImageBackground style={styles.img} source={item.img}>
+                    {item.sale && <Image style={styles.iconNew} source={iconNew} />}
+                  </ImageBackground>
+                </Pressable>
+              </View>
+
+              <View style={styles.wrapTitle}>
+                <Pressable onPress={() => onPressItem(item.id)}>
+                  <Text style={styles.title}>{item.title}</Text>
+                </Pressable>
+              </View>
+
+              <View style={styles.wrapDesc}>
+                <Text numberOfLines={1} style={styles.desc}>
+                  {item.description}
+                </Text>
+              </View>
+
+              <View style={styles.wrapPrice}>
+                <Text style={styles.priceNew}>{item.priceNew} $</Text>
+                {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+              </View>
+
+              <View style={styles.wrapCard}>
+                <Pressable onPress={() => orderStore.addToWishList(item)}>
+                  <Image
+                    style={styles.iconHeart}
+                    source={item.favorite ? iconHeartFavorite : iconHeart}
+                  />
+                </Pressable>
+
+                <Pressable onPress={() => orderStore.setOrders(item)}>
+                  <Image style={styles.card} source={iconCart} />
+                </Pressable>
+              </View>
             </View>
+          )}
+        </Observer>
+      );
+    },
+    [mockItemDatas]
+  );
 
-            <View style={styles.wrapTitle}>
-              <Pressable onPress={() => onPressItem(item.id)}>
-                <Text style={styles.title}>{item.title}</Text>
-              </Pressable>
-            </View>
-
-            <View style={styles.wrapDesc}>
-              <Text numberOfLines={1} style={styles.desc}>
-                {item.description}
-              </Text>
-            </View>
-
-            <View style={styles.wrapPrice}>
-              <Text style={styles.priceNew}>{item.priceNew} $</Text>
-              {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
-            </View>
-
-            <View style={styles.wrapCard}>
-              <Pressable onPress={() => orderStore.addToWishList(item)}>
-                <Image
-                  style={styles.iconHeart}
-                  source={item.favorite ? iconHeartFavorite : iconHeart}
-                />
-              </Pressable>
-
-              <Pressable onPress={() => orderStore.setOrders(item)}>
-                <Image style={styles.card} source={iconCart} />
-              </Pressable>
-            </View>
-          </View>
-        )}
-      </Observer>
-    );
-  };
-
-  // const renderItem = useCallback(
   const offsetY = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((e) => {
     offsetY.value = e.contentOffset.y;
