@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SettingsScreen } from '../screens/home/SettingsScreen';
+import SettingsScreen from '../screens/home/SettingsScreen';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
 import BasketScreen from '../screens/basket/BasketScreen';
@@ -88,7 +88,7 @@ const TabBarIconHeart: FC<ITabBarIconProps> = observer((props) => {
   );
 });
 
-const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
+const TabBarIconHome: FC<ITabBarIconProps> = observer((props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
@@ -107,9 +107,9 @@ const TabBarIconHome: FC<ITabBarIconProps> = (props) => {
       </View>
     </View>
   );
-};
+});
 
-const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
+const TabBarIconSettings: FC<ITabBarIconProps> = observer((props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
@@ -128,9 +128,9 @@ const TabBarIconSettings: FC<ITabBarIconProps> = (props) => {
       </View>
     </View>
   );
-};
+});
 
-const TabBarIconUser: FC<ITabBarIconProps> = (props) => {
+const TabBarIconUser: FC<ITabBarIconProps> = observer((props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
@@ -149,7 +149,7 @@ const TabBarIconUser: FC<ITabBarIconProps> = (props) => {
       </View>
     </View>
   );
-};
+});
 
 const HomeTabs: FC = () => {
   return (
@@ -194,7 +194,8 @@ const HomeTabs: FC = () => {
       <Tab.Screen
         name="HOME"
         options={{
-          tabBarIcon: TabBarIconHome,
+          // tabBarIcon: TabBarIconHome,
+          tabBarIcon: (props) => <TabBarIconHome {...props} />,
           headerShown: false,
         }}
         component={HomeStackScreen}
@@ -203,7 +204,7 @@ const HomeTabs: FC = () => {
       <Tab.Screen
         name="SETTINGS"
         options={{
-          tabBarIcon: TabBarIconSettings,
+          tabBarIcon: (props) => <TabBarIconSettings {...props} />,
         }}
         component={SettingsScreen}
       />
@@ -211,7 +212,7 @@ const HomeTabs: FC = () => {
       <Tab.Screen
         name="USER"
         options={{
-          tabBarIcon: TabBarIconUser,
+          tabBarIcon: (props) => <TabBarIconUser {...props} />,
         }}
         component={SettingsScreen}
       />

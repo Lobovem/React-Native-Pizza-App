@@ -18,11 +18,6 @@ import ColorsVariable from '../../components/ColorsVariable';
 const BasketScreen: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
-  const calcSumOrders = orderStore.orders.reduce(
-    (acc, item) => item.priceNew * item.quantity + acc,
-    0
-  );
-
   const removeItemFromOrder = (item: IMockData): void => {
     orderStore.removeOrders(item);
   };
@@ -117,7 +112,9 @@ const BasketScreen: FC = () => {
       {orderStore.orders[0] && (
         <View>
           <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>Total order: {calcSumOrders} $</Text>
+            <Text style={styles.totalPrice}>
+              Total order: {orderStore.calcSumOrders} $
+            </Text>
           </View>
 
           <Pressable onPress={sendOrder} style={styles.btnOrderSendWrap}>
