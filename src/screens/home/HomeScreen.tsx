@@ -27,6 +27,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+import { Observer, observer } from 'mobx-react';
 
 interface IItemProps {
   item: IMockData;
@@ -95,45 +96,49 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
 
   const renderItem = ({ item }: IItemProps) => {
     return (
-      <View style={styles.item}>
-        <View>
-          <Pressable onPress={() => onPressItem(item.id)}>
-            <ImageBackground style={styles.img} source={item.img}>
-              {item.sale && <Image style={styles.iconNew} source={iconNew} />}
-            </ImageBackground>
-          </Pressable>
-        </View>
+      <Observer>
+        {() => (
+          <View style={styles.item}>
+            <View>
+              <Pressable onPress={() => onPressItem(item.id)}>
+                <ImageBackground style={styles.img} source={item.img}>
+                  {item.sale && <Image style={styles.iconNew} source={iconNew} />}
+                </ImageBackground>
+              </Pressable>
+            </View>
 
-        <View style={styles.wrapTitle}>
-          <Pressable onPress={() => onPressItem(item.id)}>
-            <Text style={styles.title}>{item.title}</Text>
-          </Pressable>
-        </View>
+            <View style={styles.wrapTitle}>
+              <Pressable onPress={() => onPressItem(item.id)}>
+                <Text style={styles.title}>{item.title}</Text>
+              </Pressable>
+            </View>
 
-        <View style={styles.wrapDesc}>
-          <Text numberOfLines={1} style={styles.desc}>
-            {item.description}
-          </Text>
-        </View>
+            <View style={styles.wrapDesc}>
+              <Text numberOfLines={1} style={styles.desc}>
+                {item.description}
+              </Text>
+            </View>
 
-        <View style={styles.wrapPrice}>
-          <Text style={styles.priceNew}>{item.priceNew} $</Text>
-          {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
-        </View>
+            <View style={styles.wrapPrice}>
+              <Text style={styles.priceNew}>{item.priceNew} $</Text>
+              {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+            </View>
 
-        <View style={styles.wrapCard}>
-          <Pressable onPress={() => orderStore.addToWishList(item)}>
-            <Image
-              style={styles.iconHeart}
-              source={item.favorite ? iconHeartFavorite : iconHeart}
-            />
-          </Pressable>
+            <View style={styles.wrapCard}>
+              <Pressable onPress={() => orderStore.addToWishList(item)}>
+                <Image
+                  style={styles.iconHeart}
+                  source={item.favorite ? iconHeartFavorite : iconHeart}
+                />
+              </Pressable>
 
-          <Pressable onPress={() => orderStore.setOrders(item)}>
-            <Image style={styles.card} source={iconCart} />
-          </Pressable>
-        </View>
-      </View>
+              <Pressable onPress={() => orderStore.setOrders(item)}>
+                <Image style={styles.card} source={iconCart} />
+              </Pressable>
+            </View>
+          </View>
+        )}
+      </Observer>
     );
   };
 
@@ -175,7 +180,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   );
 };
 
-export default HomeScreens;
+export default observer(HomeScreens);
 
 const styles = StyleSheet.create({
   mainContainer: {
