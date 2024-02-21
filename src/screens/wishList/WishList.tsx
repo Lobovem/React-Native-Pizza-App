@@ -7,6 +7,10 @@ import ColorsVariable from '../../components/ColorsVariable';
 const WishList: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
+  const exitToFavoriteList = (): void => {
+    setIsSuccessful(false);
+  };
+
   const cleanWishList = (): void => {
     orderStore.cleanFavoriteItemsAll();
     setIsSuccessful(true);
@@ -61,6 +65,9 @@ const WishList: FC = () => {
           <View style={styles.wrapFavoriteTitle}>
             <Text style={styles.favoriteTitle}>Favorite list was clean</Text>
           </View>
+          <Pressable onPress={exitToFavoriteList} style={styles.btnOrderSendWrap}>
+            <Text style={styles.btnOrderSendTitle}>OK</Text>
+          </Pressable>
         </View>
       ) : (
         <View style={styles.orderSuccessful}>

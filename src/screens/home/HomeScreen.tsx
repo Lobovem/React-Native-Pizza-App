@@ -40,6 +40,7 @@ type HomeScreenNavigationPropType = NativeStackNavigationProp<
 const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   navigation,
 }) => {
+  // const [mockItemDatas, setMockItemData] = useState(orderStore.mockData);
   const [mockItemDatas, setMockItemData] = useState(orderStore.mockData);
   //TODO check out mockItemDatas, because i use mockItemData, but will need use orderStore.mockData. Active option dont work
   const [refreshing, setRefreshing] = useState(false);

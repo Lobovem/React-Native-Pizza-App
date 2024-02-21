@@ -9,7 +9,6 @@ import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
-import { observe } from 'mobx';
 import { observer } from 'mobx-react';
 
 const PizzaScreen: FC = () => {
@@ -19,8 +18,6 @@ const PizzaScreen: FC = () => {
   const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
   const [itemQuantity, setItemQuantity] = useState(item.quantity);
   const [optionsItems, setOptionsItems] = useState(item.options);
-
-  console.log('rendering');
 
   const addQuantity = (): void => {
     setItemQuantity((prev) => prev + 1);
@@ -43,17 +40,7 @@ const PizzaScreen: FC = () => {
   };
 
   const hanldeActiveOption = (name: string): void => {
-    const updateOptions = [...optionsItems];
-
-    optionsItems?.forEach((item) => {
-      if (item.name === name) {
-        item.active = true;
-      } else {
-        item.active = false;
-      }
-    });
-
-    setOptionsItems(updateOptions);
+    orderStore.handleItemOptions(name, optionsItems);
   };
 
   return (

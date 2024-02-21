@@ -24,41 +24,41 @@ const SettingsScreen: FC = () => {
   // console.log(orderStore.mockData);
 
   // console.log(orderStore.mockData);
-  const renderItem = ({ item }) => {
-    return (
-      <Observer>
-        {() => (
-          <View style={{ marginBottom: 50, backgroundColor: 'red' }}>
-            <View style={styles.wrapTitle}></View>
+  // const renderItem = ({ item }) => {
+  //   return (
+  //     <Observer>
+  //       {() => (
+  //         <View style={{ marginBottom: 50, backgroundColor: 'red' }}>
+  //           <View style={styles.wrapTitle}></View>
 
-            <View style={styles.wrapDesc}>
-              <Text numberOfLines={1} style={styles.desc}>
-                {item.description}
-              </Text>
-            </View>
+  //           <View style={styles.wrapDesc}>
+  //             <Text numberOfLines={1} style={styles.desc}>
+  //               {item.description}
+  //             </Text>
+  //           </View>
 
-            <View style={styles.wrapPrice}>
-              <Text style={styles.priceNew}>{item.priceNew} $</Text>
-              {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
-            </View>
+  //           <View style={styles.wrapPrice}>
+  //             <Text style={styles.priceNew}>{item.priceNew} $</Text>
+  //             {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+  //           </View>
 
-            <View style={styles.wrapCard}>
-              <Pressable onPress={() => orderStore.addToWishList(item)}>
-                <Image
-                  style={styles.iconHeart}
-                  source={item.favorite ? iconHeartFavorite : iconHeart}
-                />
-              </Pressable>
+  //           <View style={styles.wrapCard}>
+  //             <Pressable onPress={() => orderStore.addToWishList(item)}>
+  //               <Image
+  //                 style={styles.iconHeart}
+  //                 source={item.favorite ? iconHeartFavorite : iconHeart}
+  //               />
+  //             </Pressable>
 
-              <Pressable onPress={() => orderStore.setOrders(item)}>
-                <Image style={styles.card} source={iconCart} />
-              </Pressable>
-            </View>
-          </View>
-        )}
-      </Observer>
-    );
-  };
+  //             <Pressable onPress={() => orderStore.setOrders(item)}>
+  //               <Image style={styles.card} source={iconCart} />
+  //             </Pressable>
+  //           </View>
+  //         </View>
+  //       )}
+  //     </Observer>
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.wrap}>
@@ -93,14 +93,14 @@ const SettingsScreen: FC = () => {
           </View>
         ))}
       </View> */}
-      <FlatList
+      {/* <FlatList
         data={orderStore.mockData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         numColumns={1}
         showsVerticalScrollIndicator={false}
         style={{ padding: 50 }}
-      />
+      /> */}
       {/* <View
         style={{
           width: 200,
