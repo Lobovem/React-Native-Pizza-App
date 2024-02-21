@@ -97,20 +97,43 @@ class OrdersStore implements IOrderStore {
     });
   }
 
+  // @action handleFavoriteItem(itemOrdering: IMockData): void {
+  //   // if (itemOrdering.favorite) {
+  //   //   this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
+  //   // }
+
+  //   if (Array.isArray(itemOrdering) && itemOrdering.length === 0) {
+  //     // this.wishList = this.wishList.forEach((item) => (item.favorite = false));
+  //     this.wishList = [];
+  //   } else {
+  //     const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+  //     itemOrdering.favorite = !itemOrdering.favorite;
+
+  //     const existingItem = this.wishList.find((itemBasket: IMockData) => {
+  //       const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
+
+  //       return (
+  //         itemBasket.id === itemOrdering.id &&
+  //         itemOrderingOption.name === itemFromBasketOption.name
+  //       );
+  //     });
+
+  //     if (existingItem) {
+  //       this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
+  //     } else {
+  //       this.wishList = [...this.wishList, itemOrdering];
+  //     }
+  //   }
+  // }
+
   @action handleFavoriteItem(itemOrdering: IMockData): void {
-    // if (itemOrdering.favorite) {
-    //   this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
-    // }
-    const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
+    // if (Array.isArray(itemOrdering) && itemOrdering.length === 0) {
+    //   this.wishList = [];
+    // } else {
     itemOrdering.favorite = !itemOrdering.favorite;
 
     const existingItem = this.wishList.find((itemBasket: IMockData) => {
-      const itemFromBasketOption = itemBasket.options?.find((option) => option.active);
-
-      return (
-        itemBasket.id === itemOrdering.id &&
-        itemOrderingOption.name === itemFromBasketOption.name
-      );
+      return itemBasket.id === itemOrdering.id;
     });
 
     if (existingItem) {
@@ -119,32 +142,41 @@ class OrdersStore implements IOrderStore {
       this.wishList = [...this.wishList, itemOrdering];
     }
   }
+  // }
 
-  @action removeItemFromWishList(itemOrdering: IMockData | []): void {
-    if (Array.isArray(itemOrdering) && itemOrdering.length === 0) {
-      // this.wishList = this.wishList.forEach((item) => (item.favorite = false));
-      this.wishList = [];
-    } else {
-      const existingItem = this.wishList.find((itemBasket: IMockData) => {
-        if ('options' in itemOrdering) {
-          const itemOrderingOption = itemOrdering.options?.find(
-            (option) => option.active
-          );
-          const itemFromBasketOption = itemBasket.options?.find(
-            (option) => option.active
-          );
+  @action cleanFavoriteItemsAll(): void {
+    this.mockData.map((item) => {
+      item.favorite = false;
+    });
 
-          return (
-            itemBasket.id === itemOrdering.id &&
-            itemOrderingOption.name === itemFromBasketOption.name
-          );
-        }
-        return false;
-      });
-
-      this.wishList = this.wishList.filter((order) => existingItem !== order);
-    }
+    this.wishList = [];
   }
+
+  // @action removeItemFromWishList(itemOrdering: IMockData | []): void {
+  //   if (Array.isArray(itemOrdering) && itemOrdering.length === 0) {
+  //     // this.wishList = this.wishList.forEach((item) => (item.favorite = false));
+  //     this.wishList = [];
+  //   } else {
+  //     const existingItem = this.wishList.find((itemBasket: IMockData) => {
+  //       if ('options' in itemOrdering) {
+  //         const itemOrderingOption = itemOrdering.options?.find(
+  //           (option) => option.active
+  //         );
+  //         const itemFromBasketOption = itemBasket.options?.find(
+  //           (option) => option.active
+  //         );
+
+  //         return (
+  //           itemBasket.id === itemOrdering.id &&
+  //           itemOrderingOption.name === itemFromBasketOption.name
+  //         );
+  //       }
+  //       return false;
+  //     });
+
+  //     this.wishList = this.wishList.filter((order) => existingItem !== order);
+  //   }
+  // }
 
   @computed get calcSumOrders() {
     return this.orders.reduce((acc, item) => item.priceNew * item.quantity + acc, 0);

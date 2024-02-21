@@ -2,15 +2,13 @@ import React, { FC, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
-import { IMockData } from '../home/components/MochData';
-import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/ColorsVariable';
 
 const WishList: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const cleanWishList = (): void => {
-    orderStore.removeItemFromWishList([]);
+    orderStore.cleanFavoriteItemsAll();
     setIsSuccessful(true);
 
     setTimeout(() => {
@@ -39,7 +37,7 @@ const WishList: FC = () => {
 
               <Text style={styles.itemPrice}>{item.priceNew} $</Text>
 
-              <View style={styles.optionsWrap}>
+              {/* <View style={styles.optionsWrap}>
                 {item.options.map(
                   (item, index) =>
                     item.active && (
@@ -48,7 +46,8 @@ const WishList: FC = () => {
                       </Text>
                     )
                 )}
-              </View>
+              </View> */}
+              {/* <Text>{item.description}</Text> */}
             </View>
           </View>
         ))
