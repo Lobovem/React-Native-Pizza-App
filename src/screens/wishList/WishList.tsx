@@ -31,7 +31,7 @@ const WishList: FC = () => {
 
                 <Pressable
                   style={styles.itemRemove}
-                  onPress={() => orderStore.removeItemFromWishList(item)}
+                  onPress={() => orderStore.handleFavoriteItem(item)}
                 >
                   <Text style={styles.itemRemoveTitle}>X</Text>
                 </Pressable>

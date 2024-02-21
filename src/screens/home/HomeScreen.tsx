@@ -41,6 +41,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   navigation,
 }) => {
   const [mockItemDatas, setMockItemData] = useState(orderStore.mockData);
+  //TODO check out mockItemDatas, because i use mockItemData, but will need use orderStore.mockData. Active option dont work
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
@@ -125,7 +126,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
               </View>
 
               <View style={styles.wrapCard}>
-                <Pressable onPress={() => orderStore.addToWishList(item)}>
+                <Pressable onPress={() => orderStore.handleFavoriteItem(item)}>
                   <Image
                     style={styles.iconHeart}
                     source={item.favorite ? iconHeartFavorite : iconHeart}

@@ -3,13 +3,16 @@ import React, { FC, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import iconHeart from './img/icon-heartCart.png';
+import iconHeartFavorite from './img/icon-heartCartFavorite.png';
 import ColorsVariable from '../../components/ColorsVariable';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
 import orderStore from '../../store/Orders';
+import { observe } from 'mobx';
+import { observer } from 'mobx-react';
 
-export const PizzaScreen: FC = () => {
+const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();
   const items = route.params;
 
@@ -105,8 +108,11 @@ export const PizzaScreen: FC = () => {
           <Text style={styles.desc}>{item.description}</Text>
 
           <View style={styles.buyWrap}>
-            <Pressable onPress={() => orderStore.addToWishList(item)}>
-              <Image style={styles.iconHeart} source={iconHeart} />
+            <Pressable onPress={() => orderStore.handleFavoriteItem(item)}>
+              <Image
+                style={styles.iconHeart}
+                source={item.favorite ? iconHeartFavorite : iconHeart}
+              />
             </Pressable>
             <Pressable style={styles.cart} onPress={() => addToOrder(item)}>
               <Text style={styles.cartTitle}>Add to cart</Text>
@@ -117,6 +123,8 @@ export const PizzaScreen: FC = () => {
     )
   );
 };
+
+export default observer(PizzaScreen);
 
 const styles = StyleSheet.create({
   container: {

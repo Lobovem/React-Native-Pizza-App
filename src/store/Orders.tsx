@@ -97,7 +97,10 @@ class OrdersStore implements IOrderStore {
     });
   }
 
-  @action addToWishList(itemOrdering: IMockData): void {
+  @action handleFavoriteItem(itemOrdering: IMockData): void {
+    // if (itemOrdering.favorite) {
+    //   this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
+    // }
     const itemOrderingOption = itemOrdering.options?.find((option) => option.active);
     itemOrdering.favorite = !itemOrdering.favorite;
 
@@ -110,7 +113,9 @@ class OrdersStore implements IOrderStore {
       );
     });
 
-    if (!existingItem) {
+    if (existingItem) {
+      this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
+    } else {
       this.wishList = [...this.wishList, itemOrdering];
     }
   }
