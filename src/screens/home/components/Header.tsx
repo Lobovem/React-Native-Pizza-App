@@ -36,19 +36,36 @@ export const Header: FC<IHeaderProps> = memo(
   ({ textInput, setTextInput, animatedStyle }) => {
     const navigation = useNavigation<ModalScreenNavigationPropType>();
     const [isActiveSearch, setIsActiveSearch] = useState(false);
-    const inputRef = useRef(null);
+    const inputRef = useRef<TextInput>(null);
 
     const handleActive = (): void => {
       setIsActiveSearch(true);
     };
 
+    // const handleInActive = (): void => {
+    //   if (
+    //     (inputRef.current.isFocused() && textInput.length > 0) ||
+    //     (!inputRef.current.isFocused() && textInput.length > 0)
+    //   ) {
+    //     setTextInput('');
+    //   } else {
+    //     setIsActiveSearch(false);
+    //     inputRef.current.blur();
+    //   }
+    // };
+
     const handleInActive = (): void => {
-      if (inputRef.current.isFocused() && textInput.length > 0) {
-        setTextInput('');
-      } else {
-        Keyboard.dismiss();
+      if (!textInput) {
         setIsActiveSearch(false);
         inputRef.current.blur();
+      } else {
+        setTextInput('');
+      }
+    };
+
+    const handleFocus = () => {
+      if (!inputRef.current.isFocused() && textInput.length < 1) {
+        setIsActiveSearch(false);
       }
     };
 
@@ -81,8 +98,6 @@ export const Header: FC<IHeaderProps> = memo(
     // };
 
     return (
-      //TODO i need make feat that when i tap  input out then focus of input is disable
-
       <Animated.View style={[styles.searchWrap, animatedStyle]}>
         {/* {isActiveSearch && ( */}
 
@@ -98,15 +113,9 @@ export const Header: FC<IHeaderProps> = memo(
             onChangeText={setTextInput}
             value={textInput}
             onPressIn={handleActive}
-            // onKeyPress={handlePressKey}
-            // onSubmitEditing={() => handlePressKey}
             placeholderTextColor={ColorsVariable.grey}
             maxLength={20}
-            // onSubmitEditing={() => {
-            //   // setIsActiveSearch(false);
-            //   // setTextInput('');
-            //   inputRef.current.blur();
-            // }}
+            onBlur={handleFocus}
           />
 
           <Image style={styles.searchIcon} source={iconSearch} />
