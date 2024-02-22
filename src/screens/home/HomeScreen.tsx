@@ -103,30 +103,30 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         <Observer>
           {() => (
             <View style={styles.item}>
-              <View>
-                <Pressable onPress={() => onPressItem(item)}>
+              <Pressable onPress={() => onPressItem(item)} style={styles.itemTopWrap}>
+                <View>
                   <ImageBackground style={styles.img} source={item.img}>
                     {item.sale && <Image style={styles.iconNew} source={iconNew} />}
                   </ImageBackground>
-                </Pressable>
-              </View>
+                </View>
 
-              <View style={styles.wrapTitle}>
-                <Pressable onPress={() => onPressItem(item)}>
-                  <Text style={styles.title}>{item.title}</Text>
-                </Pressable>
-              </View>
+                <View style={styles.wrapTitle}>
+                  <Pressable onPress={() => onPressItem(item)}>
+                    <Text style={styles.title}>{item.title}</Text>
+                  </Pressable>
+                </View>
 
-              <View style={styles.wrapDesc}>
-                <Text numberOfLines={1} style={styles.desc}>
-                  {item.description}
-                </Text>
-              </View>
+                <View style={styles.wrapDesc}>
+                  <Text numberOfLines={1} style={styles.desc}>
+                    {item.description}
+                  </Text>
+                </View>
 
-              <View style={styles.wrapPrice}>
-                <Text style={styles.priceNew}>{item.priceNew} $</Text>
-                {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
-              </View>
+                <View style={styles.wrapPrice}>
+                  <Text style={styles.priceNew}>{item.priceNew} $</Text>
+                  {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
+                </View>
+              </Pressable>
 
               <View style={styles.wrapCard}>
                 <Pressable onPress={() => orderStore.handleFavoriteItem(item)}>
@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
     backgroundColor: ColorsVariable.white,
     // justifyContent: 'space-between',
     // alignItems: 'center',
-    gap: 10,
     borderRadius: 20,
     minHeight: 100,
     shadowColor: ColorsVariable.black,
@@ -228,6 +227,11 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 25,
     flex: 1,
+  },
+
+  itemTopWrap: {
+    flex: 1,
+    gap: 6,
   },
 
   img: {
@@ -297,6 +301,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
+    marginTop: 'auto',
     // alignItems: 'flex-start',
     // alignItems: 'center',
   },

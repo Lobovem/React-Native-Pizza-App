@@ -1,19 +1,15 @@
 import React, {
   TextInput,
-  View,
   Image,
   StyleSheet,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  TextStyle,
-  ImageStyle,
   ViewStyle,
+  Pressable,
+  Keyboard,
 } from 'react-native';
-import { CustomTouchable } from '../../../components/CustomTouchable';
-import { FC, memo, useState } from 'react';
+import { FC, memo, useRef, useState } from 'react';
 
-import iconHeart from '../img/icon-heart.png';
 import iconSearch from '../img/icon-search.png';
+import iconClose from '../img/icon-close.png';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../../navigation/HomeStackScreen';
@@ -21,9 +17,9 @@ import {
   AnimatedStyleProp,
   LightSpeedInLeft,
   LightSpeedOutLeft,
-  useSharedValue,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+import ColorsVariable from '../../../components/ColorsVariable';
 
 interface IHeaderProps {
   setTextInput: (value: string) => void;
@@ -38,42 +34,97 @@ type ModalScreenNavigationPropType = NativeStackNavigationProp<
 
 export const Header: FC<IHeaderProps> = memo(
   ({ textInput, setTextInput, animatedStyle }) => {
-    const [isActiveSearch, setIsActiveSearch] = useState(false);
     const navigation = useNavigation<ModalScreenNavigationPropType>();
-    const onSearch = (): void => {
-      setIsActiveSearch(!isActiveSearch);
+    const [isActiveSearch, setIsActiveSearch] = useState(false);
+    const inputRef = useRef(null);
+
+    const handleActive = (): void => {
+      setIsActiveSearch(true);
     };
 
-    const openModalScreen = (): void => {
-      navigation.navigate('Modal');
+    const handleInActive = (): void => {
+      if (inputRef.current.isFocused() && textInput.length > 0) {
+        setTextInput('');
+      } else {
+        Keyboard.dismiss();
+        setIsActiveSearch(false);
+        inputRef.current.blur();
+      }
     };
+
+    // const handleModalPress = (event: GestureResponderEvent): void => {
+    //   /*Функция handleModalPress проверяет, было ли нажатие на сам
+    // компонент TouchableWithoutFeedback, а не на его содержимое.
+    // Если event.target (элемент, на котором произошло событие) равен
+    // event.currentTarget (компонент TouchableWithoutFeedback), это
+    // означает, что нажатие произошло вне содержимого модального окна,
+    // и в этом случае вызывается setModalVisible(!modalVisible), что
+    // изменит видимость модального окна.*/
+    //   if (event.target !== event.currentTarget) {
+    //     return;
+    //   }
+    //   setIsActiveSearch(false);
+    //   inputRef.current.blur();
+    // };
+
+    // const openModalScreen = (): void => {
+    //   navigation.navigate('Modal');
+    // };
+
+    // const handlePressKey = (event: { nativeEvent: { key: string } }) => {
+    //   console.log(event.nativeEvent);
+
+    //   if (event.nativeEvent.key === 'Enter' || event.nativeEvent.key === 'Escape') {
+    //     setTextInput('');
+    //     inputRef.current.blur();
+    //   }
+    // };
 
     return (
+      //TODO i need make feat that when i tap  input out then focus of input is disable
+
       <Animated.View style={[styles.searchWrap, animatedStyle]}>
-        {isActiveSearch && (
-          <Animated.View
-            entering={LightSpeedInLeft.duration(1000)}
-            exiting={LightSpeedOutLeft.duration(1000)}
-          >
-            <TextInput
-              keyboardType="default"
-              style={styles.textInput}
-              placeholder="Search here"
-              onChangeText={setTextInput}
-              value={textInput}
-            />
-          </Animated.View>
-        )}
+        {/* {isActiveSearch && ( */}
 
-        <View style={styles.searchIconWrap}>
-          <CustomTouchable withoutFeedback={true} onPress={onSearch}>
-            <Image style={styles.searchIcon} source={iconSearch}></Image>
-          </CustomTouchable>
+        <Animated.View
+          entering={LightSpeedInLeft.duration(1000)}
+          exiting={LightSpeedOutLeft.duration(1000)}
+        >
+          <TextInput
+            ref={inputRef}
+            keyboardType="default"
+            style={styles.textInput}
+            placeholder="Search"
+            onChangeText={setTextInput}
+            value={textInput}
+            onPressIn={handleActive}
+            // onKeyPress={handlePressKey}
+            // onSubmitEditing={() => handlePressKey}
+            placeholderTextColor={ColorsVariable.grey}
+            maxLength={20}
+            // onSubmitEditing={() => {
+            //   // setIsActiveSearch(false);
+            //   // setTextInput('');
+            //   inputRef.current.blur();
+            // }}
+          />
 
-          <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
-            <Image style={styles.heartIcon} source={iconHeart}></Image>
-          </CustomTouchable>
-        </View>
+          <Image style={styles.searchIcon} source={iconSearch} />
+          {isActiveSearch && (
+            <Pressable onPress={handleInActive} style={styles.closeIcon}>
+              <Image source={iconClose} />
+            </Pressable>
+          )}
+        </Animated.View>
+
+        {/* <View style={styles.searchIconWrap}> */}
+        {/* <CustomTouchable withoutFeedback={true} onPress={onSearch}> */}
+        {/* </CustomTouchable> */}
+
+        {/* <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
+              <Image style={styles.heartIcon} source={iconHeart}></Image>
+            </CustomTouchable> */}
+        {/* </View> */}
       </Animated.View>
     );
   }
@@ -81,8 +132,9 @@ export const Header: FC<IHeaderProps> = memo(
 
 const styles = StyleSheet.create({
   searchWrap: {
-    flexDirection: 'row',
-    margin: 10,
+    // flexDirection: 'row',
+
+    margin: 20,
   },
 
   searchIconWrap: {
@@ -94,8 +146,21 @@ const styles = StyleSheet.create({
   },
 
   searchIcon: {
-    width: 30,
-    height: 30,
+    position: 'absolute',
+    left: 8,
+    top: 6,
+    opacity: 0.4,
+    width: 28,
+    height: 28,
+  },
+
+  closeIcon: {
+    position: 'absolute',
+    width: 24,
+    height: 24,
+    right: 10,
+    top: 10,
+    // zIndex: 10,
   },
 
   heartIcon: {
@@ -105,10 +170,12 @@ const styles = StyleSheet.create({
 
   textInput: {
     height: 40,
-    width: 280,
-    backgroundColor: 'white',
-    borderRadius: 20,
+    // width: 320,
+    backgroundColor: ColorsVariable.greyLight,
+    borderRadius: 14,
     padding: 10,
+    paddingLeft: 46,
+    fontSize: 20,
   },
   modalIconClose: {
     position: 'absolute',
