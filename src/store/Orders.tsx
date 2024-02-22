@@ -102,12 +102,34 @@ class OrdersStore implements IOrderStore {
     });
   }
 
-  @action handleFavoriteItem(itemOrdering: IMockData): void {
-    itemOrdering.favorite = !itemOrdering.favorite;
+  // @action handleFavoriteItem(itemOrdering: IMockData): void {
+  //   itemOrdering.favorite = !itemOrdering.favorite;
 
+  //   const existingItem = this.wishList.find((itemBasket: IMockData) => {
+  //     return itemBasket.id === itemOrdering.id;
+  //   });
+
+  //   if (existingItem) {
+  //     this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
+  //   } else {
+  //     this.wishList = [...this.wishList, itemOrdering];
+  //   }
+  // }
+
+  @action handleFavoriteItem(itemOrdering: IMockData): void {
     const existingItem = this.wishList.find((itemBasket: IMockData) => {
       return itemBasket.id === itemOrdering.id;
     });
+
+    const item = this.mockData.find(
+      (itemBasket: IMockData) => itemBasket.id === itemOrdering.id
+    );
+
+    if (!item) {
+      return;
+    }
+
+    item.favorite = !item.favorite;
 
     if (existingItem) {
       this.wishList = this.wishList.filter((item) => item.id !== itemOrdering.id);
@@ -125,13 +147,15 @@ class OrdersStore implements IOrderStore {
   }
 
   @action handleItemOptions(name: string, options: IOptions[]) {
-    options?.forEach((item) => {
-      if (item.name === name) {
-        item.active = true;
-      } else {
-        item.active = false;
-      }
+    // Create copy array
+    const updatedOptions = options.map((option) => ({ ...option }));
+
+    // Set active option
+    updatedOptions.forEach((item) => {
+      item.active = item.name === name;
     });
+
+    return updatedOptions;
   }
 
   @computed get calcSumOrders() {

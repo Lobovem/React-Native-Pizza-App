@@ -13,7 +13,7 @@ import iconCart from './img/icon-cart.png';
 import iconHeart from './img/icon-heartCart.png';
 import iconHeartFavorite from './img/icon-heartCartFavorite.png';
 
-import { IMockData, mockItemData, newItems, newItem } from './components/MochData';
+import { IMockData, newItems, newItem } from './components/MochData';
 import ColorsVariable from '../../components/ColorsVariable';
 import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -40,9 +40,7 @@ type HomeScreenNavigationPropType = NativeStackNavigationProp<
 const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   navigation,
 }) => {
-  // const [mockItemDatas, setMockItemData] = useState(orderStore.mockData);
   const [mockItemDatas, setMockItemData] = useState(orderStore.mockData);
-  //TODO check out mockItemDatas, because i use mockItemData, but will need use orderStore.mockData. Active option dont work
   const [refreshing, setRefreshing] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
   const [textInput, setTextInput] = useState('');
@@ -91,9 +89,13 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   //   orderStore.setOrders(item);
   // };
 
-  const onPressItem = (id: string): void => {
-    navigation.navigate('Pizza', { id, mockItemDatas });
+  const onPressItem = (item: IMockData): void => {
+    navigation.navigate('Pizza', { item });
   };
+
+  // const onPressItem = (id: string): void => {
+  //   navigation.navigate('Pizza', { id, mockItemDatas });
+  // };
 
   const renderItem = useCallback(
     ({ item }: IItemProps) => {
@@ -102,7 +104,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
           {() => (
             <View style={styles.item}>
               <View>
-                <Pressable onPress={() => onPressItem(item.id)}>
+                <Pressable onPress={() => onPressItem(item)}>
                   <ImageBackground style={styles.img} source={item.img}>
                     {item.sale && <Image style={styles.iconNew} source={iconNew} />}
                   </ImageBackground>
@@ -110,7 +112,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
               </View>
 
               <View style={styles.wrapTitle}>
-                <Pressable onPress={() => onPressItem(item.id)}>
+                <Pressable onPress={() => onPressItem(item)}>
                   <Text style={styles.title}>{item.title}</Text>
                 </Pressable>
               </View>

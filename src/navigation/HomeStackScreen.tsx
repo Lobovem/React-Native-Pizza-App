@@ -8,7 +8,8 @@ import HomeScreens from '../screens/home/HomeScreen';
 
 export type RootStackParamListType = {
   Home: undefined; // No additional parameters for the Home screen
-  Pizza: { id: string; mockItemDatas: IMockData[] }; // Parameters for the Pizza screen
+  Pizza: { item: IMockData }; // Parameters for the Pizza screen
+  // Pizza: { id: string; mockItemDatas: IMockData[] }; // Parameters for the Pizza screen
   Modal: { id: string; mockItemDatas: IMockData[] }; // Parameters for the Pizza screen
   // ... other screens
 };

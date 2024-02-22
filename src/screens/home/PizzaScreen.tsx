@@ -13,19 +13,19 @@ import { observer } from 'mobx-react';
 
 const PizzaScreen: FC = () => {
   const route = useRoute<RouteProp<RootStackParamListType, 'Pizza'>>();
-  const items = route.params;
+  const { item } = route.params;
 
-  const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
+  // const item = items.mockItemDatas.find((item: IMockData) => item.id === items.id);
   const [itemQuantity, setItemQuantity] = useState(item.quantity);
-  const [optionsItems, setOptionsItems] = useState(item.options);
+  const [optionsItem, setOptionsItem] = useState(item.options);
 
   const addQuantity = (): void => {
-    setItemQuantity((prev) => prev + 1);
+    setItemQuantity((prev: number) => prev + 1);
   };
 
   const removeQuantity = (): void => {
     if (itemQuantity > 1) {
-      setItemQuantity((prev) => prev - 1);
+      setItemQuantity((prev: number) => prev - 1);
     }
   };
 
@@ -33,14 +33,17 @@ const PizzaScreen: FC = () => {
     //i did exacly that becouse i change value with item outside (i get item from homeScreen)
     const updateItem = { ...item };
     updateItem.quantity = itemQuantity;
-    updateItem.options = optionsItems;
+    updateItem.options = optionsItem;
 
     orderStore.setOrders(updateItem);
     setItemQuantity(1);
   };
 
   const hanldeActiveOption = (name: string): void => {
-    orderStore.handleItemOptions(name, optionsItems);
+    const updatedOptions = orderStore.handleItemOptions(name, optionsItem);
+
+    // Обновляем состояние опций в компоненте
+    setOptionsItem(updatedOptions);
   };
 
   return (
@@ -68,7 +71,7 @@ const PizzaScreen: FC = () => {
           </View>
 
           <View style={styles.optionsItemWrap}>
-            {optionsItems?.map((option, index) => (
+            {optionsItem?.map((option, index) => (
               <Pressable
                 key={index}
                 style={option.active ? styles.optionsItemActive : styles.optionsItem}
