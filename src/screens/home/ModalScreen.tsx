@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ListRenderItem,
   NativeScrollEvent,
@@ -12,12 +12,10 @@ import { IMockDataImg, mockDataImg } from './components/MochData';
 import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
 import { StatusBar } from 'expo-status-bar';
 import { CustomTouchable } from '../../components/CustomTouchable';
-// import { FlatList } from 'react-native-gesture-handler';
 import { FlatList as RNFlatList } from 'react-native';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
-import { generateUniqueKey } from '../../common/generateUniqueKey';
 import { FlatList } from 'react-native';
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
@@ -32,10 +30,26 @@ export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
 
   const ref = useRef<RNFlatList>(null);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // If current index dont last then slider will be +1
+      if (iconSliderIndex < mockDataImg.length - 1) {
+        ref.current.scrollToIndex({ index: iconSliderIndex + 1, animated: true });
+      } else {
+        // If current slider is last then slider move to start
+        ref.current.scrollToIndex({ index: 0, animated: true });
+      }
+    }, 3000);
+
+    //Cleat interval after unmount. This do important that dont have side effects
+    return () => clearInterval(interval);
+  }, [iconSliderIndex]);
+
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
+
     setIconSliderIndex(slider);
   };
 

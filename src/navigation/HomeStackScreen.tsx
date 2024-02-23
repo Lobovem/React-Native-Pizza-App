@@ -49,7 +49,7 @@ const HomeStackScreen: FC = () => {
         <HomeStack.Screen
           name="Modal"
           options={{
-            presentation: 'modal',
+            presentation: 'card',
             headerShown: false,
           }}
           component={ModalScreen}

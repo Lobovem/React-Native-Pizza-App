@@ -4,12 +4,14 @@ import React, {
   StyleSheet,
   ViewStyle,
   Pressable,
-  Keyboard,
+  View,
 } from 'react-native';
 import { FC, memo, useRef, useState } from 'react';
 
 import iconSearch from '../img/icon-search.png';
 import iconClose from '../img/icon-close.png';
+import iconFilter from '../img/icon-filter.png';
+
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../../navigation/HomeStackScreen';
@@ -20,6 +22,7 @@ import {
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 import ColorsVariable from '../../../components/ColorsVariable';
+import { CustomTouchable } from '../../../components/CustomTouchable';
 
 interface IHeaderProps {
   setTextInput: (value: string) => void;
@@ -42,18 +45,6 @@ export const Header: FC<IHeaderProps> = memo(
       setIsActiveSearch(true);
     };
 
-    // const handleInActive = (): void => {
-    //   if (
-    //     (inputRef.current.isFocused() && textInput.length > 0) ||
-    //     (!inputRef.current.isFocused() && textInput.length > 0)
-    //   ) {
-    //     setTextInput('');
-    //   } else {
-    //     setIsActiveSearch(false);
-    //     inputRef.current.blur();
-    //   }
-    // };
-
     const handleInActive = (): void => {
       if (!textInput) {
         setIsActiveSearch(false);
@@ -69,41 +60,16 @@ export const Header: FC<IHeaderProps> = memo(
       }
     };
 
-    // const handleModalPress = (event: GestureResponderEvent): void => {
-    //   /*Функция handleModalPress проверяет, было ли нажатие на сам
-    // компонент TouchableWithoutFeedback, а не на его содержимое.
-    // Если event.target (элемент, на котором произошло событие) равен
-    // event.currentTarget (компонент TouchableWithoutFeedback), это
-    // означает, что нажатие произошло вне содержимого модального окна,
-    // и в этом случае вызывается setModalVisible(!modalVisible), что
-    // изменит видимость модального окна.*/
-    //   if (event.target !== event.currentTarget) {
-    //     return;
-    //   }
-    //   setIsActiveSearch(false);
-    //   inputRef.current.blur();
-    // };
-
-    // const openModalScreen = (): void => {
-    //   navigation.navigate('Modal');
-    // };
-
-    // const handlePressKey = (event: { nativeEvent: { key: string } }) => {
-    //   console.log(event.nativeEvent);
-
-    //   if (event.nativeEvent.key === 'Enter' || event.nativeEvent.key === 'Escape') {
-    //     setTextInput('');
-    //     inputRef.current.blur();
-    //   }
-    // };
+    const openModalScreen = (): void => {
+      navigation.navigate('Modal');
+    };
 
     return (
-      <Animated.View style={[styles.searchWrap, animatedStyle]}>
-        {/* {isActiveSearch && ( */}
-
+      <Animated.View style={[styles.headerhWrap, animatedStyle]}>
         <Animated.View
           entering={LightSpeedInLeft.duration(1000)}
           exiting={LightSpeedOutLeft.duration(1000)}
+          style={styles.searchWrap}
         >
           <TextInput
             ref={inputRef}
@@ -119,6 +85,7 @@ export const Header: FC<IHeaderProps> = memo(
           />
 
           <Image style={styles.searchIcon} source={iconSearch} />
+
           {isActiveSearch && (
             <Pressable onPress={handleInActive} style={styles.closeIcon}>
               <Image source={iconClose} />
@@ -126,30 +93,29 @@ export const Header: FC<IHeaderProps> = memo(
           )}
         </Animated.View>
 
-        {/* <View style={styles.searchIconWrap}> */}
-        {/* <CustomTouchable withoutFeedback={true} onPress={onSearch}> */}
-        {/* </CustomTouchable> */}
-
-        {/* <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
-              <Image style={styles.heartIcon} source={iconHeart}></Image>
-            </CustomTouchable> */}
-        {/* </View> */}
+        <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
+          <Image style={styles.iconFilter} source={iconFilter} />
+        </CustomTouchable>
       </Animated.View>
     );
   }
 );
 
 const styles = StyleSheet.create({
-  searchWrap: {
-    // flexDirection: 'row',
-
+  headerhWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     margin: 20,
+    gap: 10,
+  },
+
+  searchWrap: {
+    flex: 1,
   },
 
   searchIconWrap: {
-    marginLeft: 'auto',
-    flexDirection: 'row',
-    gap: 20,
+    flexDirection: 'column',
+    // gap: 20,
     marginEnd: 10,
     marginBottom: 10,
   },
@@ -170,6 +136,11 @@ const styles = StyleSheet.create({
     right: 10,
     top: 10,
     // zIndex: 10,
+  },
+
+  iconFilter: {
+    width: 40,
+    height: 40,
   },
 
   heartIcon: {
