@@ -49,7 +49,8 @@ const HomeStackScreen: FC = () => {
         <HomeStack.Screen
           name="Modal"
           options={{
-            presentation: 'card',
+            presentation: 'containedTransparentModal',
+            // presentation: 'transparentModal',
             headerShown: false,
           }}
           component={ModalScreen}

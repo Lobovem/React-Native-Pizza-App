@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SettingsScreen from '../screens/home/SettingsScreen';
+import { BenefitsScreen } from '../screens/home/BenefitsScreen';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
 import BasketScreen from '../screens/basket/BasketScreen';
@@ -109,7 +109,7 @@ const TabBarIconHome: FC<ITabBarIconProps> = observer((props) => {
   );
 });
 
-const TabBarIconSettings: FC<ITabBarIconProps> = observer((props) => {
+const TabBarIconBanner: FC<ITabBarIconProps> = observer((props) => {
   return (
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
@@ -121,8 +121,8 @@ const TabBarIconSettings: FC<ITabBarIconProps> = observer((props) => {
           style={props.focused ? styles.iconActive : styles.iconTab}
           source={
             props.focused
-              ? require('../screens/home/img/icon-setting-active.png')
-              : require('../screens/home/img/icon-setting.png')
+              ? require('../screens/home/img/icon-discount-active.png')
+              : require('../screens/home/img/icon-discount.png')
           }
         />
       </View>
@@ -202,11 +202,12 @@ const HomeTabs: FC = () => {
       />
 
       <Tab.Screen
-        name="SETTINGS"
+        name="BENEFITS"
         options={{
-          tabBarIcon: (props) => <TabBarIconSettings {...props} />,
+          tabBarIcon: (props) => <TabBarIconBanner {...props} />,
+          headerShown: false,
         }}
-        component={SettingsScreen}
+        component={BenefitsScreen}
       />
 
       <Tab.Screen
@@ -214,7 +215,7 @@ const HomeTabs: FC = () => {
         options={{
           tabBarIcon: (props) => <TabBarIconUser {...props} />,
         }}
-        component={SettingsScreen}
+        component={BenefitsScreen}
       />
     </Tab.Navigator>
   );

@@ -8,6 +8,7 @@ import {
   Pressable,
   ImageBackground,
 } from 'react-native';
+import { ScrollView } from 'react-native-virtualized-view';
 import iconNew from './img/icon-new.png';
 import iconCart from './img/icon-cart.png';
 import iconHeart from './img/icon-heartCart.png';
@@ -167,6 +168,8 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         textInput={textInput}
         animatedStyle={animatedStyle}
       />
+      {/* <ScrollView> */}
+      {/* <Banner /> */}
 
       <Animated.FlatList
         data={filterData}
@@ -181,6 +184,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         showsVerticalScrollIndicator={false}
         style={styles.itemsList}
       />
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };
