@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { IMockData, mockItemData } from '../screens/home/components/MochData';
+import { IMockData, mockItemData } from '../Screens/HomeScreen/components/MochData';
 
 interface IOrderStore {
   orders: IMockData[];

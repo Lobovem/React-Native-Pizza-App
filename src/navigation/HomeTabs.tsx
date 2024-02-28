@@ -1,14 +1,15 @@
 import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BenefitsScreen } from '../screens/home/BenefitsScreen';
+import { BenefitsScreen } from '../Screens/HomeScreen/BenefitsScreen';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
-import BasketScreen from '../screens/basket/BasketScreen';
 
 import orderStore from '../store/Orders';
 import { observer } from 'mobx-react';
 import ColorsVariable from '../components/ColorsVariable';
-import WishList from '../screens/wishList/WishList';
+import BasketScreen from '../Screens/BasketScreen/BasketScreen';
+import WishList from '../Screens/WishListScreen/WishList';
+import SignInScreen from '../Screens/ProfileScreen/SignInScreen';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -23,7 +24,7 @@ const TabIconBasket: FC<ITabBarIconProps> = observer((props) => {
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
         style={styles.iconWave}
-        source={require('../screens/home/img/icon-wave.png')}
+        source={require('../Screens/HomeScreen/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
         <View>
@@ -43,8 +44,8 @@ const TabIconBasket: FC<ITabBarIconProps> = observer((props) => {
             style={props.focused ? styles.iconActive : styles.iconTab}
             source={
               props.focused
-                ? require('../screens/home/img/icon-cart-active.png')
-                : require('../screens/home/img/icon-cart.png')
+                ? require('../Screens/HomeScreen/img/icon-cart-active.png')
+                : require('../Screens/HomeScreen/img/icon-cart.png')
             }
           />
         </View>
@@ -58,7 +59,7 @@ const TabBarIconHeart: FC<ITabBarIconProps> = observer((props) => {
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
         style={styles.iconWave}
-        source={require('../screens/home/img/icon-wave.png')}
+        source={require('../Screens/HomeScreen/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
         <View>
@@ -78,8 +79,8 @@ const TabBarIconHeart: FC<ITabBarIconProps> = observer((props) => {
             style={props.focused ? styles.iconActive : styles.iconTab}
             source={
               props.focused
-                ? require('../screens/home/img/icon-heartCart-active.png')
-                : require('../screens/home/img/icon-heartCart.png')
+                ? require('../Screens/HomeScreen/img/icon-heartCart-active.png')
+                : require('../Screens/HomeScreen/img/icon-heartCart.png')
             }
           />
         </View>
@@ -93,15 +94,15 @@ const TabBarIconHome: FC<ITabBarIconProps> = observer((props) => {
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
         style={styles.iconWave}
-        source={require('../screens/home/img/icon-wave.png')}
+        source={require('../Screens/HomeScreen/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
           source={
             props.focused
-              ? require('../screens/home/img/icon-home-active.png')
-              : require('../screens/home/img/icon-home.png')
+              ? require('../Screens/HomeScreen/img/icon-home-active.png')
+              : require('../Screens/HomeScreen/img/icon-home.png')
           }
         />
       </View>
@@ -114,15 +115,15 @@ const TabBarIconBanner: FC<ITabBarIconProps> = observer((props) => {
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
         style={styles.iconWave}
-        source={require('../screens/home/img/icon-wave.png')}
+        source={require('../Screens/HomeScreen/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
           source={
             props.focused
-              ? require('../screens/home/img/icon-discount-active.png')
-              : require('../screens/home/img/icon-discount.png')
+              ? require('../Screens/HomeScreen/img/icon-discount-active.png')
+              : require('../Screens/HomeScreen/img/icon-discount.png')
           }
         />
       </View>
@@ -135,15 +136,15 @@ const TabBarIconUser: FC<ITabBarIconProps> = observer((props) => {
     <View style={props.focused && styles.iconTabActiveWrap}>
       <Image
         style={styles.iconWave}
-        source={require('../screens/home/img/icon-wave.png')}
+        source={require('../Screens/HomeScreen/img/icon-wave.png')}
       />
       <View style={props.focused && styles.iconTabActive}>
         <Image
           style={props.focused ? styles.iconActive : styles.iconTab}
           source={
             props.focused
-              ? require('../screens/home/img/icon-user-active.png')
-              : require('../screens/home/img/icon-user.png')
+              ? require('../Screens/HomeScreen/img/icon-user-active.png')
+              : require('../Screens/HomeScreen/img/icon-user.png')
           }
         />
       </View>
@@ -215,7 +216,7 @@ const HomeTabs: FC = () => {
         options={{
           tabBarIcon: (props) => <TabBarIconUser {...props} />,
         }}
-        component={BenefitsScreen}
+        component={SignInScreen}
       />
     </Tab.Navigator>
   );

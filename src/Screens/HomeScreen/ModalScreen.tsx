@@ -23,7 +23,9 @@ type ModalScreenNavigationPropType = NativeStackNavigationProp<
   'Modal'
 >;
 
-export const BenefitsScreen: FC = () => {
+export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
+  navigation,
+}) => {
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
 
   const ref = useRef<RNFlatList>(null);
@@ -55,6 +57,11 @@ export const BenefitsScreen: FC = () => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
+  const closeModal = (): void => {
+    navigation.navigate('Home');
+    setIconSliderIndex(0);
+  };
+
   const renderSliderDots: ListRenderItem<IMockDataImg> = useCallback(
     ({ index }) => {
       return (
@@ -83,7 +90,7 @@ export const BenefitsScreen: FC = () => {
         onScroll={onScrollSlider}
         showsHorizontalScrollIndicator={false}
       />
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
 
       <View style={styles.wrapDots}>
         <FlatList
@@ -93,6 +100,17 @@ export const BenefitsScreen: FC = () => {
           horizontal
         />
       </View>
+
+      <CustomTouchable
+        withoutFeedback={true}
+        onPress={closeModal}
+        style={styles.customWrapper}
+      >
+        <Image
+          style={styles.modalIconClose}
+          source={require('../HomeScreen/img/icon-close.png')}
+        />
+      </CustomTouchable>
     </View>
   );
 };
@@ -121,7 +139,7 @@ const styles = StyleSheet.create({
   // bannerList: { width: 400, height: 300 },
   wrapDots: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 60,
     left: 0,
     right: 0,
     alignItems: 'center',

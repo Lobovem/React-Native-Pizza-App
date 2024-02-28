@@ -1,29 +1,18 @@
 import React, { FC, useState } from 'react';
-import {
-  Button,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
-import { IMockData } from '../home/components/MochData';
-import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../components/ColorsVariable';
 
-const BasketScreen: FC = () => {
+const WishList: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
-  const removeItemFromOrder = (item: IMockData): void => {
-    orderStore.removeOrders(item);
+  const exitToFavoriteList = (): void => {
+    setIsSuccessful(false);
   };
 
-  const sendOrder = (): void => {
-    orderStore.removeOrders([]);
+  const cleanWishList = (): void => {
+    orderStore.cleanFavoriteItemsAll();
     setIsSuccessful(true);
 
     setTimeout(() => {
@@ -31,14 +20,10 @@ const BasketScreen: FC = () => {
     }, 3000);
   };
 
-  const exitToBasket = (): void => {
-    setIsSuccessful(false);
-  };
-
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      {orderStore.orders[0] ? (
-        orderStore.orders.map((item) => (
+      {orderStore.wishList[0] ? (
+        orderStore.wishList.map((item) => (
           <View key={item.id} style={styles.item}>
             <Image source={item.img} style={styles.itemImg} />
 
@@ -48,7 +33,7 @@ const BasketScreen: FC = () => {
 
                 <Pressable
                   style={styles.itemRemove}
-                  onPress={() => removeItemFromOrder(item)}
+                  onPress={() => orderStore.handleFavoriteItem(item)}
                 >
                   <Text style={styles.itemRemoveTitle}>X</Text>
                 </Pressable>
@@ -56,7 +41,7 @@ const BasketScreen: FC = () => {
 
               <Text style={styles.itemPrice}>{item.priceNew} $</Text>
 
-              <View style={styles.optionsWrap}>
+              {/* <View style={styles.optionsWrap}>
                 {item.options.map(
                   (item, index) =>
                     item.active && (
@@ -65,19 +50,8 @@ const BasketScreen: FC = () => {
                       </Text>
                     )
                 )}
-
-                <View style={styles.quantityWrap}>
-                  <Pressable onPress={() => orderStore.delQuantity(item)}>
-                    <Text style={styles.quantity}>-</Text>
-                  </Pressable>
-
-                  <Text style={styles.quantity}>{item.quantity}</Text>
-
-                  <Pressable onPress={() => orderStore.addQuantity(item)}>
-                    <Text style={styles.quantity}>+</Text>
-                  </Pressable>
-                </View>
-              </View>
+              </View> */}
+              {/* <Text>{item.description}</Text> */}
             </View>
           </View>
         ))
@@ -85,49 +59,37 @@ const BasketScreen: FC = () => {
         <View style={styles.orderSuccessful}>
           <Image
             style={styles.imgSuccessful}
-            source={require('../home/img/orderSucceseful.png')}
+            source={require('../HomeScreen/img/orderSucceseful.png')}
           />
 
-          <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>Withdraw Successful</Text>
+          <View style={styles.wrapFavoriteTitle}>
+            <Text style={styles.favoriteTitle}>Favorite list was clean</Text>
           </View>
-
-          <Pressable onPress={exitToBasket} style={styles.btnOrderSendWrap}>
+          <Pressable onPress={exitToFavoriteList} style={styles.btnOrderSendWrap}>
             <Text style={styles.btnOrderSendTitle}>OK</Text>
           </Pressable>
         </View>
       ) : (
         <View style={styles.orderSuccessful}>
-          <Image
-            style={styles.imgCartEmpty}
-            source={require('../home/img/icon-cartLarge.png')}
-          />
-
-          <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>Your cart is empty</Text>
+          <View style={styles.wrapFavoriteTitle}>
+            <Text style={styles.favoriteTitle}>Your favorite list is empty</Text>
           </View>
         </View>
       )}
 
-      {orderStore.orders[0] && (
+      {orderStore.wishList[0] && (
         <View>
-          <View style={styles.wrapTotalPrice}>
-            <Text style={styles.totalPrice}>
-              Total order: {orderStore.calcSumOrders} $
-            </Text>
-          </View>
-
-          <Pressable onPress={sendOrder} style={styles.btnOrderSendWrap}>
-            <Text style={styles.btnOrderSendTitle}>Send order</Text>
+          <Pressable onPress={cleanWishList} style={styles.btnOrderSendWrap}>
+            <Text style={styles.btnOrderSendTitle}>Clean all favorite list</Text>
           </Pressable>
         </View>
       )}
     </ScrollView>
   );
 };
+//TODO will clean code from dont use code
 
-export default observer(BasketScreen);
-//TODO rerendering component basket when i change quantity and delete item from order
+export default observer(WishList);
 
 const styles = StyleSheet.create({
   container: {
@@ -212,35 +174,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
 
-  quantityWrap: {
-    flexDirection: 'row',
-    borderRadius: 28,
-    backgroundColor: ColorsVariable.white,
-    shadowColor: ColorsVariable.black,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 25,
-    width: 100,
-    height: 30,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-
-  quantity: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  totalPrice: {
+  favoriteTitle: {
     fontSize: 30,
     marginBottom: 30,
   },
 
-  wrapTotalPrice: {
+  wrapFavoriteTitle: {
     marginTop: 20,
     alignItems: 'center',
   },

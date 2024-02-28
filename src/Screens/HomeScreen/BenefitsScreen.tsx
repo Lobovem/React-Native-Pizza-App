@@ -8,8 +8,6 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import { IMockDataImg, mockDataImg } from './components/MochData';
-import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
 import { StatusBar } from 'expo-status-bar';
 import { CustomTouchable } from '../../components/CustomTouchable';
 import { FlatList as RNFlatList } from 'react-native';
@@ -17,15 +15,15 @@ import { FlatList as RNFlatList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 import { FlatList } from 'react-native';
+import { IMockDataImg, mockDataImg } from './components/MochData';
+import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
   RootStackParamListType,
   'Modal'
 >;
 
-export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
-  navigation,
-}) => {
+export const BenefitsScreen: FC = () => {
   const [iconSliderIndex, setIconSliderIndex] = useState(0);
 
   const ref = useRef<RNFlatList>(null);
@@ -55,11 +53,6 @@ export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
 
   const pressDotsSlider = (index: number): void => {
     ref.current.scrollToIndex({ index: index, animated: true });
-  };
-
-  const closeModal = (): void => {
-    navigation.navigate('Home');
-    setIconSliderIndex(0);
   };
 
   const renderSliderDots: ListRenderItem<IMockDataImg> = useCallback(
@@ -100,17 +93,6 @@ export const ModalScreen: FC<{ navigation: ModalScreenNavigationPropType }> = ({
           horizontal
         />
       </View>
-
-      <CustomTouchable
-        withoutFeedback={true}
-        onPress={closeModal}
-        style={styles.customWrapper}
-      >
-        <Image
-          style={styles.modalIconClose}
-          source={require('../home/img/icon-close.png')}
-        />
-      </CustomTouchable>
     </View>
   );
 };
@@ -139,7 +121,7 @@ const styles = StyleSheet.create({
   // bannerList: { width: 400, height: 300 },
   wrapDots: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 20,
     left: 0,
     right: 0,
     alignItems: 'center',

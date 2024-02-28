@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useAppState } from './src/hooks/useAppState';
 import { ImageBackground, StyleSheet } from 'react-native';
 
-import hiddenBackground from './src/screens/home/img/hidden-background.png';
+import hiddenBackground from './src/Screens/HomeScreen/img/hidden-background.png';
 import { Navigation } from './src/navigation/Navigation';
 
 const App: FC = () => {
