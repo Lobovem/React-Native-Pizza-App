@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // flexDirection: 'row',
     // flex: 1,
+    // backgroundColor: 'red',
   },
   modalIconClose: {
     position: 'absolute',

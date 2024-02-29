@@ -25,7 +25,7 @@ import {
   LightSpeedOutLeft,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
-import ColorsVariable from '../../../components/ColorsVariable';
+import ColorsVariable from '../../../utils/ColorsVariable';
 import { CustomTouchable } from '../../../components/CustomTouchable';
 
 interface IHeaderProps {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 20,
+    // margin: 20,
     gap: 10,
   },
 

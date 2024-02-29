@@ -13,6 +13,16 @@ import { useFonts } from 'expo-font';
 
 import hiddenBackground from './src/Screens/HomeScreen/img/hidden-background.png';
 import { Navigation } from './src/navigation/Navigation';
+import { ThemeProvider } from 'styled-components/native';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'red', // Установите желаемый цвет фона здесь
+  },
+};
 
 const App: FC = () => {
   const [fontsLoaded] = useFonts({
@@ -29,11 +39,16 @@ const App: FC = () => {
   }
 
   return (
-    <>
-      <ImageBackground source={hiddenBackground} style={styles.wrap} />
+    // <>
+    //   <ImageBackground source={hiddenBackground} style={styles.wrap} />
 
-      {app !== 'inactive' && <Navigation />}
-    </>
+    // {app !== 'inactive' && (
+    <PaperProvider theme={theme}>
+      <StatusBar barStyle="default" />
+      <Navigation />
+    </PaperProvider>
+    // )}
+    // </>
   );
 };
 

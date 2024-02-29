@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
-import ColorsVariable from '../../components/ColorsVariable';
+import ColorsVariable from '../../utils/ColorsVariable';
 
 const WishList: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);

@@ -12,7 +12,7 @@ import {
 
 import iconHeart from './img/icon-heartCart.png';
 import iconHeartFavorite from './img/icon-heartCartFavorite.png';
-import ColorsVariable from '../../components/ColorsVariable';
+import ColorsVariable from '../../utils/ColorsVariable';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 

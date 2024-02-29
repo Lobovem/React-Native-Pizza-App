@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useCallback } from 'react';
-import ColorsVariable from '../../components/ColorsVariable';
+import ColorsVariable from '../../utils/ColorsVariable';
 import { useOAuth } from '@clerk/clerk-expo';
 import * as WebBrowser from 'expo-web-browser';
 import { useWarmUpBrowser } from '../../hooks/useWarmUpBrowser';

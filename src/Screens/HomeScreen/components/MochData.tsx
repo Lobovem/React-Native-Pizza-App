@@ -16,7 +16,7 @@ export interface IMockData {
 
 export interface IMockDataImg {
   id: string;
-  img: ImageSourcePropType;
+  image: ImageSourcePropType;
   link: string;
 }
 
@@ -241,17 +241,17 @@ export const newItem: IMockData = {
 export const mockDataImg: IMockDataImg[] = [
   {
     id: '13',
-    img: require('../img/banner-1-burger.jpg'),
+    image: require('../img/banner-1-burger.jpg'),
     link: 'http://google.com.ua',
   },
   {
     id: '14',
-    img: require('../img/banner-2-pizzaBase.jpg'),
+    image: require('../img/banner-2-pizzaBase.jpg'),
     link: 'http://google.com.ua',
   },
   {
     id: '15',
-    img: require('../img/banner-3-pizzaCheese.jpg'),
+    image: require('../img/banner-3-pizzaCheese.jpg'),
     link: 'http://google.com.ua',
   },
 ];

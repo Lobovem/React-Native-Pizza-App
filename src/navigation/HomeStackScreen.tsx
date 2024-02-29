@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import PizzaScreen from '../Screens/HomeScreen/PizzaScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ColorsVariable from '../components/ColorsVariable';
+import ColorsVariable from '../utils/ColorsVariable';
 import { IMockData } from '../Screens/HomeScreen/components/MochData';
 import { ModalScreen } from '../Screens/HomeScreen/ModalScreen';
 import HomeScreens from '../Screens/HomeScreen/HomeScreen';
@@ -23,6 +23,7 @@ const HomeStackScreen: FC = () => {
       screenOptions={{
         // headerMode: 'screen',
         headerTintColor: 'white',
+
         headerStyle: { backgroundColor: ColorsVariable.orange },
       }}
     >

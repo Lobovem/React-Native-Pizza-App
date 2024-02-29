@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import orderStore from '../../store/Orders';
 import { observer } from 'mobx-react';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
-import ColorsVariable from '../../components/ColorsVariable';
+import ColorsVariable from '../../utils/ColorsVariable';
 import { IMockData } from '../HomeScreen/components/MochData';
 
 const BasketScreen: FC = () => {
@@ -133,7 +133,7 @@ export default observer(BasketScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorsVariable.white,
+    // backgroundColor: ColorsVariable.white,
     paddingTop: 20,
     paddingBottom: 160,
     paddingHorizontal: 20,

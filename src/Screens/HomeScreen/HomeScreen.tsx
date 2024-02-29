@@ -8,6 +8,7 @@ import {
   Pressable,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import iconNew from './img/icon-new.png';
 import iconCart from './img/icon-cart.png';
@@ -15,7 +16,7 @@ import iconHeart from './img/icon-heartCart.png';
 import iconHeartFavorite from './img/icon-heartCartFavorite.png';
 
 import { IMockData, newItems, newItem } from './components/MochData';
-import ColorsVariable from '../../components/ColorsVariable';
+import ColorsVariable from '../../utils/ColorsVariable';
 import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
@@ -28,6 +29,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { Observer, observer } from 'mobx-react';
+import { HomeSlider } from './HomeSlider';
 
 interface IItemProps {
   item: IMockData;
@@ -163,29 +165,27 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
   });
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <SafeAreaView style={styles.container}>
       <Header
         setTextInput={setTextInput}
         textInput={textInput}
         animatedStyle={animatedStyle}
       />
-      {/* <ScrollView> */}
-      {/* <Banner /> */}
+      <HomeSlider />
 
-      <Animated.FlatList
-        data={filterData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-        onEndReachedThreshold={0.2}
-        onEndReached={addNewItem}
-        onScroll={scrollHandler}
-        showsVerticalScrollIndicator={false}
-        style={styles.itemsList}
-      />
-      {/* </ScrollView> */}
+      {/* <Animated.FlatList
+          data={filterData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          onEndReachedThreshold={0.2}
+          onEndReached={addNewItem}
+          onScroll={scrollHandler}
+          showsVerticalScrollIndicator={false}
+          style={styles.itemsList}
+        /> */}
     </SafeAreaView>
   );
 };
@@ -193,15 +193,14 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
 export default observer(HomeScreens);
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    backgroundColor: ColorsVariable.white,
-  },
   container: {
     backgroundColor: ColorsVariable.white,
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    margin: 20,
   },
+  // container: {
+  //   backgroundColor: ColorsVariable.white,
+  //   padding: 20,
+  // },
 
   itemsList: {
     backgroundColor: ColorsVariable.white,

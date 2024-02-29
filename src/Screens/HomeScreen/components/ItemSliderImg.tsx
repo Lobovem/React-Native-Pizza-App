@@ -40,7 +40,7 @@ export const ItemSliderImg: FC<IItemSliderImgProps> = ({ item }) => {
           height: windowDimensions.height,
           width: windowDimensions.width,
         }}
-        source={item.img}
+        source={item.image}
       />
     </Pressable>
   );
