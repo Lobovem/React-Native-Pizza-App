@@ -174,18 +174,18 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
       <HomeSlider />
 
       {/* <Animated.FlatList
-          data={filterData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          onEndReachedThreshold={0.2}
-          onEndReached={addNewItem}
-          onScroll={scrollHandler}
-          showsVerticalScrollIndicator={false}
-          style={styles.itemsList}
-        /> */}
+        data={filterData}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+        onEndReachedThreshold={0.2}
+        onEndReached={addNewItem}
+        onScroll={scrollHandler}
+        showsVerticalScrollIndicator={false}
+        style={styles.itemsList}
+      /> */}
     </SafeAreaView>
   );
 };
@@ -194,7 +194,7 @@ export default observer(HomeScreens);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorsVariable.white,
+    marginTop: 60,
     margin: 20,
   },
   // container: {
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   // },
 
   itemsList: {
-    backgroundColor: ColorsVariable.white,
+    // backgroundColor: ColorsVariable.white,
     // flex: 1,
     paddingHorizontal: 10,
     paddingTop: 66,

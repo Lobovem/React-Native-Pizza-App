@@ -69,7 +69,7 @@ export const Header: FC<IHeaderProps> = memo(
     };
 
     return (
-      <Animated.View style={[styles.headerhWrap, animatedStyle]}>
+      <Animated.View style={[styles.headerContainer, animatedStyle]}>
         <Animated.View
           entering={LightSpeedInLeft.duration(1000)}
           exiting={LightSpeedOutLeft.duration(1000)}
@@ -86,22 +86,38 @@ export const Header: FC<IHeaderProps> = memo(
             placeholderTextColor={ColorsVariable.grey}
             maxLength={20}
             onBlur={handleFocus}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
 
           {/* <Image style={styles.searchIcon} source={iconSearch} /> */}
-          <Feather style={styles.searchIcon} name="search" size={24} color="black" />
+          <Feather
+            style={styles.searchIcon}
+            name="search"
+            size={24}
+            color={ColorsVariable.grey}
+          />
 
           {isActiveSearch && (
             <TouchableOpacity onPress={handleInActive} style={styles.closeIcon}>
               {/* <Image source={iconClose} /> */}
-              <Ionicons name="close-circle-outline" size={24} color="black" />
+              <Ionicons
+                name="close-circle-outline"
+                size={24}
+                color={ColorsVariable.grey}
+              />
             </TouchableOpacity>
           )}
         </Animated.View>
 
         <TouchableOpacity onPress={openModalScreen}>
           {/* <Image style={styles.iconFilter} source={iconFilter} /> */}
-          <Feather style={styles.iconFilter} name="filter" size={30} color="black" />
+          <Feather
+            style={styles.iconFilter}
+            name="filter"
+            size={30}
+            color={ColorsVariable.grey}
+          />
         </TouchableOpacity>
       </Animated.View>
     );
@@ -109,11 +125,11 @@ export const Header: FC<IHeaderProps> = memo(
 );
 
 const styles = StyleSheet.create({
-  headerhWrap: {
+  headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // margin: 20,
+    marginBottom: 20,
     gap: 10,
   },
 
@@ -132,7 +148,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 8,
     top: 8,
-    opacity: 0.4,
     // width: 28,
     // height: 28,
   },
@@ -141,15 +156,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     //TODO opacity need change to color
-    opacity: 0.4,
     top: 7,
     // zIndex: 10,
   },
 
   iconFilter: {
     //TODO opacity need change to color
-
-    opacity: 0.5,
   },
 
   heartIcon: {
@@ -159,14 +171,16 @@ const styles = StyleSheet.create({
 
   textInput: {
     height: 40,
-    // width: 320,
-    backgroundColor: ColorsVariable.greyLight,
+    borderColor: ColorsVariable.grey,
+    borderWidth: 2,
+
     borderRadius: 14,
-    padding: 10,
+    padding: 4,
     paddingLeft: 46,
     fontSize: 20,
     fontFamily: 'outfit-regular',
   },
+
   modalIconClose: {
     position: 'absolute',
     right: 30,

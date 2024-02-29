@@ -6,7 +6,7 @@ export interface IMockData {
   title: string;
   description: string;
   sale: boolean;
-  img: ImageSourcePropType;
+  img: ImageSourcePropType | { uri: string };
   priceOld: number;
   priceNew: number;
   quantity: number;

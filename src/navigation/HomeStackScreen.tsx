@@ -21,9 +21,8 @@ const HomeStackScreen: FC = () => {
     <HomeStack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        // headerMode: 'screen',
         headerTintColor: 'white',
-
+        contentStyle: { backgroundColor: ColorsVariable.white },
         headerStyle: { backgroundColor: ColorsVariable.orange },
       }}
     >
@@ -37,11 +36,6 @@ const HomeStackScreen: FC = () => {
         <HomeStack.Screen
           name="Pizza"
           component={PizzaScreen}
-          // options={
-          //   {
-          //     // headerStyle: { backgroundColor: ColorsVariable.greyLight },
-          //     // headerTitle: '',
-          //   }
           options={{ headerShown: true }}
         />
       </HomeStack.Group>
@@ -51,7 +45,6 @@ const HomeStackScreen: FC = () => {
           name="Modal"
           options={{
             presentation: 'containedTransparentModal',
-            // presentation: 'transparentModal',
             headerShown: false,
           }}
           component={ModalScreen}

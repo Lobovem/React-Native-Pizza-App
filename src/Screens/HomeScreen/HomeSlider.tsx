@@ -44,14 +44,17 @@ export const HomeSlider: FC = () => {
   const ref = useRef<RNFlatList>(null);
 
   useEffect(() => {
-    getSliders();
-  }, []);
+    const fetchBanners = async () => {
+      try {
+        const resp = await GlobalApi.getBanners();
+        setBanners(resp?.banners);
+      } catch (error) {
+        console.log('Error fetching banners:', error);
+      }
+    };
 
-  const getSliders = () => {
-    GlobalApi.getBanners().then((resp) => {
-      setBanners(resp?.banners);
-    });
-  };
+    fetchBanners();
+  }, []);
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -105,6 +108,7 @@ export const HomeSlider: FC = () => {
 
   return (
     <View style={styles.sliderContainer}>
+      <Text>TEsst</Text>
       <FlatList
         style={styles.sliderList}
         data={banners}

@@ -16,14 +16,6 @@ import { Navigation } from './src/navigation/Navigation';
 import { ThemeProvider } from 'styled-components/native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: 'red', // Установите желаемый цвет фона здесь
-  },
-};
-
 const App: FC = () => {
   const [fontsLoaded] = useFonts({
     'outfit-regular': require('./src/assets/fonts/Outfit-Regular.ttf'),
@@ -43,10 +35,10 @@ const App: FC = () => {
     //   <ImageBackground source={hiddenBackground} style={styles.wrap} />
 
     // {app !== 'inactive' && (
-    <PaperProvider theme={theme}>
-      <StatusBar barStyle="default" />
+    <>
+      <StatusBar barStyle="dark-content" />
       <Navigation />
-    </PaperProvider>
+    </>
     // )}
     // </>
   );
