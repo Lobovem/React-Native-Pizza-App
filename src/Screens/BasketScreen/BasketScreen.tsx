@@ -7,6 +7,7 @@ import {
   Text,
   View,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import orderStore from '../../store/Orders';
@@ -46,12 +47,12 @@ const BasketScreen: FC = () => {
               <View style={styles.wrapTitle}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
 
-                <Pressable
+                <TouchableOpacity
                   style={styles.itemRemove}
                   onPress={() => removeItemFromOrder(item)}
                 >
                   <Text style={styles.itemRemoveTitle}>X</Text>
-                </Pressable>
+                </TouchableOpacity>
               </View>
 
               <Text style={styles.itemPrice}>{item.priceNew} $</Text>
@@ -67,15 +68,15 @@ const BasketScreen: FC = () => {
                 )}
 
                 <View style={styles.quantityWrap}>
-                  <Pressable onPress={() => orderStore.delQuantity(item)}>
+                  <TouchableOpacity onPress={() => orderStore.delQuantity(item)}>
                     <Text style={styles.quantity}>-</Text>
-                  </Pressable>
+                  </TouchableOpacity>
 
                   <Text style={styles.quantity}>{item.quantity}</Text>
 
-                  <Pressable onPress={() => orderStore.addQuantity(item)}>
+                  <TouchableOpacity onPress={() => orderStore.addQuantity(item)}>
                     <Text style={styles.quantity}>+</Text>
-                  </Pressable>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -92,9 +93,9 @@ const BasketScreen: FC = () => {
             <Text style={styles.totalPrice}>Withdraw Successful</Text>
           </View>
 
-          <Pressable onPress={exitToBasket} style={styles.btnOrderSendWrap}>
+          <TouchableOpacity onPress={exitToBasket} style={styles.btnOrderSendWrap}>
             <Text style={styles.btnOrderSendTitle}>OK</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       ) : (
         <View style={styles.orderSuccessful}>
@@ -117,9 +118,9 @@ const BasketScreen: FC = () => {
             </Text>
           </View>
 
-          <Pressable onPress={sendOrder} style={styles.btnOrderSendWrap}>
+          <TouchableOpacity onPress={sendOrder} style={styles.btnOrderSendWrap}>
             <Text style={styles.btnOrderSendTitle}>Send order</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       )}
     </ScrollView>
@@ -172,12 +173,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 10,
+    fontFamily: 'outfit-medium',
   },
 
   itemTitle: {
     fontSize: 18,
     color: ColorsVariable.black,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     // backgroundColor: 'red',
     flex: 1,
     // flexWrap: 'wrap',
@@ -194,13 +196,13 @@ const styles = StyleSheet.create({
 
   itemRemoveTitle: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     fontSize: 16,
   },
 
   itemPrice: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
   },
   optionsWrap: {
     flexDirection: 'row',
@@ -210,6 +212,7 @@ const styles = StyleSheet.create({
 
   optionItem: {
     fontSize: 22,
+    fontFamily: 'outfit-regular',
   },
 
   quantityWrap: {
@@ -232,12 +235,13 @@ const styles = StyleSheet.create({
 
   quantity: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
   },
 
   totalPrice: {
     fontSize: 30,
     marginBottom: 30,
+    fontFamily: 'outfit-medium',
   },
 
   wrapTotalPrice: {
@@ -256,9 +260,9 @@ const styles = StyleSheet.create({
 
   btnOrderSendTitle: {
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: 'outfit-medium',
     padding: 6,
-    fontSize: 20,
+    fontSize: 26,
     color: ColorsVariable.white,
   },
 

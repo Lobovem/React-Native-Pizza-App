@@ -1,38 +1,44 @@
 import { FC, useCallback } from 'react';
 import { useAppState } from './src/hooks/useAppState';
-import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import {
+  Button,
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { useFonts } from 'expo-font';
 
 import hiddenBackground from './src/Screens/HomeScreen/img/hidden-background.png';
 import { Navigation } from './src/navigation/Navigation';
-import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-expo';
-import Login from './src/Screens/LoginScreen/Login';
 
 const App: FC = () => {
+  const [fontsLoaded] = useFonts({
+    'outfit-regular': require('./src/assets/fonts/Outfit-Regular.ttf'),
+    'outfit-medium': require('./src/assets/fonts/Outfit-Medium.ttf'),
+    'outfit-bold': require('./src/assets/fonts/Outfit-Bold.ttf'),
+  });
+
   const app = useAppState();
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <ClerkProvider publishableKey="pk_test_aG9wZWZ1bC1tb2xsdXNrLTI1LmNsZXJrLmFjY291bnRzLmRldiQ">
-        <SignedIn>
-          <Text>You are Signed in</Text>
-        </SignedIn>
-        <SignedOut>
-          <Login />
-        </SignedOut>
-      </ClerkProvider>
-    </SafeAreaView>
-  );
-  //   <>
-  //     <ImageBackground source={hiddenBackground} style={styles.wrap} />
+  if (!fontsLoaded) {
+    // Шрифт еще не загружен, можно отобразить заглушку или загрузочный экран
+    return null;
+  }
 
-  //     {app !== 'inactive' && <Navigation />}
-  //   </>
-  // );
+  return (
+    <>
+      <ImageBackground source={hiddenBackground} style={styles.wrap} />
+
+      {app !== 'inactive' && <Navigation />}
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
     flex: 1,
   },
   wrap: {

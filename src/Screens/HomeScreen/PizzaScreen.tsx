@@ -1,6 +1,14 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { FC, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 import iconHeart from './img/icon-heartCart.png';
 import iconHeartFavorite from './img/icon-heartCartFavorite.png';
@@ -55,15 +63,15 @@ const PizzaScreen: FC = () => {
           </View>
 
           <View style={styles.quantityWrap}>
-            <Pressable onPress={removeQuantity}>
+            <TouchableOpacity onPress={removeQuantity}>
               <Text style={styles.quantity}>-</Text>
-            </Pressable>
+            </TouchableOpacity>
 
             <Text style={styles.quantity}>{itemQuantity}</Text>
 
-            <Pressable onPress={addQuantity}>
+            <TouchableOpacity onPress={addQuantity}>
               <Text style={styles.quantity}>+</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.wrapTitle}>
@@ -72,7 +80,7 @@ const PizzaScreen: FC = () => {
 
           <View style={styles.optionsItemWrap}>
             {optionsItem?.map((option, index) => (
-              <Pressable
+              <TouchableOpacity
                 key={index}
                 style={option.active ? styles.optionsItemActive : styles.optionsItem}
                 onPress={() => hanldeActiveOption(option.name)}
@@ -86,7 +94,7 @@ const PizzaScreen: FC = () => {
                 >
                   {option.name}
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             ))}
           </View>
 
@@ -98,15 +106,15 @@ const PizzaScreen: FC = () => {
           <Text style={styles.desc}>{item.description}</Text>
 
           <View style={styles.buyWrap}>
-            <Pressable onPress={() => orderStore.handleFavoriteItem(item)}>
+            <TouchableOpacity onPress={() => orderStore.handleFavoriteItem(item)}>
               <Image
                 style={styles.iconHeart}
                 source={item.favorite ? iconHeartFavorite : iconHeart}
               />
-            </Pressable>
-            <Pressable style={styles.cart} onPress={() => addToOrder(item)}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cart} onPress={() => addToOrder(item)}>
               <Text style={styles.cartTitle}>Add to cart</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -144,7 +152,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-medium',
   },
 
   optionsItemWrap: {
@@ -175,6 +183,7 @@ const styles = StyleSheet.create({
   optionsItemTitle: {
     fontSize: 30,
     color: ColorsVariable.black,
+    fontFamily: 'outfit-medium',
   },
 
   optionsItemTitleActive: {
@@ -185,6 +194,7 @@ const styles = StyleSheet.create({
   desc: {
     marginBottom: 30,
     fontSize: 16,
+    fontFamily: 'outfit-regular',
   },
 
   priceWrap: {
@@ -196,12 +206,12 @@ const styles = StyleSheet.create({
 
   priceNew: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
   },
 
   priceOld: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     textDecorationLine: 'line-through',
     color: ColorsVariable.orange,
   },
@@ -229,6 +239,7 @@ const styles = StyleSheet.create({
   quantity: {
     fontSize: 30,
     alignSelf: 'center',
+    fontFamily: 'outfit-medium',
   },
 
   buyWrap: {
@@ -256,5 +267,6 @@ const styles = StyleSheet.create({
   cartTitle: {
     fontSize: 30,
     color: ColorsVariable.white,
+    fontFamily: 'outfit-medium',
   },
 });

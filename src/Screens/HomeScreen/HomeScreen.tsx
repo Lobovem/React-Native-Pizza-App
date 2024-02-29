@@ -7,8 +7,8 @@ import {
   Image,
   Pressable,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
-import { ScrollView } from 'react-native-virtualized-view';
 import iconNew from './img/icon-new.png';
 import iconCart from './img/icon-cart.png';
 import iconHeart from './img/icon-heartCart.png';
@@ -104,7 +104,10 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
         <Observer>
           {() => (
             <View style={styles.item}>
-              <Pressable onPress={() => onPressItem(item)} style={styles.itemTopWrap}>
+              <TouchableOpacity
+                onPress={() => onPressItem(item)}
+                style={styles.itemTopWrap}
+              >
                 <View>
                   <ImageBackground style={styles.img} source={item.img}>
                     {item.sale && <Image style={styles.iconNew} source={iconNew} />}
@@ -112,9 +115,7 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
                 </View>
 
                 <View style={styles.wrapTitle}>
-                  <Pressable onPress={() => onPressItem(item)}>
-                    <Text style={styles.title}>{item.title}</Text>
-                  </Pressable>
+                  <Text style={styles.title}>{item.title}</Text>
                 </View>
 
                 <View style={styles.wrapDesc}>
@@ -127,19 +128,19 @@ const HomeScreens: FC<{ navigation: HomeScreenNavigationPropType }> = ({
                   <Text style={styles.priceNew}>{item.priceNew} $</Text>
                   {item.sale && <Text style={styles.priceOld}>{item.priceOld} $</Text>}
                 </View>
-              </Pressable>
+              </TouchableOpacity>
 
               <View style={styles.wrapCard}>
-                <Pressable onPress={() => orderStore.handleFavoriteItem(item)}>
+                <TouchableOpacity onPress={() => orderStore.handleFavoriteItem(item)}>
                   <Image
                     style={styles.iconHeart}
                     source={item.favorite ? iconHeartFavorite : iconHeart}
                   />
-                </Pressable>
+                </TouchableOpacity>
 
-                <Pressable onPress={() => orderStore.setOrders(item)}>
+                <TouchableOpacity onPress={() => orderStore.setOrders(item)}>
                   <Image style={styles.card} source={iconCart} />
-                </Pressable>
+                </TouchableOpacity>
               </View>
             </View>
           )}
@@ -264,6 +265,7 @@ const styles = StyleSheet.create({
     color: ColorsVariable.black,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'outfit-medium',
 
     // flex: 1,
     // flexWrap: 'wrap',
@@ -278,6 +280,7 @@ const styles = StyleSheet.create({
   desc: {
     fontSize: 16,
     color: ColorsVariable.grey,
+    fontFamily: 'outfit-regular',
     // flex: 1,
   },
 
@@ -290,13 +293,13 @@ const styles = StyleSheet.create({
 
   priceNew: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
   },
 
   priceOld: {
     fontSize: 22,
     textDecorationLine: 'line-through',
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
 
     color: ColorsVariable.orange,
   },

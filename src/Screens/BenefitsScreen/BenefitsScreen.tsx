@@ -15,8 +15,11 @@ import { FlatList as RNFlatList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 import { FlatList } from 'react-native';
-import { IMockDataImg, mockDataImg } from './components/MochData';
-import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
+import { IMockDataImg, mockDataImg } from '../HomeScreen/components/MochData';
+import {
+  IItemSliderImgProps,
+  ItemSliderImg,
+} from '../HomeScreen/components/ItemSliderImg';
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
   RootStackParamListType,

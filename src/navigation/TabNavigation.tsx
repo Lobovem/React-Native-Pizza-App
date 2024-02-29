@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BenefitsScreen } from '../Screens/HomeScreen/BenefitsScreen';
+import { BenefitsScreen } from '../Screens/BenefitsScreen/BenefitsScreen';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
 
@@ -152,7 +152,7 @@ const TabBarIconUser: FC<ITabBarIconProps> = observer((props) => {
   );
 });
 
-const HomeTabs: FC = () => {
+const TabNavigation: FC = () => {
   return (
     <Tab.Navigator
       initialRouteName="HOME"
@@ -222,7 +222,7 @@ const HomeTabs: FC = () => {
   );
 };
 
-export default HomeTabs;
+export default TabNavigation;
 
 const styles = StyleSheet.create({
   iconTab: {

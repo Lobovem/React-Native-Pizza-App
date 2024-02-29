@@ -5,12 +5,16 @@ import React, {
   ViewStyle,
   Pressable,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import { FC, memo, useRef, useState } from 'react';
 
 import iconSearch from '../img/icon-search.png';
 import iconClose from '../img/icon-close.png';
 import iconFilter from '../img/icon-filter.png';
+
+import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -84,18 +88,21 @@ export const Header: FC<IHeaderProps> = memo(
             onBlur={handleFocus}
           />
 
-          <Image style={styles.searchIcon} source={iconSearch} />
+          {/* <Image style={styles.searchIcon} source={iconSearch} /> */}
+          <Feather style={styles.searchIcon} name="search" size={24} color="black" />
 
           {isActiveSearch && (
-            <Pressable onPress={handleInActive} style={styles.closeIcon}>
-              <Image source={iconClose} />
-            </Pressable>
+            <TouchableOpacity onPress={handleInActive} style={styles.closeIcon}>
+              {/* <Image source={iconClose} /> */}
+              <Ionicons name="close-circle-outline" size={24} color="black" />
+            </TouchableOpacity>
           )}
         </Animated.View>
 
-        <CustomTouchable withoutFeedback={true} onPress={openModalScreen}>
-          <Image style={styles.iconFilter} source={iconFilter} />
-        </CustomTouchable>
+        <TouchableOpacity onPress={openModalScreen}>
+          {/* <Image style={styles.iconFilter} source={iconFilter} /> */}
+          <Feather style={styles.iconFilter} name="filter" size={30} color="black" />
+        </TouchableOpacity>
       </Animated.View>
     );
   }
@@ -105,6 +112,7 @@ const styles = StyleSheet.create({
   headerhWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     margin: 20,
     gap: 10,
   },
@@ -123,24 +131,25 @@ const styles = StyleSheet.create({
   searchIcon: {
     position: 'absolute',
     left: 8,
-    top: 6,
+    top: 8,
     opacity: 0.4,
-    width: 28,
-    height: 28,
+    // width: 28,
+    // height: 28,
   },
 
   closeIcon: {
     position: 'absolute',
-    width: 24,
-    height: 24,
     right: 10,
-    top: 10,
+    //TODO opacity need change to color
+    opacity: 0.4,
+    top: 7,
     // zIndex: 10,
   },
 
   iconFilter: {
-    width: 40,
-    height: 40,
+    //TODO opacity need change to color
+
+    opacity: 0.5,
   },
 
   heartIcon: {
@@ -156,6 +165,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 46,
     fontSize: 20,
+    fontFamily: 'outfit-regular',
   },
   modalIconClose: {
     position: 'absolute',

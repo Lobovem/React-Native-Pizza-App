@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 18,
     color: ColorsVariable.black,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     // backgroundColor: 'red',
     flex: 1,
     // flexWrap: 'wrap',
@@ -156,13 +156,13 @@ const styles = StyleSheet.create({
 
   itemRemoveTitle: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     fontSize: 16,
   },
 
   itemPrice: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
   },
   optionsWrap: {
     flexDirection: 'row',
@@ -172,11 +172,13 @@ const styles = StyleSheet.create({
 
   optionItem: {
     fontSize: 22,
+    fontFamily: 'outfit-regular',
   },
 
   favoriteTitle: {
     fontSize: 30,
     marginBottom: 30,
+    fontFamily: 'outfit-medium',
   },
 
   wrapFavoriteTitle: {
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
 
   btnOrderSendTitle: {
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: 'outfit-medium',
     padding: 6,
     fontSize: 20,
     color: ColorsVariable.white,
