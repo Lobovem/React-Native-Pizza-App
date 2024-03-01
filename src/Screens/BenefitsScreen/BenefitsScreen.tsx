@@ -15,7 +15,7 @@ import { FlatList as RNFlatList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 import { FlatList } from 'react-native';
-import { IMockDataImg, mockDataImg } from '../HomeScreen/components/MochData';
+import { ISlider, mockDataImg } from '../HomeScreen/components/MochData';
 import {
   IItemSliderImgProps,
   ItemSliderImg,
@@ -58,7 +58,7 @@ export const BenefitsScreen: FC = () => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const renderSliderDots: ListRenderItem<IMockDataImg> = useCallback(
+  const renderSliderDots: ListRenderItem<ISlider> = useCallback(
     ({ index }) => {
       return (
         <Pressable onPress={() => pressDotsSlider(index)}>

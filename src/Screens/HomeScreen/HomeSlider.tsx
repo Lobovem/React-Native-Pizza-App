@@ -10,7 +10,6 @@ import {
   Pressable,
 } from 'react-native';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   BallIndicator,
   BarIndicator,
@@ -23,61 +22,39 @@ import {
   WaveIndicator,
 } from 'react-native-indicators';
 
-// const [banners, setBanners] = useState([]);
-
-// useEffect(() => {
-//   getSliders();
-// }, []);
-
-// const getSliders = () => {
-//   GlobalApi.getBanners().then((resp) => {
-//     setBanners(resp?.banners);
-//   });
-// };
-
-import { FlatList as RNFlatList } from 'react-native';
-import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
+import { IItemSliderImgProps } from './components/ItemSliderImg';
 import { ISlider } from './components/MochData';
-import { StatusBar } from 'expo-status-bar';
-import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 import ColorsVariable from '../../utils/ColorsVariable';
 import { observer } from 'mobx-react';
 import OrdersStore from '../../store/store';
-import { ActivityIndicator } from 'react-native-paper';
-
-type ModalScreenNavigationPropType = NativeStackNavigationProp<
-  RootStackParamListType,
-  'Modal'
->;
 
 const HomeSlider: FC = () => {
   const [sliderIndex, setSliderIndex] = useState(0);
-  const ref = useRef<RNFlatList>(null);
+  const ref = useRef<FlatList>(null);
 
   useEffect(() => {
-    //TODO check cancel method how it work
-    // const result = Orders.fetchHomeSliders();
     OrdersStore.fetchHomeSliders();
-
-    // return () => {
-    //   result.cancel();
-    // };
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // If current index dont last then slider will be +1
-      if (sliderIndex < OrdersStore.slidersList.length - 1) {
-        ref.current.scrollToIndex({ index: sliderIndex + 1, animated: true });
-      } else {
-        // If current slider is last then slider move to start
-        ref.current.scrollToIndex({ index: 0, animated: true });
-      }
+      changeSlider();
     }, 3000);
 
-    //Cleat interval after unmount. This do important that dont have side effects
     return () => clearInterval(interval);
-  }, [sliderIndex]);
+  }, []);
+
+  const changeSlider = () =>
+    setSliderIndex((prevIndex) => {
+      if (prevIndex < OrdersStore.slidersList.length - 1) {
+        prevIndex += 1;
+      } else {
+        prevIndex = 0;
+      }
+
+      ref.current.scrollToIndex({ index: prevIndex, animated: true });
+      return prevIndex;
+    });
 
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
