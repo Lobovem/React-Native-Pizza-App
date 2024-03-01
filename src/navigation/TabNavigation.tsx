@@ -3,13 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import HomeStackScreen from './HomeStackScreen';
 
-import orderStore from '../store/Orders';
+import orderStore from '../store/store';
 import { observer } from 'mobx-react';
 import ColorsVariable from '../utils/ColorsVariable';
 import BasketScreen from '../Screens/BasketScreen/BasketScreen';
-import WishList from '../Screens/WishListScreen/WishList';
 import SignInScreen from '../Screens/ProfileScreen/SignInScreen';
 import { BenefitsScreen } from '../Screens/BenefitsScreen/BenefitsScreen';
+import Favorite from '../Screens/FavoriteScreen/Favorite';
 
 interface ITabBarIconProps {
   focused: boolean;
@@ -190,7 +190,7 @@ const TabNavigation: FC = () => {
         options={{
           tabBarIcon: (props) => <TabBarIconHeart {...props} />,
         }}
-        component={WishList}
+        component={Favorite}
       />
 
       <Tab.Screen

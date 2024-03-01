@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Pressable, Share, Image, Dimensions, Alert } from 'react-native';
-import { IMockDataImg } from './MochData';
+import { ISlider } from './MochData';
 
 export interface IItemSliderImgProps {
-  item: IMockDataImg;
+  item: ISlider;
   // index: number;
 }
 

@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
-import orderStore from '../../store/Orders';
+import orderStore from '../../store/store';
 import { observer } from 'mobx-react';
 import ColorsVariable from '../../utils/ColorsVariable';
 
-const WishList: FC = () => {
+const Favorite: FC = () => {
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const exitToFavoriteList = (): void => {
@@ -89,7 +89,7 @@ const WishList: FC = () => {
 };
 //TODO will clean code from dont use code
 
-export default observer(WishList);
+export default observer(Favorite);
 
 const styles = StyleSheet.create({
   container: {

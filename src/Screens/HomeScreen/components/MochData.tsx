@@ -14,9 +14,9 @@ export interface IMockData {
   favorite: boolean;
 }
 
-export interface IMockDataImg {
+export interface ISlider {
   id: string;
-  image: ImageSourcePropType;
+  image: { url: string };
   link: string;
 }
 
@@ -238,7 +238,7 @@ export const newItem: IMockData = {
   favorite: false,
 };
 
-export const mockDataImg: IMockDataImg[] = [
+export const mockDataImg: ISlider[] = [
   {
     id: '13',
     image: require('../img/banner-1-burger.jpg'),

@@ -1,25 +1,61 @@
-import { action, computed, makeObservable, observable } from 'mobx';
-import { IMockData, mockItemData } from '../Screens/HomeScreen/components/MochData';
+import {
+  action,
+  computed,
+  makeAutoObservable,
+  makeObservable,
+  observable,
+  runInAction,
+} from 'mobx';
+import {
+  IMockData,
+  ISlider,
+  mockItemData,
+} from '../Screens/HomeScreen/components/MochData';
+import GlobalApi from '../utils/GlobalApi';
 
-interface IOrderStore {
-  orders: IMockData[];
-}
+// interface IOrderStore {
+//   mockData: IMockData[];
+//   orders: IMockData[];
+//   wishList: IMockData[];
+//   slidersList: any[];
+//   status: string;
+// }
 
 interface IOptions {
   name: string;
   active: boolean;
 }
 
-class OrdersStore implements IOrderStore {
-  @observable mockData: IMockData[];
-  @observable orders: IMockData[];
-  @observable wishList: IMockData[];
+interface ISliderResponse {
+  sliders: ISlider[];
+}
+
+class OrdersStore {
+  mockData: IMockData[];
+  orders: IMockData[];
+  wishList: IMockData[];
+  slidersList: any[];
+  status: string;
 
   constructor() {
     this.mockData = mockItemData;
     this.orders = [];
     this.wishList = [];
-    makeObservable(this);
+    this.slidersList = [];
+    this.status = 'init';
+    makeAutoObservable(this);
+  }
+
+  *fetchHomeSliders() {
+    this.status = 'pending';
+    try {
+      const resp: ISliderResponse = yield GlobalApi.getSliders();
+
+      this.slidersList = resp.sliders;
+      this.status = 'success';
+    } catch {
+      this.status = 'error';
+    }
   }
 
   @action setOrders(itemOrdering: IMockData): void {

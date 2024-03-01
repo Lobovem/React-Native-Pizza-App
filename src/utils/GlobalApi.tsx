@@ -3,10 +3,10 @@ import { request, gql } from 'graphql-request';
 const URL_CONTENT =
   'https://api-us-west-2.hygraph.com/v2/clt7795ph0o1207us95ug9haa/master';
 
-const getBanners = async () => {
+const getSliders = async () => {
   const query = gql`
-    query GetBanners {
-      banners {
+    query GetSliders {
+      sliders {
         id
         name
         image {
@@ -20,4 +20,4 @@ const getBanners = async () => {
   return result;
 };
 
-export default { getBanners };
+export default { getSliders };

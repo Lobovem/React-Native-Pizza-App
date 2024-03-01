@@ -16,7 +16,7 @@ import ColorsVariable from '../../utils/ColorsVariable';
 import { IMockData } from './components/MochData';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
-import orderStore from '../../store/Orders';
+import orderStore from '../../store/store';
 import { observer } from 'mobx-react';
 
 const PizzaScreen: FC = () => {

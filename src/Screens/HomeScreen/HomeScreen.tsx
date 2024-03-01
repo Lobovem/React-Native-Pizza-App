@@ -21,7 +21,7 @@ import { Header } from './components/Header';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 
-import orderStore from '../../store/Orders';
+import orderStore from '../../store/store';
 import Animated, {
   interpolate,
   useAnimatedScrollHandler,
@@ -29,7 +29,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { Observer, observer } from 'mobx-react';
-import { HomeSlider } from './HomeSlider';
+import HomeSlider from './HomeSlider';
 
 interface IItemProps {
   item: IMockData;

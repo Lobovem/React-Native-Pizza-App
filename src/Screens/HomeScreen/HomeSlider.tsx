@@ -10,8 +10,18 @@ import {
   Pressable,
 } from 'react-native';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import GlobalApi from '../../utils/GlobalApi';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from 'react-native-indicators';
 
 // const [banners, setBanners] = useState([]);
 
@@ -27,76 +37,82 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { FlatList as RNFlatList } from 'react-native';
 import { IItemSliderImgProps, ItemSliderImg } from './components/ItemSliderImg';
-import { IMockDataImg } from './components/MochData';
+import { ISlider } from './components/MochData';
 import { StatusBar } from 'expo-status-bar';
 import { RootStackParamListType } from '../../navigation/HomeStackScreen';
 import ColorsVariable from '../../utils/ColorsVariable';
+import { observer } from 'mobx-react';
+import OrdersStore from '../../store/store';
+import { ActivityIndicator } from 'react-native-paper';
 
 type ModalScreenNavigationPropType = NativeStackNavigationProp<
   RootStackParamListType,
   'Modal'
 >;
 
-export const HomeSlider: FC = () => {
-  const [iconSliderIndex, setIconSliderIndex] = useState(0);
-  const [banners, setBanners] = useState([]);
-
+const HomeSlider: FC = () => {
+  const [sliderIndex, setSliderIndex] = useState(0);
   const ref = useRef<RNFlatList>(null);
 
   useEffect(() => {
-    const fetchBanners = async () => {
-      try {
-        const resp = await GlobalApi.getBanners();
-        setBanners(resp?.banners);
-      } catch (error) {
-        console.log('Error fetching banners:', error);
-      }
-    };
+    //TODO check cancel method how it work
+    // const result = Orders.fetchHomeSliders();
+    OrdersStore.fetchHomeSliders();
 
-    fetchBanners();
+    // return () => {
+    //   result.cancel();
+    // };
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     // If current index dont last then slider will be +1
-  //     if (iconSliderIndex < banners.length - 1) {
-  //       ref.current.scrollToIndex({ index: iconSliderIndex + 1, animated: true });
-  //     } else {
-  //       // If current slider is last then slider move to start
-  //       ref.current.scrollToIndex({ index: 0, animated: true });
-  //     }
-  //   }, 3000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // If current index dont last then slider will be +1
+      if (sliderIndex < OrdersStore.slidersList.length - 1) {
+        ref.current.scrollToIndex({ index: sliderIndex + 1, animated: true });
+      } else {
+        // If current slider is last then slider move to start
+        ref.current.scrollToIndex({ index: 0, animated: true });
+      }
+    }, 3000);
 
-  //   //Cleat interval after unmount. This do important that dont have side effects
-  //   return () => clearInterval(interval);
-  // }, [iconSliderIndex]);
+    //Cleat interval after unmount. This do important that dont have side effects
+    return () => clearInterval(interval);
+  }, [sliderIndex]);
 
   const onScrollSlider = (event: NativeSyntheticEvent<NativeScrollEvent>): void => {
     const slider = Math.round(
       event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width
     );
 
-    setIconSliderIndex(slider);
+    setSliderIndex(slider);
   };
 
   const pressDotsSlider = (index: number): void => {
     ref.current.scrollToIndex({ index: index, animated: true });
   };
 
-  const renderSliderDots: ListRenderItem<IMockDataImg> = useCallback(
+  const renderSliderDots: ListRenderItem<ISlider> = useCallback(
     ({ index }) => {
       return (
         <Pressable onPress={() => pressDotsSlider(index)}>
           <View
-            style={
-              index === iconSliderIndex ? styles.sliderDotsActive : styles.sliderDots
-            }
+            style={index === sliderIndex ? styles.sliderDotsActive : styles.sliderDots}
           />
         </Pressable>
       );
     },
-    [iconSliderIndex]
+    [sliderIndex]
   );
+
+  if (OrdersStore.status === 'pending' || OrdersStore.status === 'init') {
+    return (
+      <BarIndicator style={{ minHeight: 120 }} color={ColorsVariable.orange} size={30} />
+    );
+  }
+
+  if (OrdersStore.status === 'error') {
+    return <Text>Error...</Text>;
+  }
 
   const renderImgItem = ({ item }: IItemSliderImgProps) => {
     return (
@@ -108,10 +124,9 @@ export const HomeSlider: FC = () => {
 
   return (
     <View style={styles.sliderContainer}>
-      <Text>TEsst</Text>
       <FlatList
         style={styles.sliderList}
-        data={banners}
+        data={OrdersStore.slidersList}
         renderItem={renderImgItem}
         keyExtractor={(item) => item.id}
         ref={ref}
@@ -123,7 +138,7 @@ export const HomeSlider: FC = () => {
 
       <View style={styles.sliderDotsContainer}>
         <FlatList
-          data={banners}
+          data={OrdersStore.slidersList}
           renderItem={renderSliderDots}
           keyExtractor={(item) => item.id}
           horizontal
@@ -133,16 +148,14 @@ export const HomeSlider: FC = () => {
   );
 };
 
+export default observer(HomeSlider);
+
 const styles = StyleSheet.create({
   sliderContainer: {
     marginHorizontal: -10,
-    // alignItems: 'center',
-    // flex: 1,
-    // backgroundColor: 'red',
   },
 
   sliderList: {},
-  // bannerList: { width: 400, height: 300 },
 
   sliderImage: {
     width: 350,
@@ -156,7 +169,6 @@ const styles = StyleSheet.create({
     bottom: 5,
     left: 0,
     right: 0,
-    // top: 10,
     alignItems: 'center',
   },
   sliderDots: {
@@ -165,12 +177,13 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     borderWidth: 2,
+    borderColor: ColorsVariable.greyLight,
   },
   sliderDotsActive: {
     width: 15,
     height: 15,
     margin: 5,
     borderRadius: 10,
-    backgroundColor: ColorsVariable.black,
+    backgroundColor: ColorsVariable.orange,
   },
 });

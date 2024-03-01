@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import orderStore from '../../store/Orders';
+import orderStore from '../../store/store';
 import { observer } from 'mobx-react';
 import { generateUniqueKey } from '../../common/generateUniqueKey';
 import ColorsVariable from '../../utils/ColorsVariable';
